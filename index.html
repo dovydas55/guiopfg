@@ -10,16 +10,23 @@
   <title>GUIOPFG</title>
 
   <!-- Style -->
+  <link rel="stylesheet/css" type="text/css" href="src/styles/css/style.css">
 
 </head>
 
 <body>
   <!-- Define all views within this tag -->
+  <div data-ng-app="GUIOPFG">
+      <div data-ui-view="HomeView"></div>
+  </div>
 
   <!-- Project Dependencies -->
-
+  <script type="text/javascript" src="vendor/angular/angular.min.js"></script>
+  <script type="text/javascript" src="vendor/angular-ui-router/release/angular-ui-router.min.js"></script>
 
   <!-- Development Scripts -->
+  <script type="text/javascript" src="src/app/app.js"></script>
+  <script type="text/javascript" src="src/app/controllers/HomeController.js"></script>
 
 
   <!--UNCOMMENT BEFORE SUBMITTING / DIST -->
