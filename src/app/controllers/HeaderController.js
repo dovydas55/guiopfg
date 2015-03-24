@@ -9,6 +9,11 @@ angular.module('GUIOPFG').controller('HeaderController', ['$scope', '$state', 'U
   $scope.search = function(){
       Utility.backupSearchQuery($scope.SE.searchQuery);
       $state.go('searchResults');
+      $scope.SE.searchQuery = "";
+  };
+
+  $scope.routeHome = function(){
+      $state.go('home');
   };
 
   //iniliatize the variables after everything has loaded
