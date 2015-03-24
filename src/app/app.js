@@ -11,7 +11,7 @@
   Known bugs:
 
   #######################################################################*/
-  var GUIOPFG = angular.module('GUIOPFG', ['ui.router']);
+  var GUIOPFG = angular.module('GUIOPFG', ['ui.router', 'angular-storage']);
 
   GUIOPFG.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider){
       $urlRouterProvider.otherwise('/home');
@@ -22,6 +22,14 @@
             "HomeView": {
               templateUrl: "src/templates/Home.html",
               controller: 'HomeController',
+            }}
+        })
+        .state('searchResults', {
+          url: '/search',
+          views:{
+            "SearchView": {
+              templateUrl: "src/templates/SE_Results.html",
+              controller: 'SE_Controller',
             }}
         });
   }]);

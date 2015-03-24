@@ -1,0 +1,104 @@
+.container2 {
+	overflow:auto;
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 0 0 10px 10px;
+}
+
+.w-bg {
+	height: 100%;
+	background: #fff;
+	position: relative;
+	overflow:hidden;
+	padding-bottom: 10px;
+
+	border-left: 1px solid #333;
+	border-right: 1px solid #333;
+	border-bottom: 1px solid #333;
+
+	-webkit-box-shadow: 1px 0px 32px 3px rgba(0,0,0,0.12);
+	-moz-box-shadow: 1px 0px 32px 3px rgba(0,0,0,0.12);
+	box-shadow: 1px 0px 32px 3px rgba(0,0,0,0.12);
+}
+
+.w-bg2 {
+	height: 100%;
+	background: #fff;
+	background:url("gfx/bg_grad1.png") 0 0 repeat;
+	position: relative;
+	overflow:hidden;
+	border-top: 1px solid #545454;
+}
+
+.clr {
+	clear:both;
+}
+
+.bottomfill {
+    padding: 30px;
+}
+
+.rounded {
+	padding: 15px;
+	margin-top: 28px;
+	color: #888;
+	font-size: 20px;
+	border: 1px solid #c9c9c9;
+	border-radius: 5px;
+	-webkit-box-shadow: 1px 1px 5px -3px rgba(0,0,0,0.35);
+	-moz-box-shadow: 1px 1px 5px -3px rgba(0,0,0,0.35);
+	box-shadow: 1px 1px 5px -3px rgba(0,0,0,0.35);
+}
+
+.col80 {
+	margin-left: auto;
+	margin-right: auto;
+	float: left;
+	width: 90%;
+	padding: 15px;
+	margin-left: 20px;
+}
+
+
+table.one {
+	width: 100%;
+	border: none;
+	border-collapse: collapse;
+}
+
+tr td.a {
+	padding: 10px;
+	border: none;
+
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+td, th {
+	padding: 10px;
+	border: 1px #ddd solid;
+	border-width: 1px 0;
+	text-align:left;
+	font-weight: normal;
+	color: #999;
+}
+/*
+th:first-child {
+    border-radius: 6px 0 0 0;
+}
+
+th:last-child {
+    border-radius: 0 6px 0 0;
+}
+
+th:only-child{
+    border-radius: 6px 6px 0 0;
+}*/
+
+tr:hover td {
+    background-color: #faf9f9;
+}

@@ -85,7 +85,7 @@ body {
 .header_col {
 	float: left;
 	padding: 15px;
-	width:30%;
+	width:35%;
 }
 
 .flank {
@@ -198,7 +198,7 @@ a:hover {
 
 .search {
 	border: 1px solid #ddd;
-	width: 65%;
+	width: 80%;
 	height: 30px;
 	padding: 6px;
 	color: #888;
@@ -206,6 +206,8 @@ a:hover {
 	margin-top: 10px;
 	float: left;
 	font-size: 12pt;
+
+	margin-left: -150px;
 }
 
 #select {

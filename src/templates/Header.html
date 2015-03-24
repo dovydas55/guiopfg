@@ -5,8 +5,10 @@
         </div>
 
         <div class="header_col">
-            <input type="text" placeholder="Please enter your search" class="search" />
-            <input type="button" value="search" class="button blue" />
+            <form name="searchEngine" data-ng-submit="submitted=search()">
+                <input type="text" placeholder="Please enter your search" class="search" data-ng-model="SE.searchQuery" required/>
+                <input type="submit" value="search" class="button blue" />
+            </form>
         </div>
     </div>
 </div>
