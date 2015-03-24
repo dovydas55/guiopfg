@@ -16,6 +16,10 @@ angular.module('GUIOPFG').controller('HeaderController', ['$scope', '$state', 'U
       $state.go('home');
   };
 
+  $scope.routeToSuggestions = function(){
+      $state.go('suggestions');
+  };
+
   //iniliatize the variables after everything has loaded
   $scope.init();
 

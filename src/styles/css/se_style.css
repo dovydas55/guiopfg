@@ -102,3 +102,17 @@ th:only-child{
 tr:hover td {
     background-color: #faf9f9;
 }
+
+h2.suggestion {
+	margin-top: -7px;
+	margin-bottom: 10px;
+	color: #666;
+	font-size: 2em;
+	text-transform:uppercase;
+}
+h1#suggestions {
+	color: #f4535a;
+	font-size: 32px;
+	text-shadow: 1px 1px #bbbbbb;
+	text-transform: uppercase;
+}

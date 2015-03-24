@@ -31,5 +31,13 @@
               templateUrl: "src/templates/SE_Results.html",
               controller: 'SE_Controller',
             }}
+        })
+        .state('suggestions', {
+          url: '/suggestions',
+          views:{
+            "SuggestionsView": {
+              templateUrl: "src/templates/Suggestions.html",
+              controller: 'MenuController',
+            }}
         });
   }]);
