@@ -10,14 +10,21 @@
   <title>GUIOPFG</title>
 
   <!-- Style -->
-  <link rel="stylesheet/css" type="text/css" href="src/styles/css/style.css">
+  <link rel="stylesheet" type="text/css" href="src/styles/css/main.css" />
+  <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
 
 </head>
 
 <body>
   <!-- Define all views within this tag -->
   <div data-ng-app="GUIOPFG">
-      <div data-ui-view="HomeView"></div>
+      <div data-ng-controller="HeaderController">
+        <div data-ng-include="'src/templates/Header.html'"></div>
+      </div>
+      <div class="container">
+          <div data-ui-view="HomeView"></div>
+      </div>
+      <div data-ng-include="'src/templates/Footer.html'"></div>
   </div>
 
   <!-- Project Dependencies -->
@@ -27,6 +34,7 @@
   <!-- Development Scripts -->
   <script type="text/javascript" src="src/app/app.js"></script>
   <script type="text/javascript" src="src/app/controllers/HomeController.js"></script>
+  <script type="text/javascript" src="src/app/controllers/HeaderController.js"></script>
 
 
   <!--UNCOMMENT BEFORE SUBMITTING / DIST -->
