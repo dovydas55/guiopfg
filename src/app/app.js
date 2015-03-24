@@ -39,5 +39,13 @@
               templateUrl: "src/templates/Suggestions.html",
               controller: 'MenuController',
             }}
+        })
+        .state('allFiles', {
+          url: '/menu/:filterBY',
+          views:{
+            "AllFilesView": {
+              templateUrl: "src/templates/AllFiles.html",
+              controller: 'MenuController',
+            }}
         });
   }]);

@@ -9,6 +9,10 @@ angular.module('GUIOPFG').factory('Utility', ['store', function(store) {
       return store.get("_searchQuery");
   };
 
+  factory.removeSearchQuery = function(){
+      store.remove("_searchQuery");
+  };
+
 
   return factory;
 

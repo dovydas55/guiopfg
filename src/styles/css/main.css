@@ -437,3 +437,7 @@ tr:hover td {
 #newSuggestion:hover{
 	transform: scale(1.2);
 }
+
+.filterHeader:hover{
+	color: #001433;
+}

@@ -20,6 +20,10 @@ angular.module('GUIOPFG').controller('HeaderController', ['$scope', '$state', 'U
       $state.go('suggestions');
   };
 
+  $scope.processMenu = function(filterOption){
+      $state.go('allFiles', {filterBY: filterOption});
+  };
+
   //iniliatize the variables after everything has loaded
   $scope.init();
 
