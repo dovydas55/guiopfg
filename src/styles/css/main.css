@@ -199,12 +199,13 @@ a:hover {
 .search {
 	border: 1px solid #ddd;
 	width: 65%;
-	height: 16px;
+	height: 30px;
 	padding: 6px;
 	color: #888;
 	border-radius: 5px;
 	margin-top: 10px;
 	float: left;
+	font-size: 12pt;
 }
 
 #select {
@@ -428,4 +429,9 @@ tr:hover td {
 #newSuggestion{
 	float: right;
 	margin-right: 50px;
+	color: #f4535a;
+	transition: all .4s ease-in-out;
+}
+#newSuggestion:hover{
+	transform: scale(1.2);
 }
