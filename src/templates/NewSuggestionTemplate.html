@@ -1,0 +1,15 @@
+<div ng-controller="HomeController">
+        <div class="modal-header">
+            <h3 class="modal-title">New Suggestion</h3>
+        </div>
+
+        <form name="modalForm" data-ng-submit="submitted=ok(suggestion)">
+                <div class="modal-body">
+                    <input type="text" id="modalInput" data-ng-model="suggestion" placeholder="Enter your suggestion" autofocus required>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-primary" value="OK">
+                    <button class="btn btn-warning" data-ng-click="cancel()">Cancel</button>
+                </div>
+        </form>
+</div>

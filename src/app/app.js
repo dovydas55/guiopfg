@@ -11,7 +11,7 @@
   Known bugs:
 
   #######################################################################*/
-  var GUIOPFG = angular.module('GUIOPFG', ['ui.router', 'angular-storage']);
+  var GUIOPFG = angular.module('GUIOPFG', ['ui.router', 'angular-storage', 'ui.bootstrap']);
 
   GUIOPFG.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider){
       $urlRouterProvider.otherwise('/home');

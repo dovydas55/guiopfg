@@ -441,3 +441,7 @@ tr:hover td {
 .filterHeader:hover{
 	color: #001433;
 }
+
+#modalInput{
+	width: 100%;
+}
