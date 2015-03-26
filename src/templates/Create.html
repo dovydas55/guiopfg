@@ -2,6 +2,9 @@
     <canvas id="myCanvas" width="400" height="400"></canvas>
 
     <div class="control">
+        <input type="radio" id="partSquare" name="defaultParticleType" value="square" data-ng-model="defaultParticleType"> <label for="partSquare"> Square</label>
+        <input type="radio" id="partCircle" name="defaultParticleType" value="circle" data-ng-model="defaultParticleType"> <label for="partCircle"> Circle</label>  <br />
+
         <label for="particleNO">Number of particles</label>
         <input type="range" name="particleNO" min="1" max="80" data-ng-model="numberOFparticles">
 
@@ -13,6 +16,11 @@
 
         <label for="particleLife" data-ng-show="randomParticleLife">Particle life</label>
         <input type="range" name="particleLife" min="5" max="300" data-ng-model="particleLife" data-ng-change="setParticleLife()" data-ng-show="randomParticleLife">
+
+        <!-- http://codepen.io/buberdds/full/fBAsr/ -->
+        <label for="randomParticleColor">Custom Particle color?</label>
+        <input type="checkbox" name="randomParticleColor" data-ng-model="randomParticleColor" data-ng-change="updateColor()"> <br />
+        <span data-ng-show="randomParticleColor">Choose color</span> <input colorpicker="rgba" colorpicker-position="right" ng-model="rgbaPicker.color" type="text" data-ng-show="randomParticleColor" data-ng-change="updateColor()">
 
 
     </div>

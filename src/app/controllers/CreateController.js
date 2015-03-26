@@ -5,6 +5,7 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
       $scope.numberOFparticles = 10;
       $scope.particleSize = 10;
       $scope.particleLife = 50;
+      $scope.defaultParticleType = 'square';
   };
 
   $scope.setParticleSize = function(){
@@ -16,7 +17,16 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
   };
 
   $scope.setRandomLife = function(){
-      DefaultParticle.setParticleLife(null, $scope.randomParticleLife);
+      DefaultParticle.setParticleLife(50, $scope.randomParticleLife); /*send in default value for particle life*/
+  };
+
+  $scope.updateColor = function(){
+      if($scope.rgbaPicker === undefined){
+          DefaultParticle.setCustomColor('rgba(255,255,255,1)', $scope.randomParticleColor);
+      } else {
+          DefaultParticle.setCustomColor($scope.rgbaPicker.color, $scope.randomParticleColor);
+      }
+
   };
 
 
@@ -27,15 +37,20 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
 
       $interval(function(){
           /*optional*/
-          //ctx.globalCompositeOperatin = "source-over";
+          //ctx.globalCompositeOperation = "source-over";
           /***/
           ctx.fillStyle = "rgba(0,0,0,0.2)"; /*clear rectangle */
           ctx.fillRect(0, 0, canvas.width, canvas.height);
           DefaultParticle.createNumberOfParticles($scope.numberOFparticles);
 
-          //ctx.globalCompositeOperatin = "lighter";
+          //ctx.globalCompositeOperation = "lighter";
           for(var i in particles){
-              particles[i].draw();
+              if($scope.defaultParticleType === 'circle'){
+                  particles[i].drawCircles();
+              } else if ($scope.defaultParticleType === 'square'){
+                  particles[i].drawSquares();
+              }
+
           }
 
       }, 30); /*how many are we spawning every 30 seconds */
