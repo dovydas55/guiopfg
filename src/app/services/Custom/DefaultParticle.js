@@ -4,21 +4,41 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
     var ctx = canvas.getContext("2d");
     var particles = {};
     var particleIndex = 0;
+    var particleSize = 10;
+    var particleLife = 50;
+    var custom = false;
+
 
     var DefaultParticle = function(){
         this.x = canvas.width / 2;
         this.y = canvas.height / 2;
+
+        if(custom){
+            this.maxLife = particleLife;
+        } else {
+            this.maxLife = Math.random() *75-5;
+        }
+
         this.vx = Math.random() * 10 - 5; /* let the user to set the velocity */
         this.vy = Math.random() * 10 - 5;
-        this.gravity = 0.30; /*gravity */
+        this.gravity = 0; /*TODO: let user set the gravity */
+
+        this.color = "hsla("+ parseInt(Math.random()*360,10) + ",100%, 50%, 0.4)"; /*saturation - lightness - alpha*/
 
         this.life = 0;
-        this.maxLife = Math.random() *45-5; /* let user to kill off the particle whenever he wants */
-
         particleIndex++;
         this.id = particleIndex;
         particles[particleIndex] = this;
 
+    };
+
+    DefaultParticle.setParticleSize = function(newsize){
+        particleSize = newsize;
+    };
+
+    DefaultParticle.setParticleLife = function(newlife, bool_custom){
+        particleLife = newlife;
+        custom = bool_custom;
     };
 
     DefaultParticle.returnAllParticles = function(){
@@ -37,15 +57,18 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
         this.life++;
         this.vy += this.gravity;
 
+        /*add more randomness to the particle motion */
+        if(Math.random() < 0.1){
+            this.vx = Math.random() * 10-5;
+            this.vy = Math.random() * 10-5;
+        }
+
         if(this.life >= this.maxLife){
             delete particles[this.id];
         }
-        console.log("------------");
-        console.log(this.x);
-        console.log(this.y);
-        console.log("------------");
-        ctx.fillStyle = "white";
-        ctx.fillRect(this.x, this.y, 10, 10); /*TODO: let the user to set the particle size */
+
+        ctx.fillStyle = this.color;
+        ctx.fillRect(this.x, this.y, particleSize, particleSize);
     };
 
     return DefaultParticle;
