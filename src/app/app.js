@@ -47,5 +47,13 @@
               templateUrl: "src/templates/AllFiles.html",
               controller: 'MenuController',
             }}
+        })
+        .state('create', {
+          url: '/create',
+          views:{
+            "CreateView": {
+              templateUrl: "src/templates/Create.html",
+              controller: 'CreateController',
+            }}
         });
   }]);

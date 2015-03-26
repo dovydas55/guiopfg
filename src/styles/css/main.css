@@ -90,20 +90,20 @@ body {
 
 .flank {
 	float: left;
-	width:29%;
-	padding: 15px;
-	background:url("../assets/gfx/bg_grad1.png") 0 0 repeat;
-	border-bottom: 1px solid #545454; /*-----------------------------------------------------*/
-	border-left: 1px solid #545454;
-	border-right: 1px solid #545454;
-}
-
-.middle {
-	float: left;
 	width:33%;
 	padding: 15px;
 	background:url("../assets/gfx/bg_grad1.png") 0 0 repeat;
-	border-bottom: 1px solid #545454;
+/*	border-left: 1px solid #545454;
+	border-right: 1px solid #545454;*/
+}
+
+.middle {
+	border-left: 1px solid #545454;
+		border-right: 1px solid #545454;
+	float: left;
+	width:34%;
+	padding: 15px;
+	background:url("../assets/gfx/bg_grad1.png") 0 0 repeat;
 }
 
 .col_left
@@ -444,4 +444,11 @@ tr:hover td {
 
 #modalInput{
 	width: 100%;
+}
+
+/* canvas style*/
+#myCanvas{
+	width: 400px;
+	height: 400px;
+	background: black;
 }

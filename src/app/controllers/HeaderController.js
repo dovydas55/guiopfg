@@ -24,6 +24,10 @@ angular.module('GUIOPFG').controller('HeaderController', ['$scope', '$state', 'U
       $state.go('allFiles', {filterBY: filterOption});
   };
 
+  $scope.routeToCreate = function(){
+      $state.go('create');
+  };
+
   //iniliatize the variables after everything has loaded
   $scope.init();
 
