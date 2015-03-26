@@ -448,7 +448,5 @@ tr:hover td {
 
 /* canvas style*/
 #myCanvas{
-	width: 400px;
-	height: 400px;
 	background: black;
 }
