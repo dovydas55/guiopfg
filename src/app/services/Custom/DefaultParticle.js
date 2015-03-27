@@ -9,6 +9,7 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
     var customColor = 'rgba(255,255,255,1)';
     var custom = false;
     var customClr = false;
+    var customGravity = 0;
 
 
     var DefaultParticle = function(){
@@ -23,12 +24,14 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
 
         this.vx = Math.random() * 5 - 3; /* let the user to set the velocity */
         this.vy = Math.random() * 5 - 3;
-        this.gravity = 0; /*TODO: let user set the gravity */
+
+        this.gravity = customGravity;
 
         if(customClr){
             this.color = customColor;
         } else { /*user wants to use a custom color */
-            this.color = "hsla("+ parseInt(Math.random()*360,10) + ",100%, 50%, 1.0)"; /*saturation - lightness - alpha*/
+            //this.color = "hsla("+ parseInt(Math.random()*360,10) + ",100%, 50%, 1.0)"; /*saturation - lightness - alpha*/
+            this.color = 'rgba(255,255,255,1)';
         }
 
         this.life = 0;
@@ -36,6 +39,10 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
         this.id = particleIndex;
         particles[particleIndex] = this;
 
+    };
+
+    DefaultParticle.createGravity = function(newgravity){
+        customGravity = newgravity;
     };
 
     DefaultParticle.setCustomColor = function(newcolor, bool_color){
@@ -84,9 +91,10 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
         obj.x += obj.vx;
         obj.y += obj.vy;
         obj.life++;
-        obj.vy += obj.gravity;
+        obj.vy += Number(obj.gravity);
 
         /*add more randomness to the particle motion */
+
         if(Math.random() < 0.1){
           obj.vx = Math.random() * 10-5;
           obj.vy = Math.random() * 10-5;

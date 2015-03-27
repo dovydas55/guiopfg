@@ -2,10 +2,11 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
   "use strict"; //strick javascript mode
   $scope.init = function(){
       $scope.render();
-      $scope.numberOFparticles = 10;
+      $scope.numberOFparticles = 1;
       $scope.particleSize = 10;
       $scope.particleLife = 50;
       $scope.defaultParticleType = 'square';
+      $scope.customGravity = 0;
   };
 
   $scope.setParticleSize = function(){
@@ -27,6 +28,10 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
           DefaultParticle.setCustomColor($scope.rgbaPicker.color, $scope.randomParticleColor);
       }
 
+  };
+
+  $scope.updateGravity = function(){
+      DefaultParticle.createGravity($scope.customGravity);
   };
 
 

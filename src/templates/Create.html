@@ -8,6 +8,11 @@
         <label for="particleNO">Number of particles</label>
         <input type="range" name="particleNO" min="1" max="80" data-ng-model="numberOFparticles">
 
+        <label for="customGravity">Gravity</label>
+        <input type="range" name="customGravity" min="-3" max="3" step="0.1" data-ng-model="customGravity" data-ng-change="updateGravity()">
+
+
+
         <label for="particleSize">Particle Size</label>
         <input type="range" name="particleSize" min="1" max="100" data-ng-model="particleSize" data-ng-change="setParticleSize()">
 
