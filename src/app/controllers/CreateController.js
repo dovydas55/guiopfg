@@ -5,9 +5,33 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
       $scope.numberOFparticles = 1;
       $scope.particleSize = 10;
       $scope.particleLife = 50;
-      $scope.defaultParticleType = 'square';
+      $scope.defaultParticleType = 'circle';
       $scope.customGravity = 0;
+
+      /* for dragging the particles */
+      $scope.isMoving = false;
+      /* ************************** */
   };
+
+  /*mouse operations for moving particle effects*/
+  $scope.dragTheParticle = function(cords){
+      if($scope.isMoving){
+          //console.log(cords.offsetX);
+          //console.log(cords.offsetY);
+          DefaultParticle.dragTheParticle({x: cords.offsetX, y: cords.offsetY});
+
+      }
+  };
+
+  $scope.startMoving = function(){
+      $scope.isMoving = true;
+  };
+
+  $scope.stopMoving = function(){
+      $scope.isMoving = false;
+  };
+
+  /**********************************************/
 
   $scope.setParticleSize = function(){
       DefaultParticle.setParticleSize($scope.particleSize);
