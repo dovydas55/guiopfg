@@ -8,21 +8,21 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
     var particleLife = 50;
     var customColor = 'rgba(255,255,255,1)';
     var custom = false;
-    var customClr = false;
+    var staticColor = false;
     var customGravity = 0;
     var customCords = {x: canvas.width / 2, y: canvas.height / 2};
+    var randomRGBA = {};
+    var randomRGBA_bool = false;
 
 
     var DefaultParticle = function(){
-        //this.x = canvas.width / 2;
-        //this.y = canvas.height / 2;
         this.x = customCords.x;
         this.y = customCords.y;
 
         if(custom){
             this.maxLife = particleLife;
         } else {
-            this.maxLife = Math.ceil(Math.random() * 75);
+            this.maxLife = Math.ceil(Math.random() * 55);
         }
 
         this.size = Math.ceil(Math.random() * Number(particleSize));
@@ -32,9 +32,23 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
 
         this.gravity = customGravity;
 
-        if(customClr){
+        if(staticColor){
             this.color = customColor;
-        } else { /*user wants to use a custom color */
+        } else if(randomRGBA_bool){
+
+            /*-- prototype --*/
+            if(randomRGBA.R === true){
+                this.color = "RGBA(" + Math.ceil(Math.random()*255) + ",0,0,1" + ")";
+                if(randomRGBA.G === true){
+                    this.color = "RGBA(" + Math.ceil(Math.random()*255) + ","+ Math.ceil(Math.random()*255) + ",0,1" + ")";
+                    if(randomRGBA.B === true){
+                        this.color = "RGBA(" + Math.ceil(Math.random()*255) + ","+ Math.ceil(Math.random()*255) + ","+ Math.ceil(Math.random()*255) + ",1" + ")";
+                    }
+                }
+            }
+            /*buggy*/
+
+        }else { /*user wants to use a custom color */
             //this.color = "hsla("+ parseInt(Math.random()*360,10) + ",100%, 50%, 1.0)"; /*saturation - lightness - alpha*/
             this.color = 'rgba(255,255,255,1)';
         }
@@ -56,7 +70,14 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
 
     DefaultParticle.setCustomColor = function(newcolor, bool_color){
         customColor = newcolor;
-        customClr = bool_color;
+        staticColor = bool_color;
+        randomRGBA_bool = false;
+    };
+
+    DefaultParticle.randomRGBA = function(obj){
+        randomRGBA = obj;
+        randomRGBA_bool = true;
+        staticColor = false;
     };
 
     DefaultParticle.setParticleSize = function(newsize){
@@ -100,10 +121,19 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
     DefaultParticle.setDrawingParameters = function(obj){
         obj.x += obj.vx;
         obj.y += obj.vy;
+
+        /* making like a fauntain
+        if(obj.y > 300){
+            obj.y = 300;
+            obj.vy *= -0.85;
+        }
+        */
         obj.life++;
         obj.vy += Number(obj.gravity);
 
-        if(Math.random() < 0.1){ /*add more randomness to the particle motion */
+        /*add more randomness to the particle motion */
+
+        if(Math.random() < 0.1){
           obj.vx = Math.random() * 10-5;
           obj.vy = Math.random() * 10-5;
         }

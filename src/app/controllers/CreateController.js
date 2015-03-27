@@ -7,6 +7,7 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
       $scope.particleLife = 50;
       $scope.defaultParticleType = 'circle';
       $scope.customGravity = 0;
+      $scope.emmisionRate = 30;
 
       /* for dragging the particles */
       $scope.isMoving = false;
@@ -46,9 +47,12 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
   };
 
   $scope.updateColor = function(){
-      if($scope.rgbaPicker === undefined){
+      if($scope.randomRed || $scope.randomGreen || $scope.randomBlue || $scope.randomAlpha){
+          DefaultParticle.randomRGBA({R: $scope.randomRed, G:$scope.randomGreen, B:$scope.randomBlue});
+      } else if($scope.rgbaPicker === undefined){
           DefaultParticle.setCustomColor('rgba(255,255,255,1)', $scope.randomParticleColor);
-      } else {
+      }
+      else {
           DefaultParticle.setCustomColor($scope.rgbaPicker.color, $scope.randomParticleColor);
       }
 
@@ -66,13 +70,14 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
 
       $interval(function(){
           /*optional*/
-          //ctx.globalCompositeOperation = "source-over";
+          ctx.globalCompositeOperation = "source-over";
           /***/
           ctx.fillStyle = "rgba(0,0,0,0.2)"; /*clear rectangle */
           ctx.fillRect(0, 0, canvas.width, canvas.height);
           DefaultParticle.createNumberOfParticles($scope.numberOFparticles);
 
-          //ctx.globalCompositeOperation = "lighter";
+          /*https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation*/
+          ctx.globalCompositeOperation = "lighter";
           for(var i in particles){
               if($scope.defaultParticleType === 'circle'){
                   particles[i].drawCircles();
@@ -82,7 +87,7 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
 
           }
 
-      }, 30); /*how many are we spawning every 30 seconds */
+      }, 30); /*how many are we spawning every 30 milli seconds */
   };
 
   //iniliatize the variables after everything has loaded
