@@ -1,3 +1,35 @@
 angular.module('GUIOPFG').factory('Converter', [function() {
-    //Define java -> .particle class here
+    var factory = {};
+    
+    //Contaner object
+    var file= {
+    	//Declare variables
+    	fileName: 			'myParticleFile',
+    	quota: 				{ name: 'quota', val: 10 },
+    	particle_width: 	{ name: 'particle_width', val: 100 },
+    	particle_heigth: 	{ name: 'particle_heigth', val: 100 },
+    	emmiter: 			{ name: 'emmiter', type: 'point ', 
+    							val: {colour: {name: 'colour', red: 1, green: 1, blue: 1, alpha: 1},
+    									direction: {name: 'direction', x: 1, y: 0, z: 0},
+    									emission_rate: {name: 'emission_rate', val: 10},
+    									position: {name: 'position', x: 0, y: 0, z: 0},
+    									velocity: {name: 'velocity', val: 1},
+    									time_to_live: {name: 'time_to_live', val: 5},
+    									duration: {name: 'duration', val: 0},
+    									repeat_delay: {name: 'repeat_delay', val: 0}}}
+    };
+
+	//Declare funtions
+	factory.SetSize = function(obj){
+		size.height = obj.x;
+		size.width = obj.y; 
+		console.log(obj);
+	};
+
+
+	factory.debug = function(){
+		console.log(file);
+	};
+
+	return factory;
 }]);
