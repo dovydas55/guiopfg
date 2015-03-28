@@ -7,6 +7,9 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
   var canvas = document.getElementById("myCanvas");
   var ctx = canvas.getContext("2d");
 
+  var emmiter = document.getElementById("emmiterType");
+  var emmiterCtx = emmiter.getContext("2d");
+
   $scope.init = function(){
       $scope.script = {};
       $scope.script.timeToLive = {
@@ -20,6 +23,10 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
           endTime: 1500
       };
 
+      $scope.script.emmiter = {
+          type: "box"
+      };
+
       $scope.script.quota = 1;
       $scope.script.width = 10;
       $scope.script.height = 10;
@@ -28,9 +35,14 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
 
 
       $scope.customGravity = 0;
-      $scope.emmisionRate = 30;
+
       /* for dragging the particles */
       $scope.isMoving = false;
+      $scope.isEmmiterMoving = false;
+      $scope.shape = {
+        startX: 0,
+        startY: 0
+      };
       /* ************************** */
       $scope.render();
   };
@@ -53,6 +65,61 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
       $scope.isMoving = false;
   };
 
+  /*--------------------------------------------*/
+  /*mouse down*/
+  $scope.emmiterStart = function(start){
+      $scope.isEmmiterMoving = true;
+      $scope.shape.startX = start.offsetX;
+      $scope.shape.startY = start.offsetY;
+  };
+  /*mouse up*/
+  $scope.emmiterStop = function(){
+      $scope.isEmmiterMoving = false;
+  };
+  /*mouse move*/
+  $scope.emmiterDefine = function(cords){
+      if($scope.script.emmiter.type === 'box' && $scope.isEmmiterMoving){
+          $scope.drawBox(cords);
+      } else if ($scope.script.emmiter.type === 'ring' && $scope.isEmmiterMoving){
+          $scope.drawRing(cords);
+      } else if($scope.script.emmiter.type === 'point' && $scope.isEmmiterMoving){
+          //NOT SURE WHAT TO DO HERE
+      }
+  };
+
+  $scope.clearEmmiterCanvas = function(){
+      emmiterCtx.clearRect(0, 0, emmiter.width, emmiter.height);
+  };
+
+  $scope.drawRing = function(cords){
+    var xLength = $scope.shape.startX - cords.offsetX;
+    var yLength = $scope.shape.startY - cords.offsetY;
+    emmiterCtx.beginPath();
+    var radius = Math.sqrt( Math.pow(Math.abs(xLength), 2) + Math.pow(Math.abs(yLength), 2) );
+    emmiterCtx.arc(cords.offsetX, cords.offsetY, radius, 0, 2 * Math.PI, false );
+    emmiterCtx.lineWidth = 2;
+    emmiterCtx.strokeStyle = "red";
+
+    $scope.clearEmmiterCanvas();
+    emmiterCtx.stroke();
+    emmiterCtx.closePath();
+  };
+
+  $scope.drawBox = function(cords){
+    emmiterCtx.beginPath();
+    emmiterCtx.lineWidth = 2;
+    emmiterCtx.strokeStyle = "red";
+
+    var width = $scope.shape.startX - cords.offsetX;
+    var height = $scope.shape.startY - cords.offsetY;
+
+    $scope.clearEmmiterCanvas();
+    emmiterCtx.strokeRect(cords.offsetX, cords.offsetY, width, height);
+    emmiterCtx.closePath();
+
+  };
+
+
   /**********************************************/
   $scope.setDuration = function(){
       $interval.cancel(durationInterval);
@@ -64,7 +131,6 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
           $interval.cancel(durationInterval);
           $interval.cancel(randomDurationInterval);
           $scope.render();
-          console.log("donnneee");
       } else{
           $interval.cancel(randomDurationInterval);
           durationInterval = $interval(function(){
@@ -100,18 +166,14 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
   };
 
 
-
   $scope.updateColor = function(){
-      if($scope.randomRed || $scope.randomGreen || $scope.randomBlue || $scope.randomAlpha){
-          DefaultParticle.randomRGBA({R: $scope.randomRed, G:$scope.randomGreen, B:$scope.randomBlue});
-      } else if($scope.rgbaPicker === undefined){
+      if($scope.rgbaPicker === undefined){
           DefaultParticle.setCustomColor('rgba(255,255,255,1)', $scope.randomParticleColor);
-      }
-      else {
+      } else {
           DefaultParticle.setCustomColor($scope.rgbaPicker.color, $scope.randomParticleColor);
       }
-
   };
+
 
   $scope.updateGravity = function(){
       DefaultParticle.createGravity($scope.customGravity);

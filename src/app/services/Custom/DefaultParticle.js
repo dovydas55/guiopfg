@@ -15,15 +15,9 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
         random: false
     };
 
-
-    var customColor = 'rgba(255,255,255,1)';
-    var custom = false;
-    var staticColor = false;
-    var customGravity = 0;
     var customCords = {x: canvas.width / 2, y: canvas.height / 2};
-    var randomRGBA = {};
-    var randomRGBA_bool = false;
-
+    var customColor = 'rgba(255,255,255,1)';
+    var customGravity = 0;
 
     var DefaultParticle = function(){
         this.x = customCords.x;
@@ -50,26 +44,7 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
 
         this.gravity = customGravity;
 
-        if(staticColor){
-            this.color = customColor;
-        } else if(randomRGBA_bool){
-
-            /*-- prototype --*/
-            if(randomRGBA.R === true){
-                this.color = "RGBA(" + Math.ceil(Math.random()*255) + ",0,0,1" + ")";
-                if(randomRGBA.G === true){
-                    this.color = "RGBA(" + Math.ceil(Math.random()*255) + ","+ Math.ceil(Math.random()*255) + ",0,1" + ")";
-                    if(randomRGBA.B === true){
-                        this.color = "RGBA(" + Math.ceil(Math.random()*255) + ","+ Math.ceil(Math.random()*255) + ","+ Math.ceil(Math.random()*255) + ",1" + ")";
-                    }
-                }
-            }
-            /*buggy*/
-
-        }else { /*user wants to use a custom color */
-            //this.color = "hsla("+ parseInt(Math.random()*360,10) + ",100%, 50%, 1.0)"; /*saturation - lightness - alpha*/
-            this.color = 'rgba(255,255,255,1)';
-        }
+        this.color = customColor;
 
         this.life = 0;
         particleIndex++;
@@ -86,10 +61,8 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
         customGravity = newgravity;
     };
 
-    DefaultParticle.setCustomColor = function(newcolor, bool_color){
+    DefaultParticle.setCustomColor = function(newcolor){
         customColor = newcolor;
-        staticColor = bool_color;
-        randomRGBA_bool = false;
     };
 
     DefaultParticle.randomRGBA = function(obj){
