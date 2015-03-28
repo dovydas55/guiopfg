@@ -450,3 +450,11 @@ tr:hover td {
 #myCanvas{
 	background: black;
 }
+
+#emmiterType{
+	background: grey;
+}
+
+#gravity{
+	background: grey;
+}

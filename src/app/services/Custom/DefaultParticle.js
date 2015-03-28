@@ -3,6 +3,7 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
     var canvas = document.getElementById("myCanvas");
     var ctx = canvas.getContext("2d");
     var particles = {};
+    var emmiter = {};
     var particleIndex = 0;
 
     var options = {
@@ -15,19 +16,24 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
         random: false
     };
 
+    var customGravity = {
+        xComponent: 0,
+        yComponent: 0
+    };
 
-    var customColor = 'rgba(255,255,255,1)';
-    var custom = false;
-    var staticColor = false;
-    var customGravity = 0;
     var customCords = {x: canvas.width / 2, y: canvas.height / 2};
-    var randomRGBA = {};
-    var randomRGBA_bool = false;
+    var customColor = 'rgba(255,255,255,1)';
 
 
     var DefaultParticle = function(){
         this.x = customCords.x;
         this.y = customCords.y;
+        if(emmiter.type === 'box'){
+            this.x = emmiter.startX + Math.ceil(Math.random() * (emmiter.w * -1));
+            this.y = emmiter.startY + Math.ceil(Math.random() * (emmiter.h * -1));
+        } else if(emmiter.type === 'ring'){
+            //TODO: implement formula for displaying a ring
+        }
 
         if(timeToLive.random === false || timeToLive.random === undefined || timeToLive.startTime === undefined || timeToLive.endTime === undefined ||
         timeToLive.endTime === null || timeToLive.startTime === null || timeToLive.startTime > timeToLive.endTime){
@@ -50,26 +56,7 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
 
         this.gravity = customGravity;
 
-        if(staticColor){
-            this.color = customColor;
-        } else if(randomRGBA_bool){
-
-            /*-- prototype --*/
-            if(randomRGBA.R === true){
-                this.color = "RGBA(" + Math.ceil(Math.random()*255) + ",0,0,1" + ")";
-                if(randomRGBA.G === true){
-                    this.color = "RGBA(" + Math.ceil(Math.random()*255) + ","+ Math.ceil(Math.random()*255) + ",0,1" + ")";
-                    if(randomRGBA.B === true){
-                        this.color = "RGBA(" + Math.ceil(Math.random()*255) + ","+ Math.ceil(Math.random()*255) + ","+ Math.ceil(Math.random()*255) + ",1" + ")";
-                    }
-                }
-            }
-            /*buggy*/
-
-        }else { /*user wants to use a custom color */
-            //this.color = "hsla("+ parseInt(Math.random()*360,10) + ",100%, 50%, 1.0)"; /*saturation - lightness - alpha*/
-            this.color = 'rgba(255,255,255,1)';
-        }
+        this.color = customColor;
 
         this.life = 0;
         particleIndex++;
@@ -78,18 +65,23 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
 
     };
 
+    DefaultParticle.updateGravity = function(updatedGravity){
+        customGravity = updatedGravity;
+    };
+
+    DefaultParticle.DisplayEmmiterType = function(emmiterObj){
+        console.log(emmiterObj);
+        emmiter = emmiterObj;
+    };
+
     DefaultParticle.dragTheParticle = function(cords){
         customCords = cords;
     };
 
-    DefaultParticle.createGravity = function(newgravity){
-        customGravity = newgravity;
-    };
 
-    DefaultParticle.setCustomColor = function(newcolor, bool_color){
+
+    DefaultParticle.setCustomColor = function(newcolor){
         customColor = newcolor;
-        staticColor = bool_color;
-        randomRGBA_bool = false;
     };
 
     DefaultParticle.randomRGBA = function(obj){
@@ -109,6 +101,10 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
 
     DefaultParticle.returnAllParticles = function(){
         return particles;
+    };
+
+    DefaultParticle.clearParticles = function(){
+        particles = {};
     };
 
     DefaultParticle.createNumberOfParticles = function(num){
@@ -147,14 +143,17 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
         }
         */
         obj.life++;
-        obj.vy += Number(obj.gravity);
+
+        obj.vy += Number(obj.gravity.yComponent);
+        obj.vx += Number(obj.gravity.xComponent);
 
         /*add more randomness to the particle motion */
-
+        /*
         if(Math.random() < 0.1){
           obj.vx = Math.random() * 10-5;
           obj.vy = Math.random() * 10-5;
         }
+        */
 
         if(obj.life >= obj.maxLife){
             delete particles[obj.id];

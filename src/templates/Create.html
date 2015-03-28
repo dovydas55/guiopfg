@@ -1,5 +1,14 @@
 <div class="container2 w-bg">
-    <canvas id="myCanvas" width="400" height="400" data-ng-mousedown="startMoving()" data-ng-mouseup="stopMoving()" data-ng-mousemove="dragTheParticle($event)"></canvas>
+    <canvas id="myCanvas" width="500" height="500" data-ng-mousedown="startMoving()" data-ng-mouseup="stopMoving()" data-ng-mousemove="dragTheParticle($event)"></canvas>
+
+    <canvas id="emmiterType" width="500" height="500" data-ng-mousedown="emmiterStart($event)" data-ng-mouseup="emmiterStop()" data-ng-mousemove="emmiterDefine($event)"></canvas>
+
+    <canvas id="gravity" width="200" height="200" data-ng-mousedown="gravityStart($event)" data-ng-mouseup="gravityStop()" data-ng-mousemove="setGravity($event)"></canvas>
+    <br />
+    <input type="radio" name="emiiterOption" value="box" data-ng-model="script.emmiter.type">Box
+    <input type="radio" name="emiiterOption" value="ring" data-ng-model="script.emmiter.type">Ring
+    <input type="radio" name="emiiterOption" value="point" data-ng-model="script.emmiter.type">Point
+    <br /><br />
 
     <div class="control">
 
@@ -25,38 +34,18 @@
 
         <label for="timeToLife">Time to live</label>
         <input type="range" name="timeToLife" min="1" max="300" data-ng-model="script.timeToLive.value" data-ng-change="setParticleLife()"> <input type="text" data-ng-model="script.timeToLive.value">
-        <input type="checkbox" name="randomTimeToLive" value="random" data-ng-model="script.timeToLive.random">Random Time To Live <br>
+        <input type="checkbox" name="randomTimeToLive" value="randomTimeToLive" data-ng-model="script.timeToLive.random">Random Time To Live <br>
         <input type="number" data-ng-model="script.timeToLive.startTime" data-ng-show="script.timeToLive.random" placeholder="Start time" data-ng-blur="setParticleLife()">
-        <input type="number" data-ng-model="script.timeToLive.endTime" data-ng-show="script.timeToLive.random" placeholder="End time" data-ng-blur="setParticleLife()">
+        <input type="number" data-ng-model="script.timeToLive.endTime" data-ng-show="script.timeToLive.random" placeholder="End time" data-ng-blur="setParticleLife()"> <br />
 
+        <label for="duration">Duration</label>
+        <input type="text" data-ng-model="script.duration.value" data-ng-blur="setDuration()">
+        <input type="checkbox" name="randomDuration" value="randomDuration" data-ng-model="script.duration.random" data-ng-change="setDuration()">Random Duration<br>
+        <input type="number" data-ng-model="script.duration.startTime" data-ng-show="script.duration.random" placeholder="Start time" data-ng-blur="setDuration()">
+        <input type="number" data-ng-model="script.duration.endTime" data-ng-show="script.duration.random" placeholder="End time" data-ng-blur="setDuration()"> <br />
 
+        Choose color<input colorpicker="rgba" colorpicker-position="right" ng-model="rgbaPicker.color" type="text" data-ng-change="updateColor()">
 
-
-
-        <br /><br /><br /><br />
-        <label for="customGravity">Gravity</label>
-        <input type="range" name="customGravity" min="-4" max="4" step="0.1" data-ng-model="customGravity" data-ng-change="updateGravity()">
-
-
-
-
-
-        <label for="randomParticleLife">Custom particle life?</label>
-        <input type="checkbox" name="randomParticleLife" data-ng-model="randomParticleLife" data-ng-change="setRandomLife()"> <br />
-
-        <label for="particleLife" data-ng-show="randomParticleLife">Particle life</label>
-        <input type="range" name="particleLife" min="5" max="300" data-ng-model="particleLife" data-ng-change="setParticleLife()" data-ng-show="randomParticleLife">
-
-        <!-- http://codepen.io/buberdds/full/fBAsr/ -->
-        <label for="randomParticleColor">Custom Particle color?</label>
-        <input type="checkbox" name="randomParticleColor" data-ng-model="randomParticleColor" data-ng-change="updateColor()"> <br />
-        <span data-ng-show="randomParticleColor">Choose color</span> <input colorpicker="rgba" colorpicker-position="right" ng-model="rgbaPicker.color" type="text" data-ng-show="randomParticleColor" data-ng-change="updateColor()">
-
-        <div data-ng-show="randomParticleColor">
-            <input type="checkbox" name="customR" value="R" data-ng-change="updateColor()" data-ng-model="randomRed">Random R channel
-            <input type="checkbox" name="customG" value="G" data-ng-change="updateColor()" data-ng-model="randomGreen">Random G channel
-            <input type="checkbox" name="customB" value="B" data-ng-change="updateColor()" data-ng-model="randomBlue">Random B channel
-        </div>
 
     </div>
 
