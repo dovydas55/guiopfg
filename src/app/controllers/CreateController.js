@@ -2,10 +2,20 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
   "use strict"; //strick javascript mode
   $scope.init = function(){
       $scope.render();
-      $scope.numberOFparticles = 1;
-      $scope.particleSize = 10;
-      $scope.particleLife = 50;
-      $scope.defaultParticleType = 'circle';
+      $scope.script = {};
+      $scope.script.timeToLive = {
+          value: 50,
+          random: false
+      };
+      $scope.script.timeToLive.value = 50;
+
+      $scope.script.quota = 1;
+      $scope.script.width = 10;
+      $scope.script.height = 10;
+      $scope.script.emmisionRate = $scope.script.quota;
+      $scope.script.defaultParticleType = 'circle';
+
+
       $scope.customGravity = 0;
       $scope.emmisionRate = 30;
 
@@ -35,16 +45,14 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
   /**********************************************/
 
   $scope.setParticleSize = function(){
-      DefaultParticle.setParticleSize($scope.particleSize);
+      DefaultParticle.setParticleSize({width: $scope.script.width, height: $scope.script.height});
   };
 
   $scope.setParticleLife = function(){
-      DefaultParticle.setParticleLife($scope.particleLife, $scope.randomParticleLife);
+        DefaultParticle.setParticleLife($scope.script.timeToLive);
   };
 
-  $scope.setRandomLife = function(){
-      DefaultParticle.setParticleLife(50, $scope.randomParticleLife); /*send in default value for particle life*/
-  };
+
 
   $scope.updateColor = function(){
       if($scope.randomRed || $scope.randomGreen || $scope.randomBlue || $scope.randomAlpha){
@@ -74,20 +82,20 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
           /***/
           ctx.fillStyle = "rgba(0,0,0,0.2)"; /*clear rectangle */
           ctx.fillRect(0, 0, canvas.width, canvas.height);
-          DefaultParticle.createNumberOfParticles($scope.numberOFparticles);
+          DefaultParticle.createNumberOfParticles($scope.script.emmisionRate);
 
           /*https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation*/
           ctx.globalCompositeOperation = "lighter";
           for(var i in particles){
-              if($scope.defaultParticleType === 'circle'){
+              if($scope.script.defaultParticleType === 'circle'){
                   particles[i].drawCircles();
-              } else if ($scope.defaultParticleType === 'square'){
+              } else if ($scope.script.defaultParticleType === 'square'){
                   particles[i].drawSquares();
               }
 
           }
 
-      }, 30); /*how many are we spawning every 30 milli seconds */
+      }, 33); /*how many are we spawning every 30 milli seconds */
   };
 
   //iniliatize the variables after everything has loaded

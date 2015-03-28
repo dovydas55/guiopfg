@@ -2,20 +2,44 @@
     <canvas id="myCanvas" width="400" height="400" data-ng-mousedown="startMoving()" data-ng-mouseup="stopMoving()" data-ng-mousemove="dragTheParticle($event)"></canvas>
 
     <div class="control">
-        <input type="radio" id="partSquare" name="defaultParticleType" value="square" data-ng-model="defaultParticleType"> <label for="partSquare"> Square</label>
-        <input type="radio" id="partCircle" name="defaultParticleType" value="circle" data-ng-model="defaultParticleType"> <label for="partCircle"> Circle</label>  <br />
+
+        <input type="text" placeholder="Script name" data-ng-model="script.name"> <br />
+        <input type="radio" id="partSquare" name="defaultParticleType" value="square" data-ng-model="script.defaultParticleType"> <label for="partSquare"> Square</label>
+        <input type="radio" id="partCircle" name="defaultParticleType" value="circle" data-ng-model="script.defaultParticleType"> <label for="partCircle"> Circle</label>  <br />
 
 
-        <label for="particleNO">Number of particles</label>
-        <input type="range" name="particleNO" min="1" max="80" data-ng-model="numberOFparticles">
+        <label for="particleNO">Quoata</label>
+        <input type="range" name="particleNO" min="1" max="80" data-ng-model="script.quota"> <input type="text" data-ng-model="script.quota"> <br /><br />
 
+        <label for="particleWidth">Particle Width</label>
+        <input type="range" name="particleWidth" min="1" max="150" data-ng-model="script.width" data-ng-change="setParticleSize()"> <input type="text" data-ng-model="script.width"><br />
+        <label for="particleHeight">Particle Height</label>
+        <input type="range" name="particleHeight" min="1" max="150" data-ng-model="script.height" data-ng-change="setParticleSize()"> <input type="text" data-ng-model="script.height">
+        <br /> <br />
+        *EMMITER OPTIONS*
+        <br /> <br />
+
+        <label for="emmisionRate">Emmision Rate</label>
+        <input type="range" name="emmisionRate" min="1" max={{script.quota}} data-ng-model="script.emmisionRate"> <input type="text" data-ng-model="script.emmisionRate"> <br />
+        <input type="text" placeholder="Position <X Y Z>" data-ng-model="script.position"> <br /><!-- for siggi only -->
+
+        <label for="timeToLife">Time to live</label>
+        <input type="range" name="timeToLife" min="1" max="300" data-ng-model="script.timeToLive.value" data-ng-change="setParticleLife()"> <input type="text" data-ng-model="script.timeToLive.value">
+        <input type="checkbox" name="randomTimeToLive" value="random" data-ng-model="script.timeToLive.random">Random Time To Live <br>
+        <input type="number" data-ng-model="script.timeToLive.startTime" data-ng-show="script.timeToLive.random" placeholder="Start time" data-ng-blur="setParticleLife()">
+        <input type="number" data-ng-model="script.timeToLive.endTime" data-ng-show="script.timeToLive.random" placeholder="End time" data-ng-blur="setParticleLife()">
+
+
+
+
+
+        <br /><br /><br /><br />
         <label for="customGravity">Gravity</label>
         <input type="range" name="customGravity" min="-4" max="4" step="0.1" data-ng-model="customGravity" data-ng-change="updateGravity()">
 
 
 
-        <label for="particleSize">Particle Size</label>
-        <input type="range" name="particleSize" min="1" max="100" data-ng-model="particleSize" data-ng-change="setParticleSize()">
+
 
         <label for="randomParticleLife">Custom particle life?</label>
         <input type="checkbox" name="randomParticleLife" data-ng-model="randomParticleLife" data-ng-change="setRandomLife()"> <br />

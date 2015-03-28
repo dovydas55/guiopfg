@@ -4,8 +4,18 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
     var ctx = canvas.getContext("2d");
     var particles = {};
     var particleIndex = 0;
-    var particleSize = 10;
-    var particleLife = 50;
+
+    var options = {
+        width: 10,
+        height: 10
+    };
+
+    var timeToLive = {
+        value: 50,
+        random: false
+    };
+
+
     var customColor = 'rgba(255,255,255,1)';
     var custom = false;
     var staticColor = false;
@@ -19,13 +29,21 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
         this.x = customCords.x;
         this.y = customCords.y;
 
-        if(custom){
-            this.maxLife = particleLife;
+        if(timeToLive.random === false || timeToLive.random === undefined || timeToLive.startTime === undefined || timeToLive.endTime === undefined ||
+        timeToLive.endTime === null || timeToLive.startTime === null || timeToLive.startTime > timeToLive.endTime){
+            this.maxLife = timeToLive.value;
         } else {
-            this.maxLife = Math.ceil(Math.random() * 55);
+            this.maxLife = Math.floor(Math.random()*(timeToLive.endTime - timeToLive.startTime + 1) + timeToLive.startTime);
+            console.log(this.maxLife);
         }
 
-        this.size = Math.ceil(Math.random() * Number(particleSize));
+        /* for randomizinf width + height use: */
+        /* this.width = Math.ceil(Math.random() * options.width )*/
+        this.width = options.width;
+        this.height = options.height;
+        this.radius = options.width;
+
+
 
         this.vx = Math.random() * 5 - 3; /* let the user to set the velocity */
         this.vy = Math.random() * 5 - 3;
@@ -81,12 +99,12 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
     };
 
     DefaultParticle.setParticleSize = function(newsize){
-        particleSize = newsize;
+        options.width = newsize.width;
+        options.height = newsize.height;
     };
 
-    DefaultParticle.setParticleLife = function(newlife, bool_custom){
-        particleLife = newlife;
-        custom = bool_custom;
+    DefaultParticle.setParticleLife = function(newlife){
+        timeToLive = newlife;
     };
 
     DefaultParticle.returnAllParticles = function(){
@@ -104,14 +122,14 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
         ctx.beginPath();
         ctx.fillStyle = this.color;
 
-        ctx.fillRect(this.x, this.y, this.size, this.size);
+        ctx.fillRect(this.x, this.y, this.width, this.height);
         ctx.closePath();
     };
 
     DefaultParticle.prototype.drawCircles = function(){
         DefaultParticle.setDrawingParameters(this);
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI, false);
+        ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
         ctx.fillStyle = this.color;
         ctx.fill();
         ctx.closePath();
