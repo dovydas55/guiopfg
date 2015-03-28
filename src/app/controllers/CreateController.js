@@ -1,4 +1,4 @@
-angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval', 'DefaultParticle', function($scope, $interval, DefaultParticle) {
+angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval', 'DefaultParticle', 'Converter', function($scope, $interval, DefaultParticle, Converter) {
   "use strict"; //strick javascript mode
   $scope.init = function(){
       $scope.render();
@@ -22,6 +22,8 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
       /* for dragging the particles */
       $scope.isMoving = false;
       /* ************************** */
+      Converter.fetchValues($scope.script);
+      Converter.debug();
   };
 
   /*mouse operations for moving particle effects*/

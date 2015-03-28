@@ -20,9 +20,9 @@ angular.module('GUIOPFG').factory('Converter', [function() {
     };
 
 	//Declare funtions
-	factory.SetSize = function(obj){
-		size.height = obj.x;
-		size.width = obj.y; 
+	
+	
+	factory.fetchValues = function(obj){
 		console.log(obj);
 	};
 
