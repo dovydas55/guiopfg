@@ -68,6 +68,7 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
   /*--------------------------------------------*/
   /*mouse down*/
   $scope.emmiterStart = function(start){
+      $scope.clearEmmiterCanvas();
       $scope.isEmmiterMoving = true;
       $scope.shape.startX = start.offsetX;
       $scope.shape.startY = start.offsetY;
@@ -99,8 +100,9 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
     emmiterCtx.arc(cords.offsetX, cords.offsetY, radius, 0, 2 * Math.PI, false );
     emmiterCtx.lineWidth = 2;
     emmiterCtx.strokeStyle = "red";
-
     $scope.clearEmmiterCanvas();
+
+    DefaultParticle.DisplayEmmiterType({startX: $scope.shape.startX, startY: $scope.shape.startY, w: null, h: null, r: radius, type: "ring"});
     emmiterCtx.stroke();
     emmiterCtx.closePath();
   };
@@ -114,6 +116,8 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
     var height = $scope.shape.startY - cords.offsetY;
 
     $scope.clearEmmiterCanvas();
+
+    DefaultParticle.DisplayEmmiterType({startX: $scope.shape.startX, startY: $scope.shape.startY, w: width, h: height, r: null, type: "box"});
     emmiterCtx.strokeRect(cords.offsetX, cords.offsetY, width, height);
     emmiterCtx.closePath();
 

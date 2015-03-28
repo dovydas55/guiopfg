@@ -3,6 +3,7 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
     var canvas = document.getElementById("myCanvas");
     var ctx = canvas.getContext("2d");
     var particles = {};
+    var emmiter = {};
     var particleIndex = 0;
 
     var options = {
@@ -22,6 +23,12 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
     var DefaultParticle = function(){
         this.x = customCords.x;
         this.y = customCords.y;
+        if(emmiter.type === 'box'){
+            this.x = emmiter.startX + Math.ceil(Math.random() * (emmiter.w * -1));
+            this.y = emmiter.startY + Math.ceil(Math.random() * (emmiter.h * -1));
+        } else if(emmiter.type === 'ring'){
+            
+        }
 
         if(timeToLive.random === false || timeToLive.random === undefined || timeToLive.startTime === undefined || timeToLive.endTime === undefined ||
         timeToLive.endTime === null || timeToLive.startTime === null || timeToLive.startTime > timeToLive.endTime){
@@ -51,6 +58,11 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
         this.id = particleIndex;
         particles[particleIndex] = this;
 
+    };
+
+    DefaultParticle.DisplayEmmiterType = function(emmiterObj){
+        console.log(emmiterObj);
+        emmiter = emmiterObj;
     };
 
     DefaultParticle.dragTheParticle = function(cords){
