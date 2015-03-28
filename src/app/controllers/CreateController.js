@@ -10,6 +10,9 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
   var emmiter = document.getElementById("emmiterType");
   var emmiterCtx = emmiter.getContext("2d");
 
+  var gravity = document.getElementById("gravity");
+  var gravityCtx = gravity.getContext("2d");
+
   $scope.init = function(){
       $scope.script = {};
       $scope.script.timeToLive = {
@@ -39,6 +42,8 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
       /* for dragging the particles */
       $scope.isMoving = false;
       $scope.isEmmiterMoving = false;
+      $scope.isGravityUpdating = false;
+
       $scope.shape = {
         startX: 0,
         startY: 0
@@ -86,6 +91,43 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
       } else if($scope.script.emmiter.type === 'point' && $scope.isEmmiterMoving){
           //NOT SURE WHAT TO DO HERE
       }
+  };
+
+  /*-------------------------------------*/
+  $scope.gravityStart = function(event){
+      $scope.isGravityUpdating = true;
+  };
+
+  $scope.gravityStop = function(){
+      $scope.isGravityUpdating = false;
+  };
+
+  $scope.setGravity = function(event){
+      if($scope.isGravityUpdating){
+          $scope.drawGravityLine(event);
+      }
+  };
+
+  $scope.drawGravityLine = function(event){
+      gravityCtx.beginPath();
+      gravityCtx.strokeStyle = "red";
+      gravityCtx.lineWidth = 2;
+
+      gravityCtx.moveTo(gravity.width / 2, gravity.height / 2);
+      gravityCtx.lineTo(event.offsetX, event.offsetY);
+      $scope.clearGravityCanvas();
+
+      var xdiff = event.offsetX - (gravity.width / 2);
+      var ydiff = event.offsetY - (gravity.height / 2);
+
+      DefaultParticle.updateGravity({xComponent: xdiff * 0.03, yComponent: ydiff * 0.03});
+
+      gravityCtx.stroke();
+      gravityCtx.closePath();
+  };
+
+  $scope.clearGravityCanvas = function(){
+      gravityCtx.clearRect(0, 0, gravity.width, gravity.height);
   };
 
   $scope.clearEmmiterCanvas = function(){

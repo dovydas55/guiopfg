@@ -16,9 +16,14 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
         random: false
     };
 
+    var customGravity = {
+        xComponent: 0,
+        yComponent: 0
+    };
+
     var customCords = {x: canvas.width / 2, y: canvas.height / 2};
     var customColor = 'rgba(255,255,255,1)';
-    var customGravity = 0;
+
 
     var DefaultParticle = function(){
         this.x = customCords.x;
@@ -27,7 +32,7 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
             this.x = emmiter.startX + Math.ceil(Math.random() * (emmiter.w * -1));
             this.y = emmiter.startY + Math.ceil(Math.random() * (emmiter.h * -1));
         } else if(emmiter.type === 'ring'){
-            
+            //TODO: implement formula for displaying a ring
         }
 
         if(timeToLive.random === false || timeToLive.random === undefined || timeToLive.startTime === undefined || timeToLive.endTime === undefined ||
@@ -60,6 +65,10 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
 
     };
 
+    DefaultParticle.updateGravity = function(updatedGravity){
+        customGravity = updatedGravity;
+    };
+
     DefaultParticle.DisplayEmmiterType = function(emmiterObj){
         console.log(emmiterObj);
         emmiter = emmiterObj;
@@ -69,9 +78,7 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
         customCords = cords;
     };
 
-    DefaultParticle.createGravity = function(newgravity){
-        customGravity = newgravity;
-    };
+
 
     DefaultParticle.setCustomColor = function(newcolor){
         customColor = newcolor;
@@ -136,7 +143,9 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
         }
         */
         obj.life++;
-        obj.vy += Number(obj.gravity);
+
+        obj.vy += Number(obj.gravity.yComponent);
+        obj.vx += Number(obj.gravity.xComponent);
 
         /*add more randomness to the particle motion */
         /*

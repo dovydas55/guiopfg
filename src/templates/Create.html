@@ -2,6 +2,8 @@
     <canvas id="myCanvas" width="500" height="500" data-ng-mousedown="startMoving()" data-ng-mouseup="stopMoving()" data-ng-mousemove="dragTheParticle($event)"></canvas>
 
     <canvas id="emmiterType" width="500" height="500" data-ng-mousedown="emmiterStart($event)" data-ng-mouseup="emmiterStop()" data-ng-mousemove="emmiterDefine($event)"></canvas>
+
+    <canvas id="gravity" width="200" height="200" data-ng-mousedown="gravityStart($event)" data-ng-mouseup="gravityStop()" data-ng-mousemove="setGravity($event)"></canvas>
     <br />
     <input type="radio" name="emiiterOption" value="box" data-ng-model="script.emmiter.type">Box
     <input type="radio" name="emiiterOption" value="ring" data-ng-model="script.emmiter.type">Ring
@@ -44,11 +46,6 @@
 
         Choose color<input colorpicker="rgba" colorpicker-position="right" ng-model="rgbaPicker.color" type="text" data-ng-change="updateColor()">
 
-
-
-        <br /><br /><br /><br />
-        <label for="customGravity">Gravity</label>
-        <input type="range" name="customGravity" min="-4" max="4" step="0.1" data-ng-model="customGravity" data-ng-change="updateGravity()">
 
     </div>
 
