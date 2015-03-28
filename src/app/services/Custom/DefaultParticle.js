@@ -111,6 +111,10 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
         return particles;
     };
 
+    DefaultParticle.clearParticles = function(){
+        particles = {};
+    };
+
     DefaultParticle.createNumberOfParticles = function(num){
         for(var i = 0; i < num; i++){
             new DefaultParticle();
@@ -150,11 +154,12 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
         obj.vy += Number(obj.gravity);
 
         /*add more randomness to the particle motion */
-
+        /*
         if(Math.random() < 0.1){
           obj.vx = Math.random() * 10-5;
           obj.vy = Math.random() * 10-5;
         }
+        */
 
         if(obj.life >= obj.maxLife){
             delete particles[obj.id];

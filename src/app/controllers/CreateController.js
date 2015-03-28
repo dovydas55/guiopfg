@@ -1,13 +1,24 @@
 angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval', 'DefaultParticle', function($scope, $interval, DefaultParticle) {
-  "use strict"; //strick javascript mode
+
+  var EmmiterLoop;
+  var durationInterval;
+  var randomDurationInterval;
+
+  var canvas = document.getElementById("myCanvas");
+  var ctx = canvas.getContext("2d");
+
   $scope.init = function(){
-      $scope.render();
       $scope.script = {};
       $scope.script.timeToLive = {
           value: 50,
           random: false
       };
-      $scope.script.timeToLive.value = 50;
+      $scope.script.duration = {
+          value: 0,
+          random: false,
+          startTime: 1000,
+          endTime: 1000
+      };
 
       $scope.script.quota = 1;
       $scope.script.width = 10;
@@ -18,10 +29,10 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
 
       $scope.customGravity = 0;
       $scope.emmisionRate = 30;
-
       /* for dragging the particles */
       $scope.isMoving = false;
       /* ************************** */
+      $scope.render();
   };
 
   /*mouse operations for moving particle effects*/
@@ -43,6 +54,43 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
   };
 
   /**********************************************/
+  $scope.setDuration = function(){
+      console.log("-----------------------------------------");
+      $interval.cancel(durationInterval);
+      if($scope.script.duration.value === 0 || $scope.script.duration.value === null || $scope.script.duration.value <= 500 || $scope.script.duration === false){
+          $interval.cancel(EmmiterLoop);
+          $interval.cancel(durationInterval);
+          $interval.cancel(randomDurationInterval);
+          $scope.render();
+          console.log("donnneee");
+      } else{
+          $interval.cancel(randomDurationInterval);
+          durationInterval = $interval(function(){
+              if($scope.script.duration.random === true){
+                  $scope.RandomDurationInterval();
+              }
+              $interval.cancel(EmmiterLoop);
+              $scope.cleanCanvas();
+              DefaultParticle.clearParticles();
+              $scope.render();
+          }, $scope.script.duration.value);
+      }
+  };
+
+  $scope.RandomDurationInterval = function(){
+      var itr = Number(Math.floor(Math.random()*($scope.script.duration.endTime - $scope.script.duration.startTime + 1) + $scope.script.duration.startTime));
+      //$interval.cancel(EmmiterLoop);
+      $interval.cancel(durationInterval);
+      $interval.cancel(randomDurationInterval);
+      console.log(itr);
+      randomDurationInterval = $interval(function(){
+          $interval.cancel(EmmiterLoop);
+          $scope.cleanCanvas();
+          DefaultParticle.clearParticles();
+          $scope.render();
+          $scope.RandomDurationInterval();
+      }, itr);
+  };
 
   $scope.setParticleSize = function(){
       DefaultParticle.setParticleSize({width: $scope.script.width, height: $scope.script.height});
@@ -72,30 +120,36 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
 
 
   $scope.render = function(){
-      var canvas = document.getElementById("myCanvas");
-      var ctx = canvas.getContext("2d");
       var particles = DefaultParticle.returnAllParticles();
-
-      $interval(function(){
+      EmmiterLoop = $interval(function(){
           /*optional*/
           ctx.globalCompositeOperation = "source-over";
           /***/
-          ctx.fillStyle = "rgba(0,0,0,0.2)"; /*clear rectangle */
-          ctx.fillRect(0, 0, canvas.width, canvas.height);
+
           DefaultParticle.createNumberOfParticles($scope.script.emmisionRate);
-
-          /*https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation*/
+          $scope.cleanCanvas();
           ctx.globalCompositeOperation = "lighter";
-          for(var i in particles){
-              if($scope.script.defaultParticleType === 'circle'){
-                  particles[i].drawCircles();
-              } else if ($scope.script.defaultParticleType === 'square'){
-                  particles[i].drawSquares();
-              }
-
-          }
+          $scope.AnimateParticles(particles);
 
       }, 33); /*how many are we spawning every 30 milli seconds */
+  };
+
+  $scope.cleanCanvas = function(){
+      //ctx.fillStyle = "rgba(0,0,0,1)"; /*clear rectangle */
+      //ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+  };
+
+  $scope.AnimateParticles = function(particles){
+    /*https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation*/
+      for(var i in particles){
+          if($scope.script.defaultParticleType === 'circle'){
+              particles[i].drawCircles();
+          } else if ($scope.script.defaultParticleType === 'square'){
+              particles[i].drawSquares();
+          }
+
+      }
   };
 
   //iniliatize the variables after everything has loaded
