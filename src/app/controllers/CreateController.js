@@ -17,7 +17,7 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
           value: 0,
           random: false,
           startTime: 1000,
-          endTime: 1000
+          endTime: 1500
       };
 
       $scope.script.quota = 1;
@@ -55,9 +55,11 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
 
   /**********************************************/
   $scope.setDuration = function(){
-      console.log("-----------------------------------------");
       $interval.cancel(durationInterval);
-      if($scope.script.duration.value === 0 || $scope.script.duration.value === null || $scope.script.duration.value <= 500 || $scope.script.duration === false){
+      if($scope.script.duration.random === true){
+        $scope.RandomDurationInterval();
+      }
+      else if($scope.script.duration.value === 0 || $scope.script.duration.value === null || $scope.script.duration.value <= 500 || $scope.script.duration === false){
           $interval.cancel(EmmiterLoop);
           $interval.cancel(durationInterval);
           $interval.cancel(randomDurationInterval);
@@ -66,9 +68,6 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
       } else{
           $interval.cancel(randomDurationInterval);
           durationInterval = $interval(function(){
-              if($scope.script.duration.random === true){
-                  $scope.RandomDurationInterval();
-              }
               $interval.cancel(EmmiterLoop);
               $scope.cleanCanvas();
               DefaultParticle.clearParticles();
