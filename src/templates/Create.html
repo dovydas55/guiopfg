@@ -65,7 +65,12 @@
         <br />
         <label for="angle">Deviation angle</label>
         <input type="range" name="angle" min="0" max="180" data-ng-model="script.direction.angle" data-ng-change="setDirecton()"> <input type="text" data-ng-model="script.direction.angle">
-        
+
+        <br /><br /><br />
+        *Direction Randomizer* <br />
+        Randomness <input type="number" placeholder="Randomness" data-ng-model="script.randomizer.randomness" data-ng-blur="setRandomizer()"> <br />
+        <label for="randomizerScope">Randomizer scope </label>
+        <input type="range" name="randomizerScope" min="0" max="1" step="0.01" data-ng-model="script.randomizer.scope" data-ng-change="setRandomizer()"> <input type="text" data-ng-model="script.randomizer.scope">
 
 
 
