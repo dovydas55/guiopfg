@@ -27,6 +27,11 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
           endTime: 1500
       };
 
+      $scope.script.randomizer = {
+          randomness: 1,
+          scope: 0
+      };
+
       $scope.script.emmiter = {
           type: "box"
       };
@@ -176,6 +181,10 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
 
 
   /**********************************************/
+  $scope.setRandomizer = function(){
+      DefaultParticle.setRandomizer({rand: $scope.script.randomizer.randomness, scope: $scope.script.randomizer.scope});
+  };
+
   $scope.setDirecton = function(){
       var xDir = ($scope.script.direction.x * 10) - (canvas.width / 2);
       var yDir = ($scope.script.direction.y * 10) - (canvas.height / 2);

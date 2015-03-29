@@ -2,9 +2,13 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
     /* https://www.youtube.com/watch?v=YCI8uqePkrc */
     var canvas = document.getElementById("myCanvas");
     var ctx = canvas.getContext("2d");
+    var particleIndex = 0;
     var particles = {};
     var emmiter = {};
-    var particleIndex = 0;
+    var randomizer = {
+      rand: 1,
+      scope: 0
+    };
 
     var directionVector = {
         x: 0,
@@ -55,17 +59,33 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
         this.height = options.height;
         this.radius = options.width;
 
-        if(directionVector.x === 0 && directionVector.y === 0){
-          this.vx = Math.random() * 5 -3;
-          this.vy = Math.random() * 5 -3;
-        } else {
-
-            if(directionVector.angle === 0){
-              this.vx = directionVector.x * directionVector.speed;
-              this.vy = directionVector.y * directionVector.speed;
+        if(Math.random() <= randomizer.scope){
+            if(directionVector.x === 0 && directionVector.y === 0){
+              this.vx = Math.ceil(Math.random() * randomizer.rand - (randomizer.rand * 0.6));
+              this.vy = Math.ceil(Math.random() * randomizer.rand - (randomizer.rand * 0.6));
             } else {
-              this.vx = Math.ceil(Math.random() * directionVector.angle) + directionVector.x * directionVector.speed;
-              this.vy = Math.ceil(Math.random() * directionVector.angle) + directionVector.y * directionVector.speed;
+
+                if(directionVector.angle === 0){
+                  this.vx = Math.ceil(Math.random() * randomizer.rand - (randomizer.rand * 0.6)) + directionVector.x * directionVector.speed;
+                  this.vy = Math.ceil(Math.random() * randomizer.rand - (randomizer.rand * 0.6)) + directionVector.y * directionVector.speed;
+                } else {
+                  this.vx = Math.ceil(Math.random() * directionVector.angle * randomizer.rand - (randomizer.rand * 0.6)) + directionVector.x * directionVector.speed;
+                  this.vy = Math.ceil(Math.random() * directionVector.angle * randomizer.rand - (randomizer.rand * 0.6)) + directionVector.y * directionVector.speed;
+                }
+            }
+        } else {
+            if(directionVector.x === 0 && directionVector.y === 0){
+              this.vx = Math.random() * 5 -3;
+              this.vy = Math.random() * 5 -3;
+            } else {
+
+                if(directionVector.angle === 0){
+                  this.vx = directionVector.x * directionVector.speed;
+                  this.vy = directionVector.y * directionVector.speed;
+                } else {
+                  this.vx = Math.ceil(Math.random() * directionVector.angle) + directionVector.x * directionVector.speed;
+                  this.vy = Math.ceil(Math.random() * directionVector.angle) + directionVector.y * directionVector.speed;
+                }
             }
         }
 
@@ -87,6 +107,10 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
 
     DefaultParticle.updateGravity = function(updatedGravity){
         customGravity = updatedGravity;
+    };
+
+    DefaultParticle.setRandomizer = function(obj){
+        randomizer = obj;
     };
 
     DefaultParticle.DisplayEmmiterType = function(emmiterObj){
