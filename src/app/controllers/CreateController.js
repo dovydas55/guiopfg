@@ -124,6 +124,9 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
 
       DefaultParticle.updateGravity({xComponent: xdiff * 0.03, yComponent: ydiff * 0.03});
 
+      //TODO: Check out bias effects in OGRE
+      Converter.setLineForceAffector({x: xdiff, y: ydiff});
+      
       gravityCtx.stroke();
       gravityCtx.closePath();
   };
@@ -147,6 +150,10 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
     $scope.clearEmmiterCanvas();
 
     DefaultParticle.DisplayEmmiterType({startX: $scope.shape.startX, startY: $scope.shape.startY, w: null, h: null, r: radius, type: "ring"});
+    
+
+    //TODO: Add set function
+
     emmiterCtx.stroke();
     emmiterCtx.closePath();
   };
@@ -162,6 +169,8 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
     $scope.clearEmmiterCanvas();
 
     DefaultParticle.DisplayEmmiterType({startX: $scope.shape.startX, startY: $scope.shape.startY, w: width, h: height, r: null, type: "box"});
+    //TODO: Add set function
+
     emmiterCtx.strokeRect(cords.offsetX, cords.offsetY, width, height);
     emmiterCtx.closePath();
 
@@ -192,6 +201,7 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
 
   $scope.RandomDurationInterval = function(){
       var itr = Number(Math.floor(Math.random()*($scope.script.duration.endTime - $scope.script.duration.startTime + 1) + $scope.script.duration.startTime));
+      Converter.setRandomDuration({max: $scope.script.duration.endTime, min: $scope.script.duration.startTime});
       //$interval.cancel(EmmiterLoop);
       $interval.cancel(durationInterval);
       $interval.cancel(randomDurationInterval);
@@ -207,27 +217,32 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
 
   $scope.setParticleSize = function(){
       DefaultParticle.setParticleSize({width: $scope.script.width, height: $scope.script.height});
+      Converter.setHeightAndWidth({width: $scope.script.width, height: $scope.script.height});
   };
 
   $scope.setParticleLife = function(){
         DefaultParticle.setParticleLife($scope.script.timeToLive);
+        //TODO: Add set function
   };
 
 
   $scope.updateColor = function(){
       if($scope.rgbaPicker === undefined){
           DefaultParticle.setCustomColor('rgba(255,255,255,1)', $scope.randomParticleColor);
+          //TODO: Add set function
       } else {
           DefaultParticle.setCustomColor($scope.rgbaPicker.color, $scope.randomParticleColor);
+          //TODO: Add set function
       }
   };
 
 
   $scope.updateGravity = function(){
       DefaultParticle.createGravity($scope.customGravity);
+      //TODO: Add set function
   };
 
-
+  //To emulate OGRE3D fade-out effect in particles (bright in the center and fades to the end)
   $scope.render = function(){
       var particles = DefaultParticle.returnAllParticles();
       EmmiterLoop = $interval(function(){
