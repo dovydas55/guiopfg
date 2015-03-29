@@ -35,7 +35,9 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
 
       $scope.script.deflector = {
           bool: false,
-          bounce: 1.0
+          bounce: 1.0,
+          point: {},
+          normal: {}
       };
 
       $scope.script.randomizer = {

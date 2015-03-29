@@ -167,10 +167,10 @@
                         <p>Choose color</p>
                     </div>
                     <div class="col2">
-                         &nbsp;
+                         <input colorpicker="rgba" colorpicker-position="right" ng-model="rgbaPicker.color" type="text" data-ng-change="updateColor()">
                     </div>
                     <div class="col3">
-                        <input colorpicker="rgba" colorpicker-position="right" ng-model="rgbaPicker.color" type="text" data-ng-change="updateColor()">
+                        &nbsp;
                     </div>
                 </div>
 
@@ -200,8 +200,14 @@
                 </div>
 
                 <div class="col100 brdBottomDark">
-                    <div class="col50">
-                        <input type="number" placeholder="Velocity" data-ng-model="script.direction.speed" data-ng-change="setDirecton()">
+                    <div class="col1">
+                        <p>Velocity</p>
+                    </div>
+                    <div class="col2">
+                         <input type="number" placeholder="Velocity" data-ng-model="script.direction.speed" data-ng-change="setDirecton()">
+                    </div>
+                    <div class="col3">
+                        &nbsp;
                     </div>
                 </div>
 
@@ -223,12 +229,11 @@
 
 
         <accordion close-others="oneAtATime">
-            <accordion-group heading="Direction Randomizer"> 
-
-                <div class="col2 brdBottomDark">
+            <accordion-group heading="Direction Randomizer" class="brdTopDark brdBottomDark"> 
+                <div class="col2 brdBottomDark brdTopDark">
                     <p>Randomness</p>
                 </div>
-                <div class="col2 brdBottomDark">
+                <div class="col2 brdBottomDark brdTopDark">
                    <input type="number" placeholder="Randomness" data-ng-model="script.randomizer.randomness" data-ng-blur="setRandomizer()">
                 </div>
 
@@ -249,10 +254,9 @@
 
 
         <accordion close-others="oneAtATime">
-            <accordion-group heading="Deflector Plane"> 
+            <accordion-group heading="Deflector Plane" class="brdTopDark brdBottomDark"> 
 
-
-                <div class="col100 brdBottomDark">
+                <div class="col100 brdBottomDark brdTopDark">
                     <div class="col40">
                         <p>Deflector Plane</p>
                     </div>
@@ -261,38 +265,46 @@
                     </div>
                 </div>
 
-                <div class="col2 brdBottomDark">
-                    <input data-ng-show="script.deflector.bool" type="text" placeholder="Plane Point (x,y,z)" data-ng-model="script.deflector.point">
-                </div>
-                <div class="col2 brdBottomDark">
-                    <input data-ng-show="script.deflector.bool" type="text" placeholder="Plane Normal <X,Y,Z>" data-ng-model="script.deflector.normal"> 
+                <div class="col100 brdBottomDark">
+                    <div class="col1">
+                        <p>Plane Point</p>
+                    </div>
+                    <div class="col2">
+                        &nbsp;
+                    </div>
+                    <div class="col3">
+                        <input type="text" placeholder="X" data-ng-model="script.deflector.point.x">
+                        <input type="text" placeholder="Y" data-ng-model="script.deflector.point.y">
+                        <input type="text" placeholder="Z" data-ng-model="script.deflector.point.z">
+                    </div>
                 </div>
 
                 <div class="col100 brdBottomDark">
                     <div class="col1">
-                        &nbsp;
+                        <p>Plane Normal</p>
                     </div>
                     <div class="col2">
-                         <input data-ng-show="script.deflector.bool" type="range" name="bounce" min="0" max="1" step="0.01" data-ng-model="script.deflector.bounce" data-ng-change="defineDeflector()">
+                        &nbsp;
                     </div>
                     <div class="col3">
-                        <input data-ng-show="script.deflector.bool" type="text" data-ng-model="script.deflector.bounce">
+                        <input type="text" placeholder="X" data-ng-model="script.deflector.normal.x"> 
+                        <input type="text" placeholder="Y" data-ng-model="script.deflector.normal.y"> 
+                        <input type="text" placeholder="Z" data-ng-model="script.deflector.normal.z"> 
                     </div>
                 </div>
-
 
                 <div class="col100 brdBottomDark">
                     <div class="col1">
-                        &nbsp;
+                        <p>Bounce</p>
                     </div>
                     <div class="col2">
-                         <input type="number" data-ng-blur="scaleParticle()" data-ng-model="script.scalar" polaceholder="Scale the particle!">
-
+                         <input type="range" name="bounce" min="0" max="1" step="0.01" data-ng-model="script.deflector.bounce" data-ng-change="defineDeflector()">
                     </div>
                     <div class="col3">
-                        &nbsp;
+                        <input type="text" data-ng-model="script.deflector.bounce">
                     </div>
                 </div>
+
 
             </accordion>
         </accordion>
