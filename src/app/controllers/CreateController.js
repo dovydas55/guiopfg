@@ -242,7 +242,7 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
       var xDir = ($scope.script.direction.x * 10) - (canvas.width / 2);
       var yDir = ($scope.script.direction.y * 10) - (canvas.height / 2);
 
-      DefaultParticle.setDirectionVector({x: xDir * 0.1, y: yDir * 0.1 * -1, speed: $scope.script.direction.speed / 10, angle: $scope.script.direction.angle / 10});
+      DefaultParticle.setDirectionVector({x: xDir * 0.1, y: yDir * 0.1 /* * -1 */, speed: $scope.script.direction.speed / 10, angle: $scope.script.direction.angle / 10});
       Converter.setDirection({x: xDir, y: yDir});
       Converter.setVelocity({velocity: $scope.script.direction.speed});
       Converter.setAngle({angle: $scope.script.direction.angle});
