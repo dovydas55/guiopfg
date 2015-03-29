@@ -1,14 +1,14 @@
 angular.module('GUIOPFG').factory('Converter', [function() {
     var factory = {};
-    
+    var string = [];
     //Contaner object
     var file= {
     	//Declare variables
-    	fileName: 			'myParticleFile',
+    	fileName: 			'myParticleFile {',
     	quota: 				{ name: 'quota', val: 10 },
     	particle_width: 	{ name: 'particle_width', val: 100 },
     	particle_heigth: 	{ name: 'particle_heigth', val: 100 },
-    	emmiter: 			{ name: 'emmiter', type: 'point ', 
+    	emmiter: 			{ name: 'emmiter', type: 'Point' + '\n' + '{', 
     							val: {angle: {name: 'angle', val: 0},
                                         colour: {name: 'colour', red: 1, green: 1, blue: 1, alpha: 1},
     									direction: {name: 'direction', x: 1, y: 0, z: 0},
@@ -16,13 +16,13 @@ angular.module('GUIOPFG').factory('Converter', [function() {
     									position: {name: 'position', x: 0, y: 0, z: 0},
     									velocity: {name: 'velocity', val: 1},
     									time_to_live: {name: 'time_to_live', val: 5},
-    									duration: {name: 'duration', val: 0},
+    									duration: {name: 'duration', val1: 0},
     									repeat_delay: {name: 'repeat_delay', val: 0}}}
     };
 
 	//Declare funtions
     factory.setBoxShape = function(obj){
-        file.emmiter.type = 'Box';
+        file.emmiter.type = 'Box' + '\n' +'{';
         file.emmiter.val.width = {
             name: 'width', val: obj.w
         };
@@ -36,7 +36,7 @@ angular.module('GUIOPFG').factory('Converter', [function() {
     };
 
     factory.setName = function(obj){
-        file.fileName = obj.name;
+        file.fileName = obj.name + ' ' + '{';
         //.log(obj);
     };
 
@@ -49,28 +49,28 @@ angular.module('GUIOPFG').factory('Converter', [function() {
 
 	factory.setLineForceAffector = function(obj){
         file.LinearForce = {
-            name: 'affector', type: 'LinearForce',
+            name: '\n' + 'affector', type: 'LinearForce' + '\n' + '{',
             force_vector: {name: 'force_vector', x: obj.x, y: obj.y, z: 0},
-            force_application: {name: 'force_application', val: 'add'}
+            force_application: {name: 'force_application', val: 'add' + ' ' + '}'}
         };
         //console.log(file.LinearForce);
     };
 
     factory.setHeightAndWidth = function(obj){
-        file.particle_width = obj.width;
-        file.particle_heigth = obj.height;
+        file.particle_width.val = obj.width;
+        file.particle_heigth.val = obj.height;
         //console.log(obj);
     };
 
     factory.setDuration = function(obj){
-        file.emmiter.val.duration = obj.duration;
+        file.emmiter.val.duration.val1 = obj.duration;
         //console.log(obj);
     };
 
     factory.setRandomDuration = function(obj){
         delete file.emmiter.val.duration;
-        file.emmiter.val.duration_min = obj.min;
-        file.emmiter.val.duration_max = obj.max;
+        file.emmiter.val.duration_min = {name: 'duration_min', value: obj.min};
+        file.emmiter.val.duration_max = {name: 'duration_max', value: obj.max};
         //console.log(obj);
     };
 
@@ -81,24 +81,27 @@ angular.module('GUIOPFG').factory('Converter', [function() {
     };
 
     factory.setVelocity = function(obj){
-        file.emmiter.val.velocity = obj.velocity;
+        file.emmiter.val.velocity.val = obj.velocity;
         //console.log(obj);
     };
 
     factory.setAngle = function(obj){
-        file.emmiter.val.angle = obj.angle;
+        file.emmiter.val.angle.val = obj.angle;
         //console.log(obj);
     };
 
     factory.setTimeToLive = function(obj){
-        if(obj.random){
+        if(obj.time.random){
+            //console.log(file.emmiter.val);
             delete file.emmiter.val.time_to_live;
-            file.emmiter.val.time_to_live_min = obj.startTime;
-            file.emmiter.val.time_to_live_max = obj.endTime;
+            //console.log(file.emmiter.val);
+            file.emmiter.val.time_to_live_min = {name: 'time_to_live_min', val: obj.time.startTime};
+            file.emmiter.val.time_to_live_max = {name: 'time_to_live_max', val: obj.time.endTime};
             //console.log(file.emmiter.val.time_to_live_min);
             //console.log(file.emmiter.val.time_to_live_max);
         }else{
-            file.emmiter.val.time_to_live = obj.time.value;
+            //console.log("else");
+            file.emmiter.val.time_to_live = {name: 'val.time_to_live', val: obj.time.value};
             //console.log(file.emmiter.val.time_to_live);    
         }
         //console.log(obj);
@@ -117,21 +120,63 @@ angular.module('GUIOPFG').factory('Converter', [function() {
 
     factory.setRandomizer = function(obj){
         file.randomizer = {
-            name: 'affector', type: 'DirectionRandomizer',
+            name: '\n' + 'affector', type: 'DirectionRandomizer' + '\n' + '{',
             randomness: {name: 'randomness', val: obj.rand},
             scope: {name: 'scope', val: obj.scope},
-            keep_velocity: {name: 'keep_velocity', val: 'false'}
+            keep_velocity: {name: 'keep_velocity', val: 'false' + '\n' + '}'}
         };
         //console.log(file.randomizer);
-    };
-
-    factory.setBox = function(obj){
-
     };
 
 	factory.debug = function(){
 		console.log(file);
 	};
+
+    var toString2 = function(obj){
+        for(var i in obj){
+            if(obj.hasOwnProperty(i)){
+                if(typeof obj[i] === "object"){
+                    if(obj[i].name === 'emmiter'){
+                        string.push('\n');
+                        string.push(toString2(obj[i]));
+                        string.push('\n } \n');
+                    }else{
+                        string.push('\n');
+                        string.push(toString2(obj[i]));
+                    }
+                }else{
+                    string.push(obj[i]);
+                }
+                
+            }
+        }
+        //return string;
+    };
+
+    factory.toString = function(){
+        string = [];
+        string.push('particle_system');
+        for(var i in file){
+            if(file.hasOwnProperty(i)){
+                if(typeof file[i] === "object"){
+                    if(file[i].name === 'emmiter'){
+                        string.push('\n');
+                        string.push(toString2(file[i]));
+                        string.push('\n } \n');
+                    }else{
+                        string.push('\n');
+                        string.push(toString2(file[i]));
+                    }
+                }else{
+                    string.push(file[i]);
+                }
+                
+            }
+        }
+        return string.join(" ") + '\n' + '}';
+    };
+
+    
 
 	return factory;
 }]);

@@ -71,6 +71,7 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
       };
       /* ************************** */
       Converter.debug();
+      Converter.toString();
       $scope.render();
   };
 
@@ -178,6 +179,12 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
     emmiterCtx.closePath();
   };
 
+  $scope.download = function(){
+      Converter.debug();
+      var string = Converter.toString();
+      console.log(string);
+  };
+
   $scope.drawBox = function(cords){
     emmiterCtx.beginPath();
     emmiterCtx.lineWidth = 2;
@@ -217,14 +224,11 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
   /**********************************************/
 
   $scope.scaleParticle = function(){
-      console.log("scale");
+      //console.log("scale");
   };
 
   $scope.defineDeflector = function(){
-<<<<<<< HEAD
-      //console.log("4444");
-=======
->>>>>>> 6e185e1801d8c4db1c66bbdff13d30bb18e0e438
+
       DefaultParticle.setDeflector({bounce: $scope.script.deflector.bounce, isActive: $scope.script.deflector.bool});
       Converter.setDeflectorPlane({bounce: $scope.script.deflector.bounce, isActive: $scope.script.deflector.bool});
   };
