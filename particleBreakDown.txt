@@ -28,7 +28,7 @@ particle_system File/Name
 
 	common_direction			(<x>,<y>,<z> (deault: 0 0 1))
 
-	common_up_vector			(<x>,<y>,<z> (deault: 0 1 0))
+	common_up_vecto	r			(<x>,<y>,<z> (deault: 0 1 0))
 
 	//atribute of 'billboard' particle renderer
 	point_rendering	
@@ -68,9 +68,9 @@ particle_system File/Name
 		time_to_live 			(<seconds>, default 5)
 
 		//radomizes lifetime of particles
-		time_to_live_min 		(default 5)
+		time_to_live_min 		(<seconds>, default 5)
 
-		time_to_live_max 		(default 5)
+		time_to_live_max 		(<seconds>, default 5)
 		//
 
 		duration 				(<seconds>, default 0)
@@ -132,39 +132,57 @@ particle_system File/Name
 		state_change 			(<seconds>, default: 1)
 	}
 
-	
+	//scales particles in flight
 	affector Scaler{
-
-	
+		rate 					(<value per second>)
 	}
 
+	//Rotates particles in flight
 	affector Rotator{
+		rotation_speed_range_start	(<degrees_per_second>, default: 0)
+		
+		rotation_speed_range_end	(<degrees_per_second>, default: 0)
 
-	
+		rotation_range_start 		(<degrees>, default: 0)
+
+		rotation_range_end 			(<degrees>, default: 0)
 	}
 
+	//as with colorFader2 exept with variable number of defined stages
 	affector ColorInterploator{
+		time0 					(<0-1 based on lifetime>, default: 1)
+		color0					(<r> <g> <b> [<a>], default: 0.5 0.5 0.5 0.0)
 
-	
+		time1 					(<0-1 based on lifetime>, default: 1)
+		color2					(<r> <g> <b> [<a>], default: 0.5 0.5 0.5 0.0)
+
+		.
+		.
+		.
+		.
+		.
 	}
 
+	//colors particles from image file
 	affector ColorImage{
-
-	
+		image 				(<image name (e.g. rainbow.png)>)
 	}
 
+	//define plane that collides with particles
 	affector DeflectorPlane{
+		plane_point 		(a point on the plain, default: 0 0 0)
+		
+		plane_normal		(normal vector of the plane, default: 0 1 0)
 
-	
+		bounce 				( 0(no bounce), 1 (100% bounce), default: 1.0)
 	}
 
-	affector Scaler{
-
-	
-	}
-
+	//apply randomness to particles
 	affector DirectionRandomizer{
+		randomness 			(ammount applied to each axial direction, default: 1)
 
-	
+		scope 				(percentage of particles affected in each run of the affector, default: 1.0)
+
+		keep_velocity 		(true|false, default: false)
 	}
 }
