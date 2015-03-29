@@ -195,7 +195,9 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
 
   /**********************************************/
   $scope.setRandomizer = function(){
+      console.log('randFunc');
       DefaultParticle.setRandomizer({rand: $scope.script.randomizer.randomness, scope: $scope.script.randomizer.scope});
+      Converter.setRandomizer({rand: $scope.script.randomizer.randomness, scope: $scope.script.randomizer.scope});
   };
 
   $scope.setDirecton = function(){

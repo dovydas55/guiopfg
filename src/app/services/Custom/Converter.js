@@ -38,7 +38,7 @@ angular.module('GUIOPFG').factory('Converter', [function() {
             name: 'affector', type: 'LinearForce',
             force_vector: {name: 'force_vector', x: obj.x, y: obj.y, z: 0},
             force_application: {name: 'force_application', val: 'add'}
-        }
+        };
         //console.log(file.LinearForce);
     };
 
@@ -98,7 +98,21 @@ angular.module('GUIOPFG').factory('Converter', [function() {
         file.emmiter.val.colour.green = (Number(obj.string[1]) / 255).toFixed(2);
         file.emmiter.val.colour.blue = (Number(obj.string[2]) / 255).toFixed(2);
         file.emmiter.val.colour.alpha = Number(obj.string[3]);    
-        console.log(file.emmiter.val.colour);
+        //console.log(file.emmiter.val.colour);
+    };
+
+    factory.setRandomizer = function(obj){
+        file.randomizer = {
+            name: 'affector', type: 'DirectionRandomizer',
+            randomness: {name: 'randomness', val: obj.rand},
+            scope: {name: 'scope', val: obj.scope},
+            keep_velocity: {name: 'keep_velocity', val: 'false'}
+        };
+        //console.log(file.randomizer);
+    };
+
+    factory.setBox = function(obj){
+
     };
 
 	factory.debug = function(){
