@@ -5,9 +5,9 @@
 
     <canvas id="gravity" width="200" height="200" data-ng-mousedown="gravityStart($event)" data-ng-mouseup="gravityStop()" data-ng-mousemove="setGravity($event)"></canvas>
     <br />
-    <input type="radio" name="emiiterOption" value="box" data-ng-model="script.emmiter.type">Box
-    <input type="radio" name="emiiterOption" value="ring" data-ng-model="script.emmiter.type">Ring
-    <input type="radio" name="emiiterOption" value="point" data-ng-model="script.emmiter.type">Point
+    <input type="radio" name="emiiterOption" value="box" data-ng-model="script.emmiter.type" data-ng-change="setDefaultEmmiter()">Box
+    <input type="radio" name="emiiterOption" value="ring" data-ng-model="script.emmiter.type" data-ng-change="setDefaultEmmiter()">Ring
+    <input type="radio" name="emiiterOption" value="point" data-ng-model="script.emmiter.type" data-ng-change="setDefaultEmmiter()">Point
     <br /><br />
 
     <div class="control">
@@ -30,22 +30,22 @@
 
         <label for="emmisionRate">Emmision Rate</label>
         <input type="range" name="emmisionRate" min="1" max={{script.quota}} data-ng-model="script.emmisionRate"> <input type="text" data-ng-model="script.emmisionRate"> <br />
-        
+
         <input type="number" placeholder="Position <X>" data-ng-model="script.position.x" data-ng-blur='getPosition()'> <br />
          <input type="number" placeholder="Position <Y>" data-ng-model="script.position.y" data-ng-blur='getPosition()'> <br />
           <input type="number" placeholder="Position <Z>" data-ng-model="script.position.z" data-ng-blur='getPosition()'> <br />
           <!-- for siggi only -->
 
         <label for="timeToLife">Time to live</label>
-        
-        <input type="range" name="timeToLife" min="1" max="300" data-ng-model="script.timeToLive.value" data-ng-change="setParticleLife()"> 
+
+        <input type="range" name="timeToLife" min="1" max="300" data-ng-model="script.timeToLive.value" data-ng-change="setParticleLife()">
 
         <input type="text" data-ng-model="script.timeToLive.value" data-ng-blur='setParticleLife()'>
-        
+
         <input type="checkbox" name="randomTimeToLive" value="randomTimeToLive" data-ng-model="script.timeToLive.random">Random Time To Live <br>
-        
+
         <input type="number" data-ng-model="script.timeToLive.startTime" data-ng-show="script.timeToLive.random" placeholder="Start time" data-ng-blur="setParticleLife()">
-        
+
         <input type="number" data-ng-model="script.timeToLive.endTime" data-ng-show="script.timeToLive.random" placeholder="End time" data-ng-blur="setParticleLife()"> <br />
 
         <label for="duration">Duration</label>
@@ -79,6 +79,8 @@
 
         <input data-ng-show="script.deflector.bool" type="range" name="bounce" min="0" max="1" step="0.01" data-ng-model="script.deflector.bounce" data-ng-change="defineDeflector()"> <input data-ng-show="script.deflector.bool" type="text" data-ng-model="script.deflector.bounce"> <br />
 
+        <br />
+        <input type="number" data-ng-blur="scaleParticle()" data-ng-model="script.scalar" polaceholder="Scale the particle!">
 
     </div>
 
