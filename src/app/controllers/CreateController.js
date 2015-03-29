@@ -355,7 +355,8 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
   };
 
   $scope.download = function(){
-      console.log("yayyy");
+    var string = Converter.toString();
+      console.log(string);
   };
 
   //iniliatize the variables after everything has loaded
