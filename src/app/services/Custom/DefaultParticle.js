@@ -106,6 +106,8 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
             }
         }
 
+        this.vy *= -1; /************* inverting y coordinate for OGRE ********************/
+
         this.gravity = customGravity;
         this.color = customColor;
 
@@ -134,8 +136,6 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
     };
 
     DefaultParticle.DisplayEmmiterType = function(emmiterObj){
-        console.log(emmiterObj);
-        //console.log(emmiterObj);
         emmiter = emmiterObj;
     };
 
