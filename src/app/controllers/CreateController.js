@@ -31,6 +31,13 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
           type: "box"
       };
 
+      $scope.script.direction = {
+          x: 0,
+          y: 0,
+          speed: 1,
+          angle: 0
+      };
+
       $scope.script.quota = 1;
       $scope.script.width = 10;
       $scope.script.height = 10;
@@ -169,6 +176,13 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
 
 
   /**********************************************/
+  $scope.setDirecton = function(){
+      var xDir = ($scope.script.direction.x * 10) - (canvas.width / 2);
+      var yDir = ($scope.script.direction.y * 10) - (canvas.height / 2);
+
+      DefaultParticle.setDirectionVector({x: xDir * 0.1, y: yDir * 0.1 * -1, speed: $scope.script.direction.speed / 10, angle: $scope.script.direction.angle / 10});
+  };
+
   $scope.setDuration = function(){
       $interval.cancel(durationInterval);
       if($scope.script.duration.random === true){

@@ -6,6 +6,13 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
     var emmiter = {};
     var particleIndex = 0;
 
+    var directionVector = {
+        x: 0,
+        y: 0,
+        speed: 1,
+        angle: 0
+    };
+
     var options = {
         width: 10,
         height: 10
@@ -40,7 +47,6 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
             this.maxLife = timeToLive.value;
         } else {
             this.maxLife = Math.floor(Math.random()*(timeToLive.endTime - timeToLive.startTime + 1) + timeToLive.startTime);
-            console.log(this.maxLife);
         }
 
         /* for randomizinf width + height use: */
@@ -49,13 +55,21 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
         this.height = options.height;
         this.radius = options.width;
 
+        if(directionVector.x === 0 && directionVector.y === 0){
+          this.vx = Math.random() * 5 -3;
+          this.vy = Math.random() * 5 -3;
+        } else {
 
-
-        this.vx = Math.random() * 5 - 3; /* let the user to set the velocity */
-        this.vy = Math.random() * 5 - 3;
+            if(directionVector.angle === 0){
+              this.vx = directionVector.x * directionVector.speed;
+              this.vy = directionVector.y * directionVector.speed;
+            } else {
+              this.vx = Math.ceil(Math.random() * directionVector.angle) + directionVector.x * directionVector.speed;
+              this.vy = Math.ceil(Math.random() * directionVector.angle) + directionVector.y * directionVector.speed;
+            }
+        }
 
         this.gravity = customGravity;
-
         this.color = customColor;
 
         this.life = 0;
@@ -65,12 +79,17 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
 
     };
 
+    DefaultParticle.setDirectionVector = function(obj){
+        directionVector = obj;
+        console.log(directionVector);
+
+    };
+
     DefaultParticle.updateGravity = function(updatedGravity){
         customGravity = updatedGravity;
     };
 
     DefaultParticle.DisplayEmmiterType = function(emmiterObj){
-        console.log(emmiterObj);
         emmiter = emmiterObj;
     };
 
@@ -84,12 +103,13 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
         customColor = newcolor;
     };
 
+/*
     DefaultParticle.randomRGBA = function(obj){
         randomRGBA = obj;
         randomRGBA_bool = true;
         staticColor = false;
     };
-
+*/
     DefaultParticle.setParticleSize = function(newsize){
         options.width = newsize.width;
         options.height = newsize.height;
