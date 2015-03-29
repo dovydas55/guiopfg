@@ -12,7 +12,7 @@
 
     <div class="control">
 
-        <input type="text" placeholder="Script name" data-ng-model="script.name"> <br />
+        <input type="text" placeholder="Script name" data-ng-model="script.name" data-ng-blur='getName()'> <br />
         <input type="radio" id="partSquare" name="defaultParticleType" value="square" data-ng-model="script.defaultParticleType"> <label for="partSquare"> Square</label>
         <input type="radio" id="partCircle" name="defaultParticleType" value="circle" data-ng-model="script.defaultParticleType"> <label for="partCircle"> Circle</label>  <br />
 
@@ -30,12 +30,22 @@
 
         <label for="emmisionRate">Emmision Rate</label>
         <input type="range" name="emmisionRate" min="1" max={{script.quota}} data-ng-model="script.emmisionRate"> <input type="text" data-ng-model="script.emmisionRate"> <br />
-        <input type="text" placeholder="Position <X Y Z>" data-ng-model="script.position"> <br /><!-- for siggi only -->
+        
+        <input type="number" placeholder="Position <X>" data-ng-model="script.position.x" data-ng-blur='getPosition()'> <br />
+         <input type="number" placeholder="Position <Y>" data-ng-model="script.position.y" data-ng-blur='getPosition()'> <br />
+          <input type="number" placeholder="Position <Z>" data-ng-model="script.position.z" data-ng-blur='getPosition()'> <br />
+          <!-- for siggi only -->
 
         <label for="timeToLife">Time to live</label>
-        <input type="range" name="timeToLife" min="1" max="300" data-ng-model="script.timeToLive.value" data-ng-change="setParticleLife()"> <input type="text" data-ng-model="script.timeToLive.value">
+        
+        <input type="range" name="timeToLife" min="1" max="300" data-ng-model="script.timeToLive.value" data-ng-change="setParticleLife()"> 
+
+        <input type="text" data-ng-model="script.timeToLive.value" data-ng-blur='setParticleLife()'>
+        
         <input type="checkbox" name="randomTimeToLive" value="randomTimeToLive" data-ng-model="script.timeToLive.random">Random Time To Live <br>
+        
         <input type="number" data-ng-model="script.timeToLive.startTime" data-ng-show="script.timeToLive.random" placeholder="Start time" data-ng-blur="setParticleLife()">
+        
         <input type="number" data-ng-model="script.timeToLive.endTime" data-ng-show="script.timeToLive.random" placeholder="End time" data-ng-blur="setParticleLife()"> <br />
 
         <label for="duration">Duration</label>

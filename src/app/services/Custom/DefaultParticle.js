@@ -47,10 +47,8 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
             this.maxLife = timeToLive.value;
         } else {
             this.maxLife = Math.floor(Math.random()*(timeToLive.endTime - timeToLive.startTime + 1) + timeToLive.startTime);
-<<<<<<< HEAD
+
             //console.log(this.maxLife);
-=======
->>>>>>> 40755b4359431fbcbfde33b71abc12e71de32401
         }
 
         /* for randomizinf width + height use: */
@@ -94,10 +92,8 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
     };
 
     DefaultParticle.DisplayEmmiterType = function(emmiterObj){
-<<<<<<< HEAD
+
         //console.log(emmiterObj);
-=======
->>>>>>> 40755b4359431fbcbfde33b71abc12e71de32401
         emmiter = emmiterObj;
     };
 

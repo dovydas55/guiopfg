@@ -14,11 +14,15 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
   var gravity = document.getElementById("gravity");
   var gravityCtx = gravity.getContext("2d");
 
+
   $scope.init = function(){
       $scope.script = {};
+      $scope.script.position = {};
       $scope.script.timeToLive = {
           value: 50,
-          random: false
+          random: false,
+          startTime: 0,
+          endTime: 50
       };
       $scope.script.duration = {
           value: 0,
@@ -131,7 +135,7 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
 
       DefaultParticle.updateGravity({xComponent: xdiff * 0.03, yComponent: ydiff * 0.03});
 
-      //TODO: Check out bias effects in OGRE
+ //***TODO: Check out bias effects in OGRE
       Converter.setLineForceAffector({x: xdiff, y: ydiff});
       
       gravityCtx.stroke();
@@ -159,7 +163,7 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
     DefaultParticle.DisplayEmmiterType({startX: $scope.shape.startX, startY: $scope.shape.startY, w: null, h: null, r: radius, type: "ring"});
     
 
-    //TODO: Add set function
+//***TODO: Add set function
 
     emmiterCtx.stroke();
     emmiterCtx.closePath();
@@ -176,7 +180,7 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
     $scope.clearEmmiterCanvas();
 
     DefaultParticle.DisplayEmmiterType({startX: $scope.shape.startX, startY: $scope.shape.startY, w: width, h: height, r: null, type: "box"});
-    //TODO: Add set function
+//***TODO: Add set function
 
     emmiterCtx.strokeRect(cords.offsetX, cords.offsetY, width, height);
     emmiterCtx.closePath();
@@ -190,6 +194,9 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
       var yDir = ($scope.script.direction.y * 10) - (canvas.height / 2);
 
       DefaultParticle.setDirectionVector({x: xDir * 0.1, y: yDir * 0.1 * -1, speed: $scope.script.direction.speed / 10, angle: $scope.script.direction.angle / 10});
+      Converter.setDirection({x: xDir, y: yDir});
+      Converter.setVelocity({velocity: $scope.script.direction.speed});
+      Converter.setAngle({angle: $scope.script.direction.angle});
   };
 
   $scope.setDuration = function(){
@@ -198,11 +205,13 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
         $scope.RandomDurationInterval();
       }
       else if($scope.script.duration.value === 0 || $scope.script.duration.value === null || $scope.script.duration.value <= 500 || $scope.script.duration === false){
+          Converter.setDuration({duration: $scope.script.duration});
           $interval.cancel(EmmiterLoop);
           $interval.cancel(durationInterval);
           $interval.cancel(randomDurationInterval);
           $scope.render();
       } else{
+          Converter.setDuration({duration: $scope.script.duration});
           $interval.cancel(randomDurationInterval);
           durationInterval = $interval(function(){
               $interval.cancel(EmmiterLoop);
@@ -235,25 +244,27 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
   };
 
   $scope.setParticleLife = function(){
+        //console.log('asdf');
         DefaultParticle.setParticleLife($scope.script.timeToLive);
-        //TODO: Add set function
+        Converter.setTimeToLive({time: $scope.script.timeToLive});
   };
 
 
   $scope.updateColor = function(){
       if($scope.rgbaPicker === undefined){
           DefaultParticle.setCustomColor('rgba(255,255,255,1)', $scope.randomParticleColor);
-          //TODO: Add set function
+          Converter.setColor({x: 1, y: 1, z: 1, a: 1});
       } else {
           DefaultParticle.setCustomColor($scope.rgbaPicker.color, $scope.randomParticleColor);
-          //TODO: Add set function
+          //console.log($scope.rgbaPicker.color);
+          Converter.setColor({string: $scope.rgbaPicker.color});
       }
   };
 
 
   $scope.updateGravity = function(){
       DefaultParticle.createGravity($scope.customGravity);
-      //TODO: Add set function
+ //***TODO: Add set function
   };
 
   //To emulate OGRE3D fade-out effect in particles (bright in the center and fades to the end)
@@ -288,6 +299,16 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
           }
 
       }
+  };
+
+  $scope.getName = function(){
+    Converter.setName({name: $scope.script.name});
+  };
+
+  $scope.getPosition = function(){
+    Converter.setPosition({x: $scope.script.position.x, 
+                          y: $scope.script.position.y, 
+                          z: $scope.script.position.z});
   };
 
   //iniliatize the variables after everything has loaded

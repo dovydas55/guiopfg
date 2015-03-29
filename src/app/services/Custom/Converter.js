@@ -21,6 +21,18 @@ angular.module('GUIOPFG').factory('Converter', [function() {
     };
 
 	//Declare funtions
+    factory.setName = function(obj){
+        file.fileName = obj.name;
+        //.log(obj);
+    };
+
+    factory.setPosition = function(obj){
+        file.emmiter.val.position.x = obj.x;
+        file.emmiter.val.position.y = obj.y;
+        file.emmiter.val.position.z = obj.z;
+        console.log(obj);
+    };    
+
 	factory.setLineForceAffector = function(obj){
         file.LinearForce = {
             name: 'affector', type: 'LinearForce',
@@ -36,17 +48,58 @@ angular.module('GUIOPFG').factory('Converter', [function() {
         //console.log(obj);
     };
 
+    factory.setDuration = function(obj){
+        file.emmiter.val.duration = obj.duration;
+        //console.log(obj);
+    };
+
     factory.setRandomDuration = function(obj){
         delete file.emmiter.val.duration;
         file.emmiter.val.duration_min = obj.min;
         file.emmiter.val.duration_max = obj.max;
-        console.log(obj);
+        //console.log(obj);
     };
 
-	factory.fetchValues = function(obj){
-		console.log(obj);
-	};
+    factory.setDirection = function(obj){
+        file.emmiter.val.direction.x = obj.x;
+        file.emmiter.val.direction.y = obj.y;
+        //console.log(obj);
+    };
 
+    factory.setVelocity = function(obj){
+        file.emmiter.val.velocity = obj.velocity;
+        //console.log(obj);
+    };
+
+    factory.setAngle = function(obj){
+        file.emmiter.val.angle = obj.angle;
+        //console.log(obj);
+    };
+
+    factory.setTimeToLive = function(obj){
+        if(obj.random){
+            delete file.emmiter.val.time_to_live;
+            file.emmiter.val.time_to_live_min = obj.startTime;
+            file.emmiter.val.time_to_live_max = obj.endTime;
+            //console.log(file.emmiter.val.time_to_live_min);
+            //console.log(file.emmiter.val.time_to_live_max);
+        }else{
+            file.emmiter.val.time_to_live = obj.time.value;
+            //console.log(file.emmiter.val.time_to_live);    
+        }
+        //console.log(obj);
+    };
+
+    factory.setColor = function(obj){
+        obj.string = obj.string.replace('rgba(', '');
+        obj.string = obj.string.replace(')', '');
+        obj.string = obj.string.split(",");
+        file.emmiter.val.colour.red = (Number(obj.string[0]) / 255).toFixed(2);
+        file.emmiter.val.colour.green = (Number(obj.string[1]) / 255).toFixed(2);
+        file.emmiter.val.colour.blue = (Number(obj.string[2]) / 255).toFixed(2);
+        file.emmiter.val.colour.alpha = Number(obj.string[3]);    
+        console.log(file.emmiter.val.colour);
+    };
 
 	factory.debug = function(){
 		console.log(file);
