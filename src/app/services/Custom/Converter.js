@@ -21,6 +21,20 @@ angular.module('GUIOPFG').factory('Converter', [function() {
     };
 
 	//Declare funtions
+    factory.setBoxShape = function(obj){
+        file.emmiter.type = 'Box';
+        file.emmiter.val.width = {
+            name: 'width', val: obj.w
+        };
+        file.emmiter.val.height = {
+            name: 'height', val: obj.h
+        };
+        file.emmiter.val.depth = {
+          name: 'depth', val: obj.w  
+        };
+        //console.log(file);
+    };
+
     factory.setName = function(obj){
         file.fileName = obj.name;
         //.log(obj);
@@ -30,7 +44,7 @@ angular.module('GUIOPFG').factory('Converter', [function() {
         file.emmiter.val.position.x = obj.x;
         file.emmiter.val.position.y = obj.y;
         file.emmiter.val.position.z = obj.z;
-        console.log(obj);
+        //console.log(obj);
     };    
 
 	factory.setLineForceAffector = function(obj){

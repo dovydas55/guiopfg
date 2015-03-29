@@ -190,7 +190,8 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
     $scope.clearEmmiterCanvas();
 
     DefaultParticle.DisplayEmmiterType({startX: $scope.shape.startX, startY: $scope.shape.startY, w: width, h: height, r: null, type: "box"});
-//***TODO: Add set function
+    //console.log('boxFunc');
+    Converter.setBoxShape({w: width, h: height});
 
     emmiterCtx.strokeRect(cords.offsetX, cords.offsetY, width, height);
     emmiterCtx.closePath();
@@ -200,12 +201,13 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
 
   /**********************************************/
   $scope.defineDeflector = function(){
-      console.log("4444");
+      //console.log("4444");
       DefaultParticle.setDeflector({bounce: $scope.script.deflector.bounce, isActive: $scope.script.deflector.bool});
+      Converter.setDeflectorPlane({bounce: $scope.script.deflector.bounce, isActive: $scope.script.deflector.bool});
   };
 
   $scope.setRandomizer = function(){
-      console.log('randFunc');
+      //console.log('randFunc');
       DefaultParticle.setRandomizer({rand: $scope.script.randomizer.randomness, scope: $scope.script.randomizer.scope});
       Converter.setRandomizer({rand: $scope.script.randomizer.randomness, scope: $scope.script.randomizer.scope});
   };
@@ -249,7 +251,7 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
       //$interval.cancel(EmmiterLoop);
       $interval.cancel(durationInterval);
       $interval.cancel(randomDurationInterval);
-      console.log(itr);
+      //console.log(itr);
       randomDurationInterval = $interval(function(){
           $interval.cancel(EmmiterLoop);
           $scope.cleanCanvas();
@@ -285,6 +287,7 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
 
   $scope.updateGravity = function(){
       DefaultParticle.createGravity($scope.customGravity);
+      console.log('Here!');
  //***TODO: Add set function
   };
 
