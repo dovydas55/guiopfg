@@ -19,6 +19,7 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
       $scope.script = {};
       $scope.script.position = {};
       $scope.oneAtATime = true;
+      $scope.rgbaPicker = {};
       $scope.script.timeToLive = {
           value: 50,
           random: false,
@@ -301,9 +302,10 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
 
 
   $scope.updateColor = function(){
+      console.log($scope.rgbaPicker.color);
       if($scope.rgbaPicker === undefined){
           DefaultParticle.setCustomColor('rgba(255,255,255,1)', $scope.randomParticleColor);
-          Converter.setColor({x: 1, y: 1, z: 1, a: 1});
+          //Converter.setColor({x: 1, y: 1, z: 1, a: 1});
       } else {
           DefaultParticle.setCustomColor($scope.rgbaPicker.color, $scope.randomParticleColor);
           //console.log($scope.rgbaPicker.color);
