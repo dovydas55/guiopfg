@@ -45,6 +45,18 @@
         <input type="number" data-ng-model="script.duration.endTime" data-ng-show="script.duration.random" placeholder="End time" data-ng-blur="setDuration()"> <br />
 
         Choose color<input colorpicker="rgba" colorpicker-position="right" ng-model="rgbaPicker.color" type="text" data-ng-change="updateColor()">
+        <br /><br />
+        <label for="Xdirection">Direction (X component) </label>
+        <input type="range" name="Xdirection" min="-50" max="50" data-ng-model="script.direction.x" data-ng-change="setDirecton()"> <input type="text" data-ng-model="script.direction.x"> <br />
+        <label for="Ydirection">Direction (Y component) </label>
+        <input type="range" name="Ydirection" min="-50" max="50" data-ng-model="script.direction.y" data-ng-change="setDirecton()"> <input type="text" data-ng-model="script.direction.y"> <br />
+        <input type="number" placeholder="Velocity" data-ng-model="script.direction.speed" data-ng-change="setDirecton()">
+
+        <br />
+        <label for="angle">Deviation angle</label>
+        <input type="range" name="angle" min="0" max="180" data-ng-model="script.direction.angle" data-ng-change="setDirecton()"> <input type="text" data-ng-model="script.direction.angle">
+        
+
 
 
     </div>
