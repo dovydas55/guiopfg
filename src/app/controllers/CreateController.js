@@ -24,6 +24,7 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
           startTime: 0,
           endTime: 50
       };
+
       $scope.script.duration = {
           value: 0,
           random: false,
@@ -42,7 +43,7 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
       };
 
       $scope.script.emmiter = {
-          type: "box"
+          type: "point"
       };
 
       $scope.script.direction = {
@@ -59,16 +60,14 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
       $scope.script.defaultParticleType = 'circle';
 
 
-      $scope.customGravity = 0;
-
       /* for dragging the particles */
       $scope.isMoving = false;
       $scope.isEmmiterMoving = false;
       $scope.isGravityUpdating = false;
 
       $scope.shape = {
-        startX: 0,
-        startY: 0
+        startX: canvas.width / 2,
+        startY: canvas.width / 2
       };
       /* ************************** */
       Converter.debug();
@@ -112,7 +111,7 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
       } else if ($scope.script.emmiter.type === 'ring' && $scope.isEmmiterMoving){
           $scope.drawRing(cords);
       } else if($scope.script.emmiter.type === 'point' && $scope.isEmmiterMoving){
-          //NOT SURE WHAT TO DO HERE
+          //DO nothing
       }
   };
 
@@ -147,7 +146,7 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
 
  //***TODO: Check out bias effects in OGRE
       Converter.setLineForceAffector({x: xdiff, y: ydiff});
-      
+
       gravityCtx.stroke();
       gravityCtx.closePath();
   };
@@ -171,7 +170,7 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
     $scope.clearEmmiterCanvas();
 
     DefaultParticle.DisplayEmmiterType({startX: $scope.shape.startX, startY: $scope.shape.startY, w: null, h: null, r: radius, type: "ring"});
-    
+
 
 //***TODO: Add set function
 
@@ -198,10 +197,34 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
 
   };
 
+    $scope.setDefaultEmmiter = function(){
+        /*TODO: SYNC!!!!! WITH NEW UPDATES FROM JON*/
+        if($scope.script.emmiter.type === 'point'){
+          $scope.clearGravityCanvas();
+          DefaultParticle.DisplayEmmiterType({startX: canvas.width / 2, startY: canvas.height / 2, w: null, h: null, r: null, type: "point"});
+        }else if($scope.script.emmiter.type === 'box'){
+          $scope.clearGravityCanvas();
+          $scope.drawBox({offsetX: 50, offsetY: 50});
+          DefaultParticle.DisplayEmmiterType({startX: canvas.width / 2, startY: canvas.height / 2, w: 50, h: 50, r: null, type: "box"});
+        }else if($scope.script.emmiter.type === 'ring'){
+          $scope.clearGravityCanvas();
+          $scope.drawRing({offsetX: 200, offsetY: 200});
+          DefaultParticle.DisplayEmmiterType({startX: canvas.width / 2, startY: canvas.height / 2, w: null, h: null, r: 50, type: "ring"});
+        }
+
+    };
 
   /**********************************************/
+
+  $scope.scaleParticle = function(){
+      console.log("scale");
+  };
+
   $scope.defineDeflector = function(){
+<<<<<<< HEAD
       //console.log("4444");
+=======
+>>>>>>> 6e185e1801d8c4db1c66bbdff13d30bb18e0e438
       DefaultParticle.setDeflector({bounce: $scope.script.deflector.bounce, isActive: $scope.script.deflector.bool});
       Converter.setDeflectorPlane({bounce: $scope.script.deflector.bounce, isActive: $scope.script.deflector.bool});
   };
@@ -284,13 +307,6 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
       }
   };
 
-
-  $scope.updateGravity = function(){
-      DefaultParticle.createGravity($scope.customGravity);
-      console.log('Here!');
- //***TODO: Add set function
-  };
-
   //To emulate OGRE3D fade-out effect in particles (bright in the center and fades to the end)
   $scope.render = function(){
       var particles = DefaultParticle.returnAllParticles();
@@ -330,8 +346,8 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
   };
 
   $scope.getPosition = function(){
-    Converter.setPosition({x: $scope.script.position.x, 
-                          y: $scope.script.position.y, 
+    Converter.setPosition({x: $scope.script.position.x,
+                          y: $scope.script.position.y,
                           z: $scope.script.position.z});
   };
 

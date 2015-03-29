@@ -41,12 +41,18 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
 
 
     var DefaultParticle = function(){
+
         this.x = customCords.x;
         this.y = customCords.y;
-        if(emmiter.type === 'box'){
+        if(emmiter.type === 'point'){
+            this.x = customCords.x;
+            this.y = customCords.y;
+        }
+        else if(emmiter.type === 'box'){
             this.x = emmiter.startX + Math.ceil(Math.random() * (emmiter.w * -1));
             this.y = emmiter.startY + Math.ceil(Math.random() * (emmiter.h * -1));
         } else if(emmiter.type === 'ring'){
+            //Math.floor(Math.random()*(max-min+1)+min); 
             //TODO: implement formula for displaying a ring
         }
 
