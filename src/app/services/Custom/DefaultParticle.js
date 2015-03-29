@@ -5,6 +5,10 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
     var particleIndex = 0;
     var particles = {};
     var emmiter = {};
+    var deflector = {
+      isActive: false,
+      bounce: 1.0
+    };
     var randomizer = {
       rand: 1,
       scope: 0
@@ -101,10 +105,13 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
 
     };
 
+    DefaultParticle.setDeflector = function(obj){
+        console.log(obj);
+        deflector = obj;
+    };
+
     DefaultParticle.setDirectionVector = function(obj){
         directionVector = obj;
-        console.log(directionVector);
-
     };
 
     DefaultParticle.updateGravity = function(updatedGravity){
@@ -184,12 +191,14 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
         obj.x += obj.vx;
         obj.y += obj.vy;
 
-        /* making like a fauntain
-        if(obj.y > 300){
-            obj.y = 300;
-            obj.vy *= -0.85;
+        if(deflector.isActive){
+          console.log("3333");
+          if(obj.y > 400){
+              obj.y = 400;
+              obj.vy *= (deflector.bounce * -1);
+          }
         }
-        */
+
         obj.life++;
 
         obj.vy += Number(obj.gravity.yComponent);

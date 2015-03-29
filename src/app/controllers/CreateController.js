@@ -31,6 +31,11 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
           endTime: 1500
       };
 
+      $scope.script.deflector = {
+          bool: false,
+          bounce: 1.0
+      };
+
       $scope.script.randomizer = {
           randomness: 1,
           scope: 0
@@ -194,6 +199,11 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
 
 
   /**********************************************/
+  $scope.defineDeflector = function(){
+      console.log("4444");
+      DefaultParticle.setDeflector({bounce: $scope.script.deflector.bounce, isActive: $scope.script.deflector.bool});
+  };
+
   $scope.setRandomizer = function(){
       console.log('randFunc');
       DefaultParticle.setRandomizer({rand: $scope.script.randomizer.randomness, scope: $scope.script.randomizer.scope});

@@ -72,6 +72,12 @@
         <label for="randomizerScope">Randomizer scope </label>
         <input type="range" name="randomizerScope" min="0" max="1" step="0.01" data-ng-model="script.randomizer.scope" data-ng-change="setRandomizer()"> <input type="text" data-ng-model="script.randomizer.scope">
 
+        <br /><br /><br />
+        <input type="checkbox" name="deflectorPlane" value="plane" data-ng-model="script.deflector.bool" data-ng-change="defineDeflector()">Deflector Plane<br/>
+        <input data-ng-show="script.deflector.bool" type="text" placeholder="Plane Point (x,y,z)" data-ng-model="script.deflector.point"> <br />
+        <input data-ng-show="script.deflector.bool" type="text" placeholder="Plane Normal <X,Y,Z>" data-ng-model="script.deflector.normal"> <br />
+
+        <input data-ng-show="script.deflector.bool" type="range" name="bounce" min="0" max="1" step="0.01" data-ng-model="script.deflector.bounce" data-ng-change="defineDeflector()"> <input data-ng-show="script.deflector.bool" type="text" data-ng-model="script.deflector.bounce"> <br />
 
 
     </div>
