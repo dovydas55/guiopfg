@@ -228,7 +228,6 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
   };
 
   $scope.defineDeflector = function(){
-
       DefaultParticle.setDeflector({bounce: $scope.script.deflector.bounce, isActive: $scope.script.deflector.bool});
       Converter.setDeflectorPlane({bounce: $scope.script.deflector.bounce, isActive: $scope.script.deflector.bool});
   };
@@ -353,6 +352,10 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
     Converter.setPosition({x: $scope.script.position.x,
                           y: $scope.script.position.y,
                           z: $scope.script.position.z});
+  };
+
+  $scope.download = function(){
+      console.log("yayyy");
   };
 
   //iniliatize the variables after everything has loaded
