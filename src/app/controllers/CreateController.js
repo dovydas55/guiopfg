@@ -18,6 +18,7 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
   $scope.init = function(){
       $scope.script = {};
       $scope.script.position = {};
+      $scope.oneAtATime = true;
       $scope.script.timeToLive = {
           value: 50,
           random: false,

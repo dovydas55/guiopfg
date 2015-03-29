@@ -8,7 +8,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>GUIOPFG</title>
-  <!-- Fonts -->
+  
+
+  <!-- fonts -->
+  <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet" type="text/css">
+  <link href="http://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700" rel="stylesheet" type="text/css">
   <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
 
   <!-- Style -->
@@ -27,13 +31,9 @@
         <div data-ng-include="'src/templates/Header.html'"></div>
       </div>
 
-      <div data-ui-view="HomeView"></div>
-      <div data-ui-view="SearchView"></div>
-      <div data-ui-view="SuggestionsView"></div>
-      <div data-ui-view="CreateView"></div>
-      <div data-ui-view="AllFilesView"></div> <!-- for caching purposes i moved all menus into 1 view -->
 
-      <div data-ng-include="'src/templates/Footer.html'"></div>
+      <div data-ui-view="CreateView"></div>
+
   </div>
 
   <!-- Project Dependencies -->
