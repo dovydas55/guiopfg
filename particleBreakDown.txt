@@ -1,64 +1,188 @@
-particle_system MySmoke1 {
-	
-	// Make the particles use the "Examples/Smoke" material, and be 10x10 units large.
-	material				Examples/Flare2
-	particle_width			1
-	particle_height			1
-	
-	// Make the emitter limit the emitter to have at maximum 500 particles active.
-	// And set the particle type as point, which always faces the camera.  
-	quota					500
-	billboard_type			point
-	cull_each 				false
-	sorted					false
-	local_space				false
-	billboard_type			point
-	billboard_origin 		center
-	
-	// Make the emitters origin a point.
-	emitter Point {
-		//angle 				10
-		// Make the emitter emit 3 particles per second. 
-		emission_rate		24
-		time_to_live	 	15
-		// Emitt the particles in the given direction, at a velocity of  units per second.
-		direction			50 50 0 
-		velocity			10
-		colour 				0.3 1 1 1
-		//color_range_start		1 0 0 0
-		//color_range_end			0 0 1 1
+//Description
+particle_system File/Name
+{
+	//base options
+	quota 						(default 10, max 10000)
 
+	material 					(file/name, default: none(blank))
+	
+	particle_width 				(default: 100)
+	
+	particle_height 			(default: 100)
+	
+	cull_each					(true|false(default: false))
+	
+	renderer					(optional for plugins, default: billboard)
+	
+	sorted						(true|false(default: false))
+	
+	local_space					(true|false(default: false))
+	
+	billboard_type				(point | oriented_common | oriented_self | perpendicular_common | perpendicular_self 
+								(default: point))
+	
+	billboard_origin			(top_left | top_center | top_right | center_left | center | center_right | bottom_left | bottom_center|bottom_right 
+								(default: center))
+	
+	billboard_rotation_type		(vertex|texcoord(default: texcoord))
+
+	common_direction			(<x>,<y>,<z> (deault: 0 0 1))
+
+	common_up_vecto	r			(<x>,<y>,<z> (deault: 0 1 0))
+
+	//atribute of 'billboard' particle renderer
+	point_rendering	
+
+	accurate_facing
+
+	iteration_interval
+
+	nonvisible_update_timeout
+
+	//area emmitter
+	emmiter <T> 				(Point | Box | Cylinder | Ellipsoid | HollowEllipsoid | Ring)
+	{
+		angle					(max angle in degrees, default: 0)
+
+		color 					(<r> <g> <b> [<a>], default: 1 1 1 1)
+
+		//must be specified together
+		color_range_start		(<r> <g> <b> [<a>], default: 1 1 1 1)
+		color_range_end			(<r> <g> <b> [<a>], default: 1 1 1 1)
+		//
+
+		direction 				(<x> <y> <z>, default: 1 0 0)
+
+		emission_rate			(default 10)
+
+		position				(<x> <y> <z>, default: 0 0 0)
+
+		velocity 				(world_units_per_second, default 1)
+
+		//randomizes velocity
+		velocity_min 			(default 1)
+
+		velocity_max 			(default 1)
+		//
+
+		time_to_live 			(<seconds>, default 5)
+
+		//radomizes lifetime of particles
+		time_to_live_min 		(<seconds>, default 5)
+
+		time_to_live_max 		(<seconds>, default 5)
+		//
+
+		duration 				(<seconds>, default 0)
+
+		//randomizes duration
+		duration_min 			(as duration, default 0)
+
+		duration_max 			(as duration, default 0)
+		//
+
+		repeat_delay 			(<seconds>, default 0)
+
+		//randomizes repeat_delay
+		repeat_delay_min 		(<seconds>, default 0)
+
+		repeat_delay_max 		(<seconds>, default 0)
+		//
 	}
 
-	
+	//affectors have no universal attributes
 
+	//can be used for gravity, wind and any linear force
+	affector LinearForce{
+		force_vector			(<x> <y> <z>, default: 0 -100 0)
+
+		force_application 		(add|average)
+	}
+
+
+	affector ColorFader{
+		red 					(<delta_value>, default 0)
+
+		green 					(<delta_value>, default 0)
+
+		blue 					(<delta_value>, default 0)
+
+		alpha 					(<delta_value>, default 0)
+	}
+
+	//activates color changes after a specified amount of time
+	affector ColorFader2{
+		//1 = before state_change, 2 = after state schange
+		red1 					(<delta_value>, default 0)
+
+		green1 					(<delta_value>, default 0)
+
+		blue1 					(<delta_value>, default 0)
+
+		alpha1 					(<delta_value>, default 0)
+
+		red2 					(<delta_value>, default 0)
+
+		green2 					(<delta_value>, default 0)
+
+		blue2 					(<delta_value>, default 0)
+
+		alpha2 					(<delta_value>, default 0)
+
+		state_change 			(<seconds>, default: 1)
+	}
+
+	//scales particles in flight
+	affector Scaler{
+		rate 					(<value per second>)
+	}
+
+	//Rotates particles in flight
 	affector Rotator{
-		rotation_speed_range_start	10
+		rotation_speed_range_start	(<degrees_per_second>, default: 0)
 		
-		rotation_speed_range_end	30
+		rotation_speed_range_end	(<degrees_per_second>, default: 0)
 
-		rotation_range_start 		10
+		rotation_range_start 		(<degrees>, default: 0)
 
-		rotation_range_end 			100
+		rotation_range_end 			(<degrees>, default: 0)
 	}
 
-	
+	//as with colorFader2 exept with variable number of defined stages
+	affector ColorInterploator{
+		time0 					(<0-1 based on lifetime>, default: 1)
+		color0					(<r> <g> <b> [<a>], default: 0.5 0.5 0.5 0.0)
 
-	// Deflector planes bounce the particles of the given plane.
-	//affector DeflectorPlane {
-	//	//The point of the plane, note: the plane is infinite
-	//	plane_point 	10 0 0
-		// The normal vector of the plane, the direction of the particles will be mirror around this normal.
-	//	plane_normal 	-0.7 0.7 0
-		// The amount of velocity the particles retain after the 
-	//	collision.
-	//	bounce 		1.0
-	//}
- 
-	// You can provide more than one plane.
-	//affector DeflectorPlane {
-	//	plane_point 	10 15 0
-	//	plane_normal 	-0.7 -0.7 0
-	//	bounce 		1.0
-	//} 
+		time1 					(<0-1 based on lifetime>, default: 1)
+		color2					(<r> <g> <b> [<a>], default: 0.5 0.5 0.5 0.0)
+
+		.
+		.
+		.
+		.
+		.
+	}
+
+	//colors particles from image file
+	affector ColorImage{
+		image 				(<image name (e.g. rainbow.png)>)
+	}
+
+	//define plane that collides with particles
+	affector DeflectorPlane{
+		plane_point 		(a point on the plain, default: 0 0 0)
+		
+		plane_normal		(normal vector of the plane, default: 0 1 0)
+
+		bounce 				( 0(no bounce), 1 (100% bounce), default: 1.0)
+	}
+
+	//apply randomness to particles
+	affector DirectionRandomizer{
+		randomness 			(ammount applied to each axial direction, default: 1)
+
+		scope 				(percentage of particles affected in each run of the affector, default: 1.0)
+
+		keep_velocity 		(true|false, default: false)
+	}
 }
