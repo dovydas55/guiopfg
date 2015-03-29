@@ -5,10 +5,11 @@ angular.module('GUIOPFG').factory('Converter', [function() {
     var file= {
     	//Declare variables
     	fileName: 			'myParticleFile {',
+        material:           {name: 'material', val: 'Examples/Flare' + '\n'},
     	quota: 				{ name: 'quota', val: 10 },
     	particle_width: 	{ name: 'particle_width', val: 100 },
-    	particle_heigth: 	{ name: 'particle_heigth', val: 100 },
-    	emmiter: 			{ name: 'emmiter', type: 'Point' + '\n' + '{', 
+    	particle_heigth: 	{ name: 'particle_height', val: 100 },
+    	emmiter: 			{ name: 'emitter', type: 'Point' + '\n' + '{', 
     							val: {angle: {name: 'angle', val: 0},
                                         colour: {name: 'colour', red: 1, green: 1, blue: 1, alpha: 1},
     									direction: {name: 'direction', x: 1, y: 0, z: 0},
@@ -21,16 +22,16 @@ angular.module('GUIOPFG').factory('Converter', [function() {
     };
 
 	//Declare funtions
-    factory.setBoxShape = function(obj){
+    factory.setBoxShape = function(obj){s
         file.emmiter.type = 'Box' + '\n' +'{';
         file.emmiter.val.width = {
-            name: 'width', val: obj.w
+            name: 'width', val: Math.abs(obj.w)
         };
         file.emmiter.val.height = {
-            name: 'height', val: obj.h
+            name: 'height', val: Math.abs(obj.h)
         };
         file.emmiter.val.depth = {
-          name: 'depth', val: obj.w  
+          name: 'depth', val: Math.abs(obj.w)  
         };
         //console.log(file);
     };
@@ -63,7 +64,10 @@ angular.module('GUIOPFG').factory('Converter', [function() {
     };
 
     factory.setDuration = function(obj){
-        file.emmiter.val.duration.val1 = obj.duration;
+        delete file.emmiter.val.duration_min;
+        delete file.emmiter.val.duration_max;
+        file.emmiter.val.duration = {name: 'duration', val1: obj.duration.value};
+
         //console.log(obj);
     };
 
@@ -101,7 +105,9 @@ angular.module('GUIOPFG').factory('Converter', [function() {
             //console.log(file.emmiter.val.time_to_live_max);
         }else{
             //console.log("else");
-            file.emmiter.val.time_to_live = {name: 'val.time_to_live', val: obj.time.value};
+            delete file.emmiter.val.time_to_live_min;
+            delete file.emmiter.val.time_to_live_max;
+            file.emmiter.val.time_to_live = {name: 'time_to_live', val: obj.time.value};
             //console.log(file.emmiter.val.time_to_live);    
         }
         //console.log(obj);
@@ -146,11 +152,9 @@ angular.module('GUIOPFG').factory('Converter', [function() {
                     }
                 }else{
                     string.push(obj[i]);
-                }
-                
+                } 
             }
         }
-        //return string;
     };
 
     factory.toString = function(){
@@ -169,10 +173,10 @@ angular.module('GUIOPFG').factory('Converter', [function() {
                     }
                 }else{
                     string.push(file[i]);
-                }
-                
+                } 
             }
         }
+        console.log(file);
         return string.join(" ") + '\n' + '}';
     };
 

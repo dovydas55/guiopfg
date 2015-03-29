@@ -71,7 +71,6 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
       };
       /* ************************** */
       Converter.debug();
-      Converter.toString();
       $scope.render();
   };
 
@@ -302,7 +301,7 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
   $scope.updateColor = function(){
       if($scope.rgbaPicker === undefined){
           DefaultParticle.setCustomColor('rgba(255,255,255,1)', $scope.randomParticleColor);
-          Converter.setColor({x: 1, y: 1, z: 1, a: 1});
+          //Converter.setColor({x: 1, y: 1, z: 1, a: 1});
       } else {
           DefaultParticle.setCustomColor($scope.rgbaPicker.color, $scope.randomParticleColor);
           //console.log($scope.rgbaPicker.color);
@@ -346,6 +345,7 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
 
   $scope.getName = function(){
     Converter.setName({name: $scope.script.name});
+
   };
 
   $scope.getPosition = function(){
@@ -357,6 +357,11 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
   $scope.download = function(){
     var string = Converter.toString();
       console.log(string);
+      var uriContent = "data:application/octet-stream," + encodeURIComponent(string);
+      var newWindow = window.open(uriContent, 'neuesDokument');
+      //var textfile = window.URL.createObjectURL(string);
+      //window.open("data:text/json;charset=utf-8," + escape(string));
+      //return textfile;
   };
 
   //iniliatize the variables after everything has loaded
