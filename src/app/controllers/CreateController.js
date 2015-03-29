@@ -72,6 +72,7 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
       };
       /* ************************** */
       Converter.debug();
+      Converter.toString();
       $scope.render();
   };
 
@@ -179,6 +180,12 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
     emmiterCtx.closePath();
   };
 
+  $scope.download = function(){
+      Converter.debug();
+      var string = Converter.toString();
+      console.log(string);
+  };
+
   $scope.drawBox = function(cords){
     emmiterCtx.beginPath();
     emmiterCtx.lineWidth = 2;
@@ -190,7 +197,8 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
     $scope.clearEmmiterCanvas();
 
     DefaultParticle.DisplayEmmiterType({startX: $scope.shape.startX, startY: $scope.shape.startY, w: width, h: height, r: null, type: "box"});
-//***TODO: Add set function
+    //console.log('boxFunc');
+    Converter.setBoxShape({w: width, h: height});
 
     emmiterCtx.strokeRect(cords.offsetX, cords.offsetY, width, height);
     emmiterCtx.closePath();
@@ -217,15 +225,16 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
   /**********************************************/
 
   $scope.scaleParticle = function(){
-      console.log("scale");
+      //console.log("scale");
   };
 
   $scope.defineDeflector = function(){
       DefaultParticle.setDeflector({bounce: $scope.script.deflector.bounce, isActive: $scope.script.deflector.bool});
+      Converter.setDeflectorPlane({bounce: $scope.script.deflector.bounce, isActive: $scope.script.deflector.bool});
   };
 
   $scope.setRandomizer = function(){
-      console.log('randFunc');
+      //console.log('randFunc');
       DefaultParticle.setRandomizer({rand: $scope.script.randomizer.randomness, scope: $scope.script.randomizer.scope});
       Converter.setRandomizer({rand: $scope.script.randomizer.randomness, scope: $scope.script.randomizer.scope});
   };
@@ -234,7 +243,7 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
       var xDir = ($scope.script.direction.x * 10) - (canvas.width / 2);
       var yDir = ($scope.script.direction.y * 10) - (canvas.height / 2);
 
-      DefaultParticle.setDirectionVector({x: xDir * 0.1, y: yDir * 0.1 * -1, speed: $scope.script.direction.speed / 10, angle: $scope.script.direction.angle / 10});
+      DefaultParticle.setDirectionVector({x: xDir * 0.1, y: yDir * 0.1 /* * -1 */, speed: $scope.script.direction.speed / 10, angle: $scope.script.direction.angle / 10});
       Converter.setDirection({x: xDir, y: yDir});
       Converter.setVelocity({velocity: $scope.script.direction.speed});
       Converter.setAngle({angle: $scope.script.direction.angle});
@@ -269,7 +278,7 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
       //$interval.cancel(EmmiterLoop);
       $interval.cancel(durationInterval);
       $interval.cancel(randomDurationInterval);
-      console.log(itr);
+      //console.log(itr);
       randomDurationInterval = $interval(function(){
           $interval.cancel(EmmiterLoop);
           $scope.cleanCanvas();
@@ -344,6 +353,11 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
     Converter.setPosition({x: $scope.script.position.x,
                           y: $scope.script.position.y,
                           z: $scope.script.position.z});
+  };
+
+  $scope.download = function(){
+    var string = Converter.toString();
+      console.log(string);
   };
 
   //iniliatize the variables after everything has loaded

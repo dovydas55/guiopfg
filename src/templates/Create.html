@@ -4,16 +4,16 @@
 
 
         <accordion close-others="oneAtATime">
-            <accordion-group heading="General options">  
+            <accordion-group heading="General options">
 
 
                 <div class="content brdBottomDark brdTopDark">
                     <input type="text" placeholder="Script name" data-ng-model="script.name">
                 </div>
-                
+
                 <div class="col51">
                     <div class="content brdBottomDark">
-                        <input type="radio" id="partSquare" name="defaultParticleType" value="square" data-ng-model="script.defaultParticleType"> 
+                        <input type="radio" id="partSquare" name="defaultParticleType" value="square" data-ng-model="script.defaultParticleType">
                         <label for="partSquare">Square</label>
                     </div>
                 </div>
@@ -30,7 +30,7 @@
                         <p>Quoata</p>
                     </div>
                     <div class="col2">
-                        <input type="range" name="particleNO" min="1" max="80" data-ng-model="script.quota"> 
+                        <input type="range" name="particleNO" min="1" max="80" data-ng-model="script.quota">
                     </div>
                     <div class="col3">
                         <input type="text" data-ng-model="script.quota" class="">
@@ -43,7 +43,7 @@
                         <p>Particle Width</p>
                     </div>
                     <div class="col2">
-                        <input type="range" name="particleWidth" min="1" max="150" data-ng-model="script.width" data-ng-change="setParticleSize()"> 
+                        <input type="range" name="particleWidth" min="1" max="150" data-ng-model="script.width" data-ng-change="setParticleSize()">
                     </div>
                     <div class="col3">
                         <input type="text" data-ng-model="script.width">
@@ -56,7 +56,7 @@
                         <p>Particle Height</p>
                     </div>
                     <div class="col2">
-                        <input type="range" name="particleHeight" min="1" max="150" data-ng-model="script.height" data-ng-change="setParticleSize()">  
+                        <input type="range" name="particleHeight" min="1" max="150" data-ng-model="script.height" data-ng-change="setParticleSize()">
                     </div>
                     <div class="col3">
                         <input type="text" data-ng-model="script.height">
@@ -73,7 +73,7 @@
 
         <!-- EMITTER OPTIONS -->
         <accordion close-others="oneAtATime">
-            <accordion-group heading="Emitter options" class="brdTopDark brdBottomDark"> 
+            <accordion-group heading="Emitter options" class="brdTopDark brdBottomDark">
 
                 <div class="col100 brdBottomDark brdTopDark">
                     <div class="col1">
@@ -83,7 +83,7 @@
                         <input type="range" name="emmisionRate" min="1" max={{script.quota}} data-ng-model="script.emmisionRate">
                     </div>
                     <div class="col3">
-                        <input type="text" data-ng-model="script.emmisionRate">  
+                        <input type="text" data-ng-model="script.emmisionRate">
                     </div>
                 </div>
 
@@ -93,7 +93,7 @@
                     </div>
                     <div class="col2">
                         <input type="number" placeholder="Position <X>" data-ng-model="script.position.x" data-ng-blur='getPosition()'>
-                        <input type="number" placeholder="Position <Y>" data-ng-model="script.position.y" data-ng-blur='getPosition()'> 
+                        <input type="number" placeholder="Position <Y>" data-ng-model="script.position.y" data-ng-blur='getPosition()'>
                         <input type="number" placeholder="Position <Z>" data-ng-model="script.position.z" data-ng-blur='getPosition()'>
                     </div>
                     <div class="col3">
@@ -128,7 +128,7 @@
                     <input type="number" data-ng-model="script.timeToLive.startTime" data-ng-show="script.timeToLive.random" placeholder="Start time" data-ng-blur="setParticleLife()">
                 </div>
                 <div class="col2 brdBottomDark">
-                    <input type="number" data-ng-model="script.timeToLive.endTime" data-ng-show="script.timeToLive.random" placeholder="End time" data-ng-blur="setParticleLife()"> 
+                    <input type="number" data-ng-model="script.timeToLive.endTime" data-ng-show="script.timeToLive.random" placeholder="End time" data-ng-blur="setParticleLife()">
                 </div>
 
 
@@ -158,7 +158,7 @@
                     <input type="number" data-ng-model="script.duration.startTime" data-ng-show="script.duration.random" placeholder="Start time" data-ng-blur="setDuration()">
                 </div>
                 <div class="col51 brdBottomDark">
-                    <input type="number" data-ng-model="script.duration.endTime" data-ng-show="script.duration.random" placeholder="End time" data-ng-blur="setDuration()"> 
+                    <input type="number" data-ng-model="script.duration.endTime" data-ng-show="script.duration.random" placeholder="End time" data-ng-blur="setDuration()">
                 </div>
 
 
@@ -223,7 +223,7 @@
 
 
         <accordion close-others="oneAtATime">
-            <accordion-group heading="Direction Randomizer"> 
+            <accordion-group heading="Direction Randomizer">
 
                 <div class="col2 brdBottomDark">
                     <p>Randomness</p>
@@ -237,7 +237,7 @@
                         <p>Randomizer scope</p>
                     </div>
                     <div class="col2-2">
-                         <input type="range" name="randomizerScope" min="0" max="1" step="0.01" data-ng-model="script.randomizer.scope" data-ng-change="setRandomizer()"> 
+                         <input type="range" name="randomizerScope" min="0" max="1" step="0.01" data-ng-model="script.randomizer.scope" data-ng-change="setRandomizer()">
                     </div>
                     <div class="col3">
                         <input type="text" data-ng-model="script.randomizer.scope">
@@ -249,7 +249,7 @@
 
 
         <accordion close-others="oneAtATime">
-            <accordion-group heading="Deflector Plane"> 
+            <accordion-group heading="Deflector Plane">
 
 
                 <div class="col100 brdBottomDark">
@@ -265,7 +265,7 @@
                     <input data-ng-show="script.deflector.bool" type="text" placeholder="Plane Point (x,y,z)" data-ng-model="script.deflector.point">
                 </div>
                 <div class="col2 brdBottomDark">
-                    <input data-ng-show="script.deflector.bool" type="text" placeholder="Plane Normal <X,Y,Z>" data-ng-model="script.deflector.normal"> 
+                    <input data-ng-show="script.deflector.bool" type="text" placeholder="Plane Normal <X,Y,Z>" data-ng-model="script.deflector.normal">
                 </div>
 
                 <div class="col100 brdBottomDark">
@@ -317,22 +317,22 @@
                 <canvas id="emmiterType" width="250" height="250" data-ng-mousedown="emmiterStart($event)" data-ng-mouseup="emmiterStop()" data-ng-mousemove="emmiterDefine($event)"></canvas>
             </div>
             <div class="ctrlRight brdBottom">
-                <div class="col100 brdBottomDark">      
+                <div class="col100 brdBottomDark">
                     <h2 class="pad10">Emitter options</h2>
                 </div>
-                <div class="col100 brdBottomDark">  
+                <div class="col100 brdBottomDark">
                     <div class="col50">
                         <input type="radio" name="emiiterOption" value="box" data-ng-model="script.emmiter.type" data-ng-change="setDefaultEmmiter()">
                         <label for="box">Box</label>
-                    </div> 
+                    </div>
                 </div>
-                <div class="col100 brdBottomDark"> 
+                <div class="col100 brdBottomDark">
                     <div class="col50">
                         <input type="radio" name="emiiterOption" value="ring" data-ng-model="script.emmiter.type" data-ng-change="setDefaultEmmiter()">
                         <label for="ring">Ring</label>
                     </div>
                 </div>
-                <div class="col100"> 
+                <div class="col100">
                     <div class="col50">
                         <input type="radio" name="emiiterOption" value="point" data-ng-model="script.emmiter.type" data-ng-change="setDefaultEmmiter()">
                         <label for="point">Point</label>
@@ -348,8 +348,12 @@
             <div class="ctrlRight brdBottom">
                 <h2 class="pad10">Gravity Control</h2>
             </div>
-            
+
         </div>
+
+        <br /><br />
+        <button type="button" data-ng-click="download()">Download</button>
+
     </div>
 
 </div>

@@ -41,7 +41,6 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
 
 
     var DefaultParticle = function(){
-
         this.x = customCords.x;
         this.y = customCords.y;
         if(emmiter.type === 'point'){
@@ -52,8 +51,16 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
             this.x = emmiter.startX + Math.ceil(Math.random() * (emmiter.w * -1));
             this.y = emmiter.startY + Math.ceil(Math.random() * (emmiter.h * -1));
         } else if(emmiter.type === 'ring'){
-            //Math.floor(Math.random()*(max-min+1)+min); 
-            //TODO: implement formula for displaying a ring
+          var randNum = Math.random();
+          if(randNum <= 0.50){
+              var angle = Math.random() * (Math.PI);
+              this.x = emmiter.startX + emmiter.r * Math.cos(angle);
+              this.y = emmiter.startY + emmiter.r * Math.sin(angle);
+          } else {
+              var angle2 = Math.random() * (Math.PI);
+              this.x = emmiter.startX - emmiter.r * Math.cos(angle2);
+              this.y = emmiter.startY - emmiter.r * Math.sin(angle2);
+          }
         }
 
         if(timeToLive.random === false || timeToLive.random === undefined || timeToLive.startTime === undefined || timeToLive.endTime === undefined ||
@@ -61,8 +68,6 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
             this.maxLife = timeToLive.value;
         } else {
             this.maxLife = Math.floor(Math.random()*(timeToLive.endTime - timeToLive.startTime + 1) + timeToLive.startTime);
-
-            //console.log(this.maxLife);
         }
 
         /* for randomizinf width + height use: */
@@ -101,6 +106,8 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
             }
         }
 
+        this.vy *= -1; /************* inverting y coordinate for OGRE ********************/
+
         this.gravity = customGravity;
         this.color = customColor;
 
@@ -129,8 +136,6 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
     };
 
     DefaultParticle.DisplayEmmiterType = function(emmiterObj){
-
-        //console.log(emmiterObj);
         emmiter = emmiterObj;
     };
 
