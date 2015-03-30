@@ -234,7 +234,8 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
 
   $scope.defineDeflector = function(){
       DefaultParticle.setDeflector({bounce: $scope.script.deflector.bounce, isActive: $scope.script.deflector.bool});
-      Converter.setDeflectorPlane({bounce: $scope.script.deflector.bounce, isActive: $scope.script.deflector.bool});
+      /*BUGGGGGGGGGGGGGGGGGG*/
+      //Converter.setDeflectorPlane({bounce: $scope.script.deflector.bounce, isActive: $scope.script.deflector.bool});
   };
 
   $scope.setRandomizer = function(){

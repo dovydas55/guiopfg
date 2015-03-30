@@ -203,7 +203,6 @@ angular.module('GUIOPFG').factory('DefaultParticle', [function() {
         obj.y += obj.vy;
 
         if(deflector.isActive){
-          console.log("3333");
           if(obj.y > 400){
               obj.y = 400;
               obj.vy *= (deflector.bounce * -1);
