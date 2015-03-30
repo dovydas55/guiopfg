@@ -22,6 +22,16 @@ angular.module('GUIOPFG').factory('Converter', [function() {
     };
 
     //Declare funtions
+    factory.setType2 = function(obj){
+        if(obj.val === "circle"){
+            file.material.val = 'Examples/Flare'  + '\n';
+            //console.log(obj.val);
+        }else{
+            file.material.val = 'Examples/Smoke'  + '\n';
+            //console.log(obj.val);
+        }
+    };
+
     factory.setEmissionRate = function(obj){
         file.emmiter.val.emission_rate.value = obj.val;
     };
