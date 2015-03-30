@@ -355,7 +355,7 @@ input:focus {
 
 label {
     margin-top: -1.8em;
-    margin-left: 3em;
+    margin-left: 7em;
     display: block;
     font-family: Oswald;
     font-size: 1.2em;
@@ -375,7 +375,7 @@ button {
 
 button:hover {
     color: #fff;
-    background-color: #000;
+    background-color: #d80014;
 }
 
 
