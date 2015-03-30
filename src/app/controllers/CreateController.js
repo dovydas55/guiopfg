@@ -298,7 +298,6 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
   };
 
   $scope.setParticleLife = function(){
-        //console.log('asdf');
         DefaultParticle.setParticleLife($scope.script.timeToLive);
         Converter.setTimeToLive({time: $scope.script.timeToLive});
   };
@@ -363,8 +362,14 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
 
   $scope.download = function(){
     var string = Converter.toString();
-    var uriContent = "data:application/octet-stream," + encodeURIComponent(string);
-    var newWindow = window.open(uriContent, 'myParticleFile');
+    console.log(string);
+
+    var blob = new Blob([string], {type: "text/plain;charset=utf-8"});
+    saveAs(blob, "myParticles.particle");
+
+
+    //var uriContent = "data:application/octet-stream," + encodeURIComponent(string);
+    //var newWindow = window.open(uriContent, 'myParticleFile');
 
   };
 
