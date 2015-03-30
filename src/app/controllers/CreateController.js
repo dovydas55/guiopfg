@@ -364,7 +364,7 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
     var string = Converter.toString();
       //console.log(string);
       var uriContent = "data:application/octet-stream," + encodeURIComponent(string);
-      var newWindow = window.open(uriContent, 'neuesDokument');
+      var newWindow = window.open(uriContent, 'myParticleFile');
   };
 
   //iniliatize the variables after everything has loaded
