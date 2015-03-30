@@ -184,10 +184,8 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
     emmiterCtx.closePath();
   };
 
-  $scope.download = function(){
-      Converter.debug();
-      var string = Converter.toString();
-      console.log(string);
+  $scope.updateQuota = function(obj){
+    Converter.setQuota({val: $scope.script.quota});
   };
 
   $scope.drawBox = function(cords){
@@ -223,7 +221,6 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
           $scope.drawRing({offsetX: 200, offsetY: 200});
           DefaultParticle.DisplayEmmiterType({startX: canvas.width / 2, startY: canvas.height / 2, w: null, h: null, r: 50, type: "ring"});
         }
-
     };
 
   /**********************************************/
@@ -363,15 +360,12 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
 
   $scope.download = function(){
     var string = Converter.toString();
-    console.log(string);
-
     var blob = new Blob([string], {type: "text/plain;charset=utf-8"});
     saveAs(blob, "myParticles.particle");
+  };
 
-
-    //var uriContent = "data:application/octet-stream," + encodeURIComponent(string);
-    //var newWindow = window.open(uriContent, 'myParticleFile');
-
+  $scope.getEmmissionRate = function(){
+    Converter.setEmissionRate({val: $scope.script.emmisionRate});
   };
 
   //iniliatize the variables after everything has loaded

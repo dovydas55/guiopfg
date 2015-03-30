@@ -8,7 +8,7 @@
 
 
                 <div class="content brdBottomDark brdTopDark">
-                    <input type="text" placeholder="Script name" data-ng-model="script.name">
+                    <input type="text" placeholder="Script name" data-ng-model="script.name" data-ng-blur="getName()">
                 </div>
 
                 <div class="col51">
@@ -30,10 +30,10 @@
                         <p>Quoata</p>
                     </div>
                     <div class="col2">
-                        <input type="range" name="particleNO" min="1" max="100" data-ng-model="script.quota">
+                        <input type="range" name="particleNO" min="1" max="100" data-ng-model="script.quota" data-ng-change="updateQuota()">
                     </div>
                     <div class="col3">
-                        <input type="text" data-ng-model="script.quota" class="">
+                        <input type="text" data-ng-model="script.quota" class="" data-ng-change="updateQuota()">
                     </div>
                 </div>
 
@@ -80,10 +80,10 @@
                         <p>Emission Rate</p>
                     </div>
                     <div class="col2">
-                        <input type="range" name="emmisionRate" min="1" max={{script.quota}} data-ng-model="script.emmisionRate">
+                        <input type="range" name="emmisionRate" min="1" max={{script.quota}} data-ng-model="script.emmisionRate" data-ng-change="getEmmissionRate()">
                     </div>
                     <div class="col3">
-                        <input type="text" data-ng-model="script.emmisionRate">
+                        <input type="text" data-ng-model="script.emmisionRate" data-ng-change="getEmmissionRate()">
                     </div>
                 </div>
 
