@@ -22,7 +22,7 @@ angular.module('GUIOPFG').factory('Converter', [function() {
     };
 
     //Declare funtions
-    factory.setBoxShape = function(obj){s
+    factory.setBoxShape = function(obj){
         file.emmiter.type = 'Box' + '\n' +'{';
         file.emmiter.val.width = {
             name: 'width', val: Math.abs(obj.w)
@@ -176,7 +176,7 @@ angular.module('GUIOPFG').factory('Converter', [function() {
                 } 
             }
         }
-        console.log(file);
+        //console.log(file);
         return string.join(" ") + '\n' + '}';
     };
 
