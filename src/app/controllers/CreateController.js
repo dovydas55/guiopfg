@@ -368,6 +368,11 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
     Converter.setEmissionRate({val: $scope.script.emmisionRate * 10});
   };
 
+  $scope.setType = function(){
+    //console.log($scope.script.defaultParticleType);
+    Converter.setType2({val: $scope.script.defaultParticleType});
+  };
+
   //iniliatize the variables after everything has loaded
   $scope.init();
 
