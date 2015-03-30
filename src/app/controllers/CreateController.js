@@ -185,7 +185,7 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
   };
 
   $scope.updateQuota = function(obj){
-    Converter.setQuota({val: $scope.script.quota});
+    Converter.setQuota({val: $scope.script.quota * 10});
   };
 
   $scope.drawBox = function(cords){
@@ -365,7 +365,7 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
   };
 
   $scope.getEmmissionRate = function(){
-    Converter.setEmissionRate({val: $scope.script.emmisionRate});
+    Converter.setEmissionRate({val: $scope.script.emmisionRate * 10});
   };
 
   //iniliatize the variables after everything has loaded
