@@ -14,7 +14,7 @@
   var GUIOPFG = angular.module('GUIOPFG', ['ui.router', 'angular-storage', 'ui.bootstrap', 'colorpicker.module']);
 
   GUIOPFG.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider){
-      $urlRouterProvider.otherwise('/home');
+      $urlRouterProvider.otherwise('/create');
       $stateProvider
         .state('home', {
           url: '/home',

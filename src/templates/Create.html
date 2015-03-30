@@ -1,91 +1,381 @@
-<div class="container2 w-bg">
-    <canvas id="myCanvas" width="500" height="500" data-ng-mousedown="startMoving()" data-ng-mouseup="stopMoving()" data-ng-mousemove="dragTheParticle($event)"></canvas>
+<div id="wrapper" class="brdBottom brdRight">
 
-    <canvas id="emmiterType" width="500" height="500" data-ng-mousedown="emmiterStart($event)" data-ng-mouseup="emmiterStop()" data-ng-mousemove="emmiterDefine($event)"></canvas>
-
-    <canvas id="gravity" width="200" height="200" data-ng-mousedown="gravityStart($event)" data-ng-mouseup="gravityStop()" data-ng-mousemove="setGravity($event)"></canvas>
-    <br />
-    <input type="radio" name="emiiterOption" value="box" data-ng-model="script.emmiter.type" data-ng-change="setDefaultEmmiter()">Box
-    <input type="radio" name="emiiterOption" value="ring" data-ng-model="script.emmiter.type" data-ng-change="setDefaultEmmiter()">Ring
-    <input type="radio" name="emiiterOption" value="point" data-ng-model="script.emmiter.type" data-ng-change="setDefaultEmmiter()">Point
-    <br /><br />
-
-    <div class="control">
-
-        <input type="text" placeholder="Script name" data-ng-model="script.name" data-ng-blur='getName()'> <br />
-
-        <input type="radio" id="partSquare" name="defaultParticleType" value="square" data-ng-model="script.defaultParticleType"> <label for="partSquare"> Square</label>
-        <input type="radio" id="partCircle" name="defaultParticleType" value="circle" data-ng-model="script.defaultParticleType"> <label for="partCircle"> Circle</label>  <br />
+    <div id="leftMenu" class="brdRight">
 
 
-        <label for="particleNO">Quoata</label>
-        <input type="range" name="particleNO" min="1" max="80" data-ng-model="script.quota"> <input type="text" data-ng-model="script.quota"> <br /><br />
-
-        <label for="particleWidth">Particle Width</label>
-        <input type="range" name="particleWidth" min="1" max="150" data-ng-model="script.width" data-ng-change="setParticleSize()"> <input type="text" data-ng-model="script.width"><br />
-        <label for="particleHeight">Particle Height</label>
-        <input type="range" name="particleHeight" min="1" max="150" data-ng-model="script.height" data-ng-change="setParticleSize()"> <input type="text" data-ng-model="script.height">
-        <br /> <br />
-        *EMMITER OPTIONS*
-        <br /> <br />
-
-        <label for="emmisionRate">Emmision Rate</label>
-        <input type="range" name="emmisionRate" min="1" max={{script.quota}} data-ng-model="script.emmisionRate"> <input type="text" data-ng-model="script.emmisionRate"> <br />
-
-        <input type="number" placeholder="Position <X>" data-ng-model="script.position.x" data-ng-blur='getPosition()'> <br />
-         <input type="number" placeholder="Position <Y>" data-ng-model="script.position.y" data-ng-blur='getPosition()'> <br />
-          <input type="number" placeholder="Position <Z>" data-ng-model="script.position.z" data-ng-blur='getPosition()'> <br />
-          <!-- for siggi only -->
-
-        <label for="timeToLife">Time to live</label>
-
-        <input type="range" name="timeToLife" min="1" max="300" data-ng-model="script.timeToLive.value" data-ng-change="setParticleLife()">
-
-        <input type="text" data-ng-model="script.timeToLive.value" data-ng-blur='setParticleLife()'>
-
-        <input type="checkbox" name="randomTimeToLive" value="randomTimeToLive" data-ng-model="script.timeToLive.random">Random Time To Live <br>
-
-        <input type="number" data-ng-model="script.timeToLive.startTime" data-ng-show="script.timeToLive.random" placeholder="Start time" data-ng-blur="setParticleLife()">
-
-        <input type="number" data-ng-model="script.timeToLive.endTime" data-ng-show="script.timeToLive.random" placeholder="End time" data-ng-blur="setParticleLife()"> <br />
-
-        <label for="duration">Duration</label>
-        <input type="text" data-ng-model="script.duration.value" data-ng-blur="setDuration()">
-        <input type="checkbox" name="randomDuration" value="randomDuration" data-ng-model="script.duration.random" data-ng-change="setDuration()">Random Duration<br>
-        <input type="number" data-ng-model="script.duration.startTime" data-ng-show="script.duration.random" placeholder="Start time" data-ng-blur="setDuration()">
-        <input type="number" data-ng-model="script.duration.endTime" data-ng-show="script.duration.random" placeholder="End time" data-ng-blur="setDuration()"> <br />
-
-        Choose color<input colorpicker="rgba" colorpicker-position="right" ng-model="rgbaPicker.color" type="text" data-ng-change="updateColor()">
-        <br /><br />
-        <label for="Xdirection">Direction (X component) </label>
-        <input type="range" name="Xdirection" min="-50" max="50" data-ng-model="script.direction.x" data-ng-change="setDirecton()"> <input type="text" data-ng-model="script.direction.x"> <br />
-        <label for="Ydirection">Direction (Y component) </label>
-        <input type="range" name="Ydirection" min="-50" max="50" data-ng-model="script.direction.y" data-ng-change="setDirecton()"> <input type="text" data-ng-model="script.direction.y"> <br />
-        <input type="number" placeholder="Velocity" data-ng-model="script.direction.speed" data-ng-change="setDirecton()">
-
-        <br />
-        <label for="angle">Deviation angle</label>
-        <input type="range" name="angle" min="0" max="180" data-ng-model="script.direction.angle" data-ng-change="setDirecton()"> <input type="text" data-ng-model="script.direction.angle">
-
-        <br /><br /><br />
-        *Direction Randomizer* <br />
-        Randomness <input type="number" placeholder="Randomness" data-ng-model="script.randomizer.randomness" data-ng-blur="setRandomizer()"> <br />
-        <label for="randomizerScope">Randomizer scope </label>
-        <input type="range" name="randomizerScope" min="0" max="1" step="0.01" data-ng-model="script.randomizer.scope" data-ng-change="setRandomizer()"> <input type="text" data-ng-model="script.randomizer.scope">
-
-        <br /><br /><br />
-        <input type="checkbox" name="deflectorPlane" value="plane" data-ng-model="script.deflector.bool" data-ng-change="defineDeflector()">Deflector Plane<br/>
-        <input data-ng-show="script.deflector.bool" type="text" placeholder="Plane Point (x,y,z)" data-ng-model="script.deflector.point"> <br />
-        <input data-ng-show="script.deflector.bool" type="text" placeholder="Plane Normal <X,Y,Z>" data-ng-model="script.deflector.normal"> <br />
-
-        <input data-ng-show="script.deflector.bool" type="range" name="bounce" min="0" max="1" step="0.01" data-ng-model="script.deflector.bounce" data-ng-change="defineDeflector()"> <input data-ng-show="script.deflector.bool" type="text" data-ng-model="script.deflector.bounce"> <br />
-
-        <br />
-        <input type="number" data-ng-blur="scaleParticle()" data-ng-model="script.scalar" polaceholder="Scale the particle!">
+        <accordion close-others="oneAtATime">
+            <accordion-group heading="General options">
 
 
-        <br /><br />
-        <button type="button" data-ng-click="download()">Download</button>
+                <div class="content brdBottomDark brdTopDark">
+                    <input type="text" placeholder="Script name" data-ng-model="script.name">
+                </div>
+
+                <div class="col51">
+                    <div class="content brdBottomDark">
+                        <input type="radio" id="partSquare" name="defaultParticleType" value="square" data-ng-model="script.defaultParticleType">
+                        <label for="partSquare">Square</label>
+                    </div>
+                </div>
+                <div class="col51">
+                    <div class="content brdBottomDark">
+                        <input type="radio" id="partCircle" name="defaultParticleType" value="circle" data-ng-model="script.defaultParticleType">
+                        <label for="partCircle">Circle</label>
+                    </div>
+                </div>
+
+
+                <div class="col100 brdBottomDark">
+                    <div class="col1">
+                        <p>Quoata</p>
+                    </div>
+                    <div class="col2">
+                        <input type="range" name="particleNO" min="1" max="80" data-ng-model="script.quota">
+                    </div>
+                    <div class="col3">
+                        <input type="text" data-ng-model="script.quota" class="">
+                    </div>
+                </div>
+
+
+                <div class="col100 brdBottomDark">
+                    <div class="col1">
+                        <p>Particle Width</p>
+                    </div>
+                    <div class="col2">
+                        <input type="range" name="particleWidth" min="1" max="150" data-ng-model="script.width" data-ng-change="setParticleSize()">
+                    </div>
+                    <div class="col3">
+                        <input type="text" data-ng-model="script.width">
+                    </div>
+                </div>
+
+
+                <div class="col100 brdBottomDark">
+                    <div class="col1">
+                        <p>Particle Height</p>
+                    </div>
+                    <div class="col2">
+                        <input type="range" name="particleHeight" min="1" max="150" data-ng-model="script.height" data-ng-change="setParticleSize()">
+                    </div>
+                    <div class="col3">
+                        <input type="text" data-ng-model="script.height">
+                    </div>
+                </div>
+
+                <div class="col100 brdBottomDark">
+                    &nbsp;
+                </div>
+
+            </accordion-group>
+        </accodion>
+
+
+        <!-- EMITTER OPTIONS -->
+        <accordion close-others="oneAtATime">
+            <accordion-group heading="Emitter options" class="brdTopDark brdBottomDark">
+
+                <div class="col100 brdBottomDark brdTopDark">
+                    <div class="col1">
+                        <p>Emission Rate</p>
+                    </div>
+                    <div class="col2">
+                        <input type="range" name="emmisionRate" min="1" max={{script.quota}} data-ng-model="script.emmisionRate">
+                    </div>
+                    <div class="col3">
+                        <input type="text" data-ng-model="script.emmisionRate">
+                    </div>
+                </div>
+
+                <div class="col100 brdBottomDark">
+                    <div class="col1">
+                        <p>Position</p>
+                    </div>
+                    <div class="col2">
+                        <input type="number" placeholder="Position <X>" data-ng-model="script.position.x" data-ng-blur='getPosition()'>
+                        <input type="number" placeholder="Position <Y>" data-ng-model="script.position.y" data-ng-blur='getPosition()'>
+                        <input type="number" placeholder="Position <Z>" data-ng-model="script.position.z" data-ng-blur='getPosition()'>
+                    </div>
+                    <div class="col3">
+                        &nbsp;
+                    </div>
+                </div>
+
+
+                <div class="col100 brdBottomDark">
+                    <div class="col1">
+                        <p>Time to live</p>
+                    </div>
+                    <div class="col2">
+                         <input type="range" name="timeToLife" min="1" max="300" data-ng-model="script.timeToLive.value" data-ng-change="setParticleLife()">
+                    </div>
+                    <div class="col3">
+                        <input type="text" data-ng-model="script.timeToLive.value" data-ng-blur='setParticleLife()'>
+                    </div>
+                </div>
+
+
+                <div class="col100 brdBottomDark">
+                    <div class="col40">
+                        <p>Random Time to live</p>
+                    </div>
+                    <div class="right">
+                        <input type="checkbox" name="randomTimeToLive" value="randomTimeToLive" data-ng-model="script.timeToLive.random">
+                    </div>
+                </div>
+
+                <div class="col2 brdBottomDark">
+                    <input type="number" data-ng-model="script.timeToLive.startTime" data-ng-show="script.timeToLive.random" placeholder="Start time" data-ng-blur="setParticleLife()">
+                </div>
+                <div class="col2 brdBottomDark">
+                    <input type="number" data-ng-model="script.timeToLive.endTime" data-ng-show="script.timeToLive.random" placeholder="End time" data-ng-blur="setParticleLife()">
+                </div>
+
+
+
+                <div class="col100 brdBottomDark">
+                    <div class="col1">
+                        <p>Duration</p>
+                    </div>
+                    <div class="col2">
+                         <input type="text" data-ng-model="script.duration.value" data-ng-blur="setDuration()">
+                    </div>
+                    <div class="col3">
+                        &nbsp;
+                    </div>
+                </div>
+
+                <div class="col100 brdBottomDark">
+                    <div class="col40">
+                        <p>Random Duration</p>
+                    </div>
+                    <div class="right">
+                         <input type="checkbox" name="randomDuration" value="randomDuration" data-ng-model="script.duration.random" data-ng-change="setDuration()">
+                    </div>
+                </div>
+
+                <div class="col51 brdBottomDark">
+                    <input type="number" data-ng-model="script.duration.startTime" data-ng-show="script.duration.random" placeholder="Start time" data-ng-blur="setDuration()">
+                </div>
+                <div class="col51 brdBottomDark">
+                    <input type="number" data-ng-model="script.duration.endTime" data-ng-show="script.duration.random" placeholder="End time" data-ng-blur="setDuration()">
+                </div>
+
+
+                <div class="col100 brdBottomDark">
+                    <div class="col1">
+                        <p class="blue">Choose color</p>
+                    </div>
+                    <div class="col2">
+                         <input colorpicker="rgba" colorpicker-position="right" ng-model="rgbaPicker.color" type="text" data-ng-change="updateColor()">
+                    </div>
+                    <div class="col3">
+                        <div ng-style="{{myStyle}}">
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col100 brdBottomDark">
+                    <div class="col1-2">
+                        <p class="smallFont">Direction (X component)</p>
+                    </div>
+                    <div class="col2-2">
+                         <input type="range" name="Xdirection" min="-50" max="50" data-ng-model="script.direction.x" data-ng-change="setDirecton()">
+                    </div>
+                    <div class="col3">
+                        <input type="text" data-ng-model="script.direction.x">
+                    </div>
+                </div>
+
+                <div class="col100 brdBottomDark">
+                    <div class="col1-2">
+                        <p class="smallFont">Direction (Y component)</p>
+                    </div>
+                    <div class="col2-2">
+                         <input type="range" name="Ydirection" min="-50" max="50" data-ng-model="script.direction.y" data-ng-change="setDirecton()">
+                    </div>
+                    <div class="col3">
+                        <input type="text" data-ng-model="script.direction.y">
+                    </div>
+                </div>
+
+                <div class="col100 brdBottomDark">
+                    <div class="col1">
+                        <p>Velocity</p>
+                    </div>
+                    <div class="col2">
+                         <input type="number" placeholder="Velocity" data-ng-model="script.direction.speed" data-ng-change="setDirecton()">
+                    </div>
+                    <div class="col3">
+                        &nbsp;
+                    </div>
+                </div>
+
+                <div class="col100 brdBottomDark">
+                    <div class="col1">
+                        <p>Deviation angle</p>
+                    </div>
+                    <div class="col2">
+                         <input type="range" name="angle" min="0" max="180" data-ng-model="script.direction.angle" data-ng-change="setDirecton()">
+                    </div>
+                    <div class="col3">
+                        <input type="text" data-ng-model="script.direction.angle">
+                    </div>
+                </div>
+
+
+            </accordion>
+        </accordion>
+
+
+        <accordion close-others="oneAtATime">
+            <accordion-group heading="Direction Randomizer" class="brdTopDark brdBottomDark">
+                <div class="col2 brdBottomDark brdTopDark">
+                    <p>Randomness</p>
+                </div>
+                <div class="col2 brdBottomDark brdTopDark">
+                   <input type="number" placeholder="Randomness" data-ng-model="script.randomizer.randomness" data-ng-blur="setRandomizer()">
+                </div>
+
+                <div class="col100 brdBottomDark">
+                    <div class="col1-2">
+                        <p>Randomizer scope</p>
+                    </div>
+                    <div class="col2-2">
+                         <input type="range" name="randomizerScope" min="0" max="1" step="0.01" data-ng-model="script.randomizer.scope" data-ng-change="setRandomizer()">
+                    </div>
+                    <div class="col3">
+                        <input type="text" data-ng-model="script.randomizer.scope">
+                    </div>
+                </div>
+
+            </accordion>
+        </accordion>
+
+
+        <accordion close-others="oneAtATime">
+            <accordion-group heading="Deflector Plane" class="brdTopDark brdBottomDark">
+
+                <div class="col100 brdBottomDark brdTopDark">
+                    <div class="col40">
+                        <p>Deflector Plane</p>
+                    </div>
+                    <div class="right">
+                        <input type="checkbox" name="deflectorPlane" value="plane" data-ng-model="script.deflector.bool" data-ng-change="defineDeflector()">
+                    </div>
+                </div>
+
+                <div class="col100">
+                    <div class="col1">
+                        <p>Plane Point</p>
+                    </div>
+                </div>
+                <div class="col100 brdBottomDark">
+                    <div class="col3-2">
+                        <input type="text" placeholder="X" data-ng-model="script.deflector.point.x">
+                    </div>
+                    <div class="col3-2">
+                        <input type="text" placeholder="Y" data-ng-model="script.deflector.point.y">
+                    </div>
+                    <div class="col3-2">
+                        <input type="text" placeholder="Z" data-ng-model="script.deflector.point.z">
+                    </div>
+                </div>
+
+
+                <div class="col100">
+                    <div class="col1">
+                        <p>Plane Normal</p>
+                    </div>
+                </div>
+                <div class="col100 brdBottomDark">
+                    <div class="col3-2">
+                        <input type="text" placeholder="X" data-ng-model="script.deflector.normal.x">
+                    </div>
+                    <div class="col3-2">
+                        <input type="text" placeholder="Y" data-ng-model="script.deflector.normal.y">
+                    </div>
+                    <div class="col3-2">
+                        <input type="text" placeholder="Z" data-ng-model="script.deflector.normal.z">
+                    </div>
+                </div>
+
+
+                <div class="col100 brdBottomDark">
+                    <div class="col1">
+                        <p>Bounce</p>
+                    </div>
+                    <div class="col2">
+                         <input type="range" name="bounce" min="0" max="1" step="0.01" data-ng-model="script.deflector.bounce" data-ng-change="defineDeflector()">
+                    </div>
+                    <div class="col3">
+                        <input type="text" data-ng-model="script.deflector.bounce">
+                    </div>
+                </div>
+
+
+            </accordion>
+        </accordion>
+
+
+
+    <!-- end leftMenu -->
     </div>
+
+
+
+    <!-- particle canvas -->
+    <div id="center">
+        <canvas id="myCanvas" width="500" height="500" data-ng-mousedown="startMoving()" data-ng-mouseup="stopMoving()" data-ng-mousemove="dragTheParticle($event)"></canvas>
+    </div>
+
+
+
+    <!-- particle control -->
+    <div id="right">
+        <div class="emitter">
+            <div class="ctrlLeft brdBottom brdRight">
+                <canvas id="emmiterType" width="250" height="250" data-ng-mousedown="emmiterStart($event)" data-ng-mouseup="emmiterStop()" data-ng-mousemove="emmiterDefine($event)"></canvas>
+            </div>
+            <div class="ctrlRight brdBottom">
+                <div class="col100 brdBottomDark">
+                    <h2 class="pad10">Emitter options</h2>
+                </div>
+                <div class="col100 brdBottomDark">
+                    <div class="col50">
+                        <input type="radio" name="emiiterOption" value="box" data-ng-model="script.emmiter.type" data-ng-change="setDefaultEmmiter()">
+                        <label for="box">Box</label>
+                    </div>
+                </div>
+                <div class="col100 brdBottomDark">
+                    <div class="col50">
+                        <input type="radio" name="emiiterOption" value="ring" data-ng-model="script.emmiter.type" data-ng-change="setDefaultEmmiter()">
+                        <label for="ring">Ring</label>
+                    </div>
+                </div>
+                <div class="col100">
+                    <div class="col50">
+                        <input type="radio" name="emiiterOption" value="point" data-ng-model="script.emmiter.type" data-ng-change="setDefaultEmmiter()">
+                        <label for="point">Point</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="emitter brdBottom">
+            <div class="ctrlLeft brdBottom brdRight">
+                <canvas id="gravity" width="250" height="250" data-ng-mousedown="gravityStart($event)" data-ng-mouseup="gravityStop()" data-ng-mousemove="setGravity($event)"></canvas>
+            </div>
+            <div class="ctrlRight brdBottom">
+                <h2 class="pad10">Gravity Control</h2>
+            </div>
+
+        </div>
+         <button data-ng-click="download()">DOWNLOAD</button>
+    </div>
+
 
 </div>

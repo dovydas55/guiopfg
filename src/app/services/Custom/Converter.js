@@ -3,26 +3,26 @@ angular.module('GUIOPFG').factory('Converter', [function() {
     var string = [];
     //Contaner object
     var file= {
-    	//Declare variables
-    	fileName: 			'myParticleFile {',
+        //Declare variables
+        fileName:           'myParticleFile {',
         material:           {name: 'material', val: 'Examples/Flare' + '\n'},
-    	quota: 				{ name: 'quota', val: 10 },
-    	particle_width: 	{ name: 'particle_width', val: 100 },
-    	particle_heigth: 	{ name: 'particle_height', val: 100 },
-    	emmiter: 			{ name: 'emitter', type: 'Point' + '\n' + '{', 
-    							val: {angle: {name: 'angle', val: 0},
+        quota:              { name: 'quota', val: 10 },
+        particle_width:     { name: 'particle_width', val: 100 },
+        particle_heigth:    { name: 'particle_height', val: 100 },
+        emmiter:            { name: 'emitter', type: 'Point' + '\n' + '{',
+                                val: {angle: {name: 'angle', val: 0},
                                         colour: {name: 'colour', red: 1, green: 1, blue: 1, alpha: 1},
-    									direction: {name: 'direction', x: 1, y: 0, z: 0},
-    									emission_rate: {name: 'emission_rate', val: 10},
-    									position: {name: 'position', x: 0, y: 0, z: 0},
-    									velocity: {name: 'velocity', val: 1},
-    									time_to_live: {name: 'time_to_live', val: 5},
-    									duration: {name: 'duration', val1: 0},
-    									repeat_delay: {name: 'repeat_delay', val: 0}}}
+                                        direction: {name: 'direction', x: 1, y: 0, z: 0},
+                                        emission_rate: {name: 'emission_rate', val: 10},
+                                        position: {name: 'position', x: 0, y: 0, z: 0},
+                                        velocity: {name: 'velocity', val: 1},
+                                        time_to_live: {name: 'time_to_live', val: 5},
+                                        duration: {name: 'duration', val1: 0},
+                                        repeat_delay: {name: 'repeat_delay', val: 0}}}
     };
 
-	//Declare funtions
-    factory.setBoxShape = function(obj){s
+    //Declare funtions
+    factory.setBoxShape = function(obj){
         file.emmiter.type = 'Box' + '\n' +'{';
         file.emmiter.val.width = {
             name: 'width', val: Math.abs(obj.w)
@@ -31,7 +31,7 @@ angular.module('GUIOPFG').factory('Converter', [function() {
             name: 'height', val: Math.abs(obj.h)
         };
         file.emmiter.val.depth = {
-          name: 'depth', val: Math.abs(obj.w)  
+          name: 'depth', val: Math.abs(obj.w)
         };
         //console.log(file);
     };
@@ -46,9 +46,9 @@ angular.module('GUIOPFG').factory('Converter', [function() {
         file.emmiter.val.position.y = obj.y;
         file.emmiter.val.position.z = obj.z;
         //console.log(obj);
-    };    
+    };
 
-	factory.setLineForceAffector = function(obj){
+    factory.setLineForceAffector = function(obj){
         file.LinearForce = {
             name: '\n' + 'affector', type: 'LinearForce' + '\n' + '{',
             force_vector: {name: 'force_vector', x: obj.x, y: obj.y, z: 0},
@@ -108,7 +108,7 @@ angular.module('GUIOPFG').factory('Converter', [function() {
             delete file.emmiter.val.time_to_live_min;
             delete file.emmiter.val.time_to_live_max;
             file.emmiter.val.time_to_live = {name: 'time_to_live', val: obj.time.value};
-            //console.log(file.emmiter.val.time_to_live);    
+            //console.log(file.emmiter.val.time_to_live);
         }
         //console.log(obj);
     };
@@ -120,7 +120,7 @@ angular.module('GUIOPFG').factory('Converter', [function() {
         file.emmiter.val.colour.red = (Number(obj.string[0]) / 255).toFixed(2);
         file.emmiter.val.colour.green = (Number(obj.string[1]) / 255).toFixed(2);
         file.emmiter.val.colour.blue = (Number(obj.string[2]) / 255).toFixed(2);
-        file.emmiter.val.colour.alpha = Number(obj.string[3]);    
+        file.emmiter.val.colour.alpha = Number(obj.string[3]);
         //console.log(file.emmiter.val.colour);
     };
 
@@ -134,9 +134,9 @@ angular.module('GUIOPFG').factory('Converter', [function() {
         //console.log(file.randomizer);
     };
 
-	factory.debug = function(){
-		console.log(file);
-	};
+    factory.debug = function(){
+        console.log(file);
+    };
 
     var toString2 = function(obj){
         for(var i in obj){
@@ -152,7 +152,7 @@ angular.module('GUIOPFG').factory('Converter', [function() {
                     }
                 }else{
                     string.push(obj[i]);
-                } 
+                }
             }
         }
     };
@@ -173,14 +173,14 @@ angular.module('GUIOPFG').factory('Converter', [function() {
                     }
                 }else{
                     string.push(file[i]);
-                } 
+                }
             }
         }
-        console.log(file);
+
         return string.join(" ") + '\n' + '}';
     };
 
-    
 
-	return factory;
+
+    return factory;
 }]);

@@ -18,6 +18,9 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
   $scope.init = function(){
       $scope.script = {};
       $scope.script.position = {};
+      $scope.oneAtATime = true;
+      $scope.rgbaPicker = {};
+      $scope.myStyle = {color: $scope.rgbaPicker.color};
       $scope.script.timeToLive = {
           value: 50,
           random: false,
@@ -34,7 +37,9 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
 
       $scope.script.deflector = {
           bool: false,
-          bounce: 1.0
+          bounce: 1.0,
+          point: {},
+          normal: {}
       };
 
       $scope.script.randomizer = {
@@ -228,7 +233,8 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
 
   $scope.defineDeflector = function(){
       DefaultParticle.setDeflector({bounce: $scope.script.deflector.bounce, isActive: $scope.script.deflector.bool});
-      Converter.setDeflectorPlane({bounce: $scope.script.deflector.bounce, isActive: $scope.script.deflector.bool});
+      /*BUGGGGGGGGGGGGGGGGGG*/
+      //Converter.setDeflectorPlane({bounce: $scope.script.deflector.bounce, isActive: $scope.script.deflector.bool});
   };
 
   $scope.setRandomizer = function(){
@@ -299,6 +305,7 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
 
 
   $scope.updateColor = function(){
+      console.log($scope.rgbaPicker.color);
       if($scope.rgbaPicker === undefined){
           DefaultParticle.setCustomColor('rgba(255,255,255,1)', $scope.randomParticleColor);
           //Converter.setColor({x: 1, y: 1, z: 1, a: 1});
@@ -356,12 +363,18 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
 
   $scope.download = function(){
     var string = Converter.toString();
+<<<<<<< HEAD
       console.log(string);
       var uriContent = "data:application/octet-stream," + encodeURIComponent(string);
       var newWindow = window.open(uriContent, 'neuesDokument');
       //var textfile = window.URL.createObjectURL(string);
       //window.open("data:text/json;charset=utf-8," + escape(string));
       //return textfile;
+=======
+      //console.log(string);
+      var uriContent = "data:application/octet-stream," + encodeURIComponent(string);
+      var newWindow = window.open(uriContent, 'myParticleFile');
+>>>>>>> cssjesus
   };
 
   //iniliatize the variables after everything has loaded
