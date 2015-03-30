@@ -58,9 +58,10 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
           angle: 0
       };
 
-      $scope.script.quota = 1;
+      $scope.script.quota = 3;
       $scope.script.width = 100;
       $scope.script.height = 100;
+
       $scope.script.emmisionRate = $scope.script.quota;
       $scope.script.defaultParticleType = 'circle';
 
