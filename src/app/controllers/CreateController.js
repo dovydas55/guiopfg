@@ -151,7 +151,7 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
       DefaultParticle.updateGravity({xComponent: xdiff * 0.03, yComponent: ydiff * 0.03});
 
  //***TODO: Check out bias effects in OGRE
-      Converter.setLineForceAffector({x: xdiff, y: ydiff});
+      Converter.setLineForceAffector({x: xdiff, y: ydiff * -1});
 
       gravityCtx.stroke();
       gravityCtx.closePath();
@@ -185,7 +185,7 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
   };
 
   $scope.updateQuota = function(obj){
-    Converter.setQuota({val: $scope.script.quota * 10});
+    Converter.setQuota({val: $scope.script.quota * 100});
   };
 
   $scope.drawBox = function(cords){
@@ -247,7 +247,7 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
 
       DefaultParticle.setDirectionVector({x: xDir * 0.1, y: yDir * 0.1 /* * -1 */, speed: $scope.script.direction.speed / 10, angle: $scope.script.direction.angle / 10});
       Converter.setDirection({x: xDir, y: yDir});
-      Converter.setVelocity({velocity: $scope.script.direction.speed});
+      Converter.setVelocity({velocity: $scope.script.direction.speed * 45});
       Converter.setAngle({angle: $scope.script.direction.angle});
   };
 
@@ -365,7 +365,7 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
   };
 
   $scope.getEmmissionRate = function(){
-    Converter.setEmissionRate({val: $scope.script.emmisionRate * 10});
+    Converter.setEmissionRate({val: $scope.script.emmisionRate * 50});
   };
 
   //iniliatize the variables after everything has loaded
