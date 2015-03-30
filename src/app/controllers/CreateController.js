@@ -363,18 +363,9 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
 
   $scope.download = function(){
     var string = Converter.toString();
-<<<<<<< HEAD
-      console.log(string);
-      var uriContent = "data:application/octet-stream," + encodeURIComponent(string);
-      var newWindow = window.open(uriContent, 'neuesDokument');
-      //var textfile = window.URL.createObjectURL(string);
-      //window.open("data:text/json;charset=utf-8," + escape(string));
-      //return textfile;
-=======
-      //console.log(string);
-      var uriContent = "data:application/octet-stream," + encodeURIComponent(string);
-      var newWindow = window.open(uriContent, 'myParticleFile');
->>>>>>> cssjesus
+    var uriContent = "data:application/octet-stream," + encodeURIComponent(string);
+    var newWindow = window.open(uriContent, 'myParticleFile');
+
   };
 
   //iniliatize the variables after everything has loaded
