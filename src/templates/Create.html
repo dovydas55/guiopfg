@@ -43,7 +43,7 @@
                         <p>Particle Width</p>
                     </div>
                     <div class="col2">
-                        <input type="range" name="particleWidth" min="1" max="150" data-ng-model="script.width" data-ng-change="setParticleSize()">
+                        <input type="range" name="particleWidth" min="1" max="500" data-ng-model="script.width" data-ng-change="setParticleSize()">
                     </div>
                     <div class="col3">
                         <input type="text" data-ng-change="setParticleSize()" data-ng-model="script.width">
@@ -56,7 +56,7 @@
                         <p>Particle Height</p>
                     </div>
                     <div class="col2">
-                        <input type="range" name="particleHeight" min="1" max="150" data-ng-model="script.height" data-ng-change="setParticleSize()">
+                        <input type="range" name="particleHeight" min="1" max="500" data-ng-model="script.height" data-ng-change="setParticleSize()">
                     </div>
                     <div class="col3">
                         <input type="text" data-ng-change="setParticleSize()" data-ng-model="script.height">
@@ -120,7 +120,7 @@
                         <p>Random Time to live</p>
                     </div>
                     <div class="right">
-                        <input type="checkbox" name="randomTimeToLive" value="randomTimeToLive" data-ng-model="script.timeToLive.random">
+                        <input type="checkbox" name="randomTimeToLive" value="randomTimeToLive" data-ng-model="script.timeToLive.random" data-ng-change="setParticleLife()">
                     </div>
                 </div>
 

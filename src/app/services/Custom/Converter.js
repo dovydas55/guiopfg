@@ -168,7 +168,5 @@ angular.module('GUIOPFG').factory('Converter', [function() {
         return string.join(" ") + '\n' + '}';
     };
 
-
-
     return factory;
 }]);
