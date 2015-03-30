@@ -48,6 +48,7 @@ angular.module('GUIOPFG').factory('Converter', [function() {
     };
 
     factory.setPosition = function(obj){
+
         file.emmiter.val.position.x = obj.x;
         file.emmiter.val.position.y = obj.y;
         file.emmiter.val.position.z = obj.z;
@@ -57,7 +58,7 @@ angular.module('GUIOPFG').factory('Converter', [function() {
         file.LinearForce = {
             name: '\n' + 'affector', type: 'LinearForce' + '\n' + '{',
             force_vector: {name: 'force_vector', x: obj.x, y: obj.y, z: 0},
-            force_application: {name: 'force_application', val: 'add'}
+            force_application: {name: 'force_application', val: 'add' + '\n' + '}'}
         };
     };
 
@@ -118,7 +119,7 @@ angular.module('GUIOPFG').factory('Converter', [function() {
             name: '\n' + 'affector', type: 'DirectionRandomizer' + '\n' + '{',
             randomness: {name: 'randomness', val: obj.rand},
             scope: {name: 'scope', val: obj.scope},
-            keep_velocity: {name: 'keep_velocity', val: 'false'}
+            keep_velocity: {name: 'keep_velocity', val: 'false' + '\n' + '}'}
         };
     };
 
