@@ -361,7 +361,9 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
 
   $scope.download = function(){
     var string = Converter.toString();
-      console.log(string);
+      //console.log(string);
+      var uriContent = "data:application/octet-stream," + encodeURIComponent(string);
+      var newWindow = window.open(uriContent, 'neuesDokument');
   };
 
   //iniliatize the variables after everything has loaded
