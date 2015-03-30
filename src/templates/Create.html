@@ -164,13 +164,16 @@
 
                 <div class="col100 brdBottomDark">
                     <div class="col1">
-                        <p>Choose color</p>
+                        <p class="blue">Choose color</p>
                     </div>
                     <div class="col2">
                          <input colorpicker="rgba" colorpicker-position="right" ng-model="rgbaPicker.color" type="text" data-ng-change="updateColor()">
                     </div>
                     <div class="col3">
-                        &nbsp;
+                        <div ng-style="{{myStyle}}">
+
+
+                        </div>
                     </div>
                 </div>
 
@@ -265,33 +268,41 @@
                     </div>
                 </div>
 
-                <div class="col100 brdBottomDark">
+                <div class="col100">
                     <div class="col1">
                         <p>Plane Point</p>
                     </div>
-                    <div class="col2">
-                        &nbsp;
-                    </div>
-                    <div class="col3">
+                </div>
+                <div class="col100 brdBottomDark">
+                    <div class="col3-2">
                         <input type="text" placeholder="X" data-ng-model="script.deflector.point.x">
+                    </div>
+                    <div class="col3-2">
                         <input type="text" placeholder="Y" data-ng-model="script.deflector.point.y">
+                    </div>
+                    <div class="col3-2">
                         <input type="text" placeholder="Z" data-ng-model="script.deflector.point.z">
                     </div>
                 </div>
 
-                <div class="col100 brdBottomDark">
+
+                <div class="col100">
                     <div class="col1">
                         <p>Plane Normal</p>
                     </div>
-                    <div class="col2">
-                        &nbsp;
-                    </div>
-                    <div class="col3">
+                </div>
+                <div class="col100 brdBottomDark">
+                    <div class="col3-2">
                         <input type="text" placeholder="X" data-ng-model="script.deflector.normal.x"> 
+                    </div>
+                    <div class="col3-2">
                         <input type="text" placeholder="Y" data-ng-model="script.deflector.normal.y"> 
+                    </div>
+                    <div class="col3-2">
                         <input type="text" placeholder="Z" data-ng-model="script.deflector.normal.z"> 
                     </div>
                 </div>
+
 
                 <div class="col100 brdBottomDark">
                     <div class="col1">
@@ -320,6 +331,7 @@
     <div id="center">
         <canvas id="myCanvas" width="500" height="500" data-ng-mousedown="startMoving()" data-ng-mouseup="stopMoving()" data-ng-mousemove="dragTheParticle($event)"></canvas>
     </div>
+
 
 
     <!-- particle control -->
@@ -362,6 +374,11 @@
             </div>
             
         </div>
+         <button>DOWNLOAD</button>
     </div>
 
+
 </div>
+
+
+

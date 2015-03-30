@@ -20,6 +20,7 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
       $scope.script.position = {};
       $scope.oneAtATime = true;
       $scope.rgbaPicker = {};
+      $scope.myStyle = {color: $scope.rgbaPicker.color};
       $scope.script.timeToLive = {
           value: 50,
           random: false,

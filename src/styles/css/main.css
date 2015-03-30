@@ -81,8 +81,8 @@ header {
     padding: 5px;
     width: 100%;
     height: 55px;
-    background-color: #2d2d27;
-    border-bottom: 1px #838880 solid;
+    background-color: #000;
+    border-bottom: 1px #2f2f2c solid;
 }
 
 img {
@@ -110,7 +110,7 @@ img {
 
 #wrapper {
     float: left;
-    background-color: #202220;
+    background-color: #1a1c1a;
     -webkit-box-shadow: 10px 10px 33px 5px rgba(0,0,0,0.27);
     -moz-box-shadow: 10px 10px 33px 5px rgba(0,0,0,0.27);
     box-shadow: 10px 10px 33px 5px rgba(0,0,0,0.27);
@@ -127,7 +127,7 @@ img {
     min-height: 500px;
     float: left;
     background-color: #000;
-    border-bottom: 1px #3e4044 solid;
+    border-bottom: 1px #2f2f2c solid;
 }
 
 
@@ -148,7 +148,7 @@ img {
     float: left;
     width: 250px;
     height: 250px;
-    background-color: #434640;
+    background-color: #232421;
 }
 
 .ctrlRight {
@@ -264,6 +264,12 @@ img {
     width: 50px;
 }
 
+.col3-2 {
+    float: left;
+    margin: 0 0 10px 10px;
+    width: 28%;
+}
+
 .right {
     float: right;
     width: 10%;
@@ -294,11 +300,11 @@ img {
 }
 
 .brdRight {
-    border-right: 1px #4f564b solid;
+    border-right: 1px #2f2f2c solid;
 }
 
 .brdBottom {
-    border-bottom: 1px #4f564b solid;
+    border-bottom: 1px #2f2f2c solid;
 }
 
 .brdTop {
@@ -356,13 +362,13 @@ label {
     text-transform: uppercase;
 }
 
-
-
 button {
-    width: 80px;
+    margin-top: 10em;
+    margin-left: 20em;
+    width: 180px;
     height: 28px;
     color: #fff;
-    background-color: #d80b0b;
+    background-color: #4f564b;
     border: none;
     border-radius: 2px;
 }
@@ -371,7 +377,6 @@ button:hover {
     color: #fff;
     background-color: #000;
 }
-
 
 
 
