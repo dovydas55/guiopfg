@@ -37,6 +37,8 @@ module.exports = function( grunt ){
 				globals:{
 					document:   false,
 					it:         false,
+					Blob:       false,
+					saveAs:     false,
 					describe:   false,
 					beforeEach: false,
 					inject:     false,
