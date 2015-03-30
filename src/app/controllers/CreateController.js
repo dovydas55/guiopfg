@@ -59,8 +59,8 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
       };
 
       $scope.script.quota = 1;
-      $scope.script.width = 10;
-      $scope.script.height = 10;
+      $scope.script.width = 100;
+      $scope.script.height = 100;
       $scope.script.emmisionRate = $scope.script.quota;
       $scope.script.defaultParticleType = 'circle';
 
@@ -293,7 +293,7 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
   };
 
   $scope.setParticleSize = function(){
-      DefaultParticle.setParticleSize({width: $scope.script.width, height: $scope.script.height});
+      DefaultParticle.setParticleSize({width: Number($scope.script.width / 5), height: Number($scope.script.height / 5)});
       Converter.setHeightAndWidth({width: $scope.script.width, height: $scope.script.height});
   };
 
