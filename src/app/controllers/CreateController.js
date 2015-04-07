@@ -38,8 +38,16 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
       $scope.script.deflector = {
           bool: false,
           bounce: 1.0,
-          point: {},
-          normal: {}
+          point: {
+            x: 0,
+            y: -10,
+            z: 0
+          },
+          normal: {
+            x: 0,
+            y: 1,
+            z: 0
+          }
       };
 
       $scope.script.randomizer = {
@@ -200,7 +208,7 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
 
     DefaultParticle.DisplayEmmiterType({startX: $scope.shape.startX, startY: $scope.shape.startY, w: width, h: height, r: null, type: "box"});
     //console.log('boxFunc');
-    Converter.setBoxShape({w: width, h: height});
+    Converter.setBoxShape({w: width / 2, h: height/ 4});
 
     emmiterCtx.strokeRect(cords.offsetX, cords.offsetY, width, height);
     emmiterCtx.closePath();
@@ -238,7 +246,7 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
   $scope.setRandomizer = function(){
       //console.log('randFunc');
       DefaultParticle.setRandomizer({rand: $scope.script.randomizer.randomness, scope: $scope.script.randomizer.scope});
-      Converter.setRandomizer({rand: $scope.script.randomizer.randomness, scope: $scope.script.randomizer.scope});
+      Converter.setRandomizer({rand: $scope.script.randomizer.randomness * 20, scope: $scope.script.randomizer.scope});
   };
 
   $scope.setDirecton = function(){
@@ -247,7 +255,7 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
 
       DefaultParticle.setDirectionVector({x: xDir * 0.1, y: yDir * 0.1 /* * -1 */, speed: $scope.script.direction.speed / 10, angle: $scope.script.direction.angle / 10});
       Converter.setDirection({x: xDir, y: yDir});
-      Converter.setVelocity({velocity: $scope.script.direction.speed * 45});
+      Converter.setVelocity({velocity: $scope.script.direction.speed * 100});
       Converter.setAngle({angle: $scope.script.direction.angle});
   };
 
@@ -292,7 +300,7 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
 
   $scope.setParticleSize = function(){
       DefaultParticle.setParticleSize({width: Number($scope.script.width / 5), height: Number($scope.script.height / 5)});
-      Converter.setHeightAndWidth({width: $scope.script.width, height: $scope.script.height});
+      Converter.setHeightAndWidth({width: $scope.script.width / 4, height: $scope.script.height / 4});
   };
 
   $scope.setParticleLife = function(){
@@ -360,6 +368,13 @@ angular.module('GUIOPFG').controller('CreateController', ['$scope', '$interval',
 
   $scope.download = function(){
     var string = Converter.toString();
+    if($scope.script.deflector.bool){
+      string = string.substring(0, string.length - 1); //remove last {
+      string += "\n affector DeflectorPlane\n{\n plane_point " + $scope.script.deflector.point.x + " " + $scope.script.deflector.point.y + " " +  $scope.script.deflector.point.z  +
+      " \nplane_normal  " +  $scope.script.deflector.normal.x + " "  +  $scope.script.deflector.normal.y + " "  +  $scope.script.deflector.normal.z +  " \nbounce   " + $scope.script.deflector.bounce +" \n}\n}";
+    }
+
+    //console.log(string);
     var blob = new Blob([string], {type: "text/plain;charset=utf-8"});
     saveAs(blob, "myParticles.particle");
   };

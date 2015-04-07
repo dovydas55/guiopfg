@@ -126,7 +126,7 @@ angular.module('GUIOPFG').factory('Converter', [function() {
 
     factory.setRandomizer = function(obj){
         file.randomizer = {
-            name: '\n' + 'affector', type: 'DirectionRandomizer' + '\n' + '{',
+            name: '\n' + 'affector', type: 'DirectionRandomiser' + '\n' + '{',
             randomness: {name: 'randomness', val: obj.rand},
             scope: {name: 'scope', val: obj.scope},
             keep_velocity: {name: 'keep_velocity', val: 'false' + '\n' + '}'}
